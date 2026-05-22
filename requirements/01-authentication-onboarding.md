@@ -1,6 +1,7 @@
 # Authentication and Onboarding Requirements
 
 ## Purpose
+##
 
 Allow students, teachers, and admins to securely access the platform with role-based experiences and complete structured student registration for regional leaderboard mapping. School and regional data can be fetched from master data based on school code.
 
