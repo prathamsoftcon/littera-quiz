@@ -20,6 +20,8 @@ Create a gamified quiz experience based on a Snakes & Ladders model with dice-ba
 - Scoring shall consider answer speed.
 - The game shall display player position in real time.
 - The game shall show current question, answer options, timer, score, and rank.
+<!-- add feature:Pooja -->
+- Question-tier tiles: easy/medium/hard tiles that change question difficulty and rewards.
 
 ## Acceptance Criteria
 

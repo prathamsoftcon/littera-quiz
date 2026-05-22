@@ -1,7 +1,6 @@
 # Authentication and Onboarding Requirements
 
 ## Purpose
-##
 
 Allow students, teachers, and admins to securely access the platform with role-based experiences and complete structured student registration for regional leaderboard mapping. School and regional data can be fetched from master data based on school code.
 
@@ -21,10 +20,10 @@ Allow students, teachers, and admins to securely access the platform with role-b
 | Secure login for students, teachers, and admins  |
 +--------------------------------------------------+
 | Login Method                                     |
-| [ OTP Login ] [ Google Login ]                   |
+| [ OTP Login (Mobile / Email) ] [ Google Login ] |
 |                                                  |
-| Mobile Number                                    |
-| [ +91 __________________ ]                       |
+| Mobile Number / Email                            |
+| [ +91 __________________ ] / [ name@example.com ]|
 |                                                  |
 | [ Send OTP ]                                     |
 |                                                  |
@@ -41,9 +40,9 @@ Allow students, teachers, and admins to securely access the platform with role-b
 
 ```text
 +--------------------------------------------------+
-| Verify Mobile Number                             |
+| Verify OTP                                       |
 +--------------------------------------------------+
-| OTP sent to +91 XXXXX XXXXX                      |
+| OTP sent to +91 XXXXX XXXXX  OR  user@email.com  |
 | [ _ ] [ _ ] [ _ ] [ _ ] [ _ ] [ _ ]              |
 |                                                  |
 | [ Verify and Continue ]                          |
@@ -53,6 +52,7 @@ Allow students, teachers, and admins to securely access the platform with role-b
 
 - Primary action: Verify and Continue.
 - Invalid OTP shows inline error.
+- OTP can be delivered to either the mobile number or the email address provided.
 - Successful verification checks role and onboarding completion.
 
 ### Step 3: Role Routing Screen
@@ -79,6 +79,7 @@ Allow students, teachers, and admins to securely access the platform with role-b
 | Complete Student Profile                         |
 +--------------------------------------------------+
 | Student Name     [ __________________ ]          |
+| Email Address    [ __________________ ]          |
 | Mobile Number    [ __________________ ]          |
 | School Code      [ ____________ ] [ Fetch ]      |
 | School Name      [ Auto-filled ]                 |
@@ -123,11 +124,14 @@ village role will allow access to
 
 - The system shall support OTP-based login using mobile number.
 - The system shall support OAuth login, including Google authentication.
+ - The system shall support OTP-based login using mobile number or email.
+ - The system shall support OAuth login, including Google authentication.
 - The system shall assign users to role-based access: Student, Teacher, or Admin.
 - The system shall require structured onboarding for every student.
 - The system shall fetch school name and regional hierarchy from school and geography master data based on school code.
 - Student onboarding shall capture:
   - Student name
+  - Email address
   - Mobile number
   - School code
   - School name
@@ -144,6 +148,8 @@ village role will allow access to
 
 - A user can log in with OTP and reach the correct role dashboard.
 - A user can log in with OAuth and reach the correct role dashboard.
+ - A user can log in with OTP sent to mobile or email and reach the correct role dashboard.
+ - A user can log in with OAuth (Google) and reach the correct role dashboard.
 - A student cannot join a quiz until mandatory onboarding data is complete.
 - Entering a valid school code auto-populates School Name, Village, CRC, Block, and District.
 - Entering an invalid school code shows an error and blocks onboarding completion.
