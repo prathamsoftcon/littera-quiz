@@ -113,10 +113,14 @@ export default function OnboardingPage() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
 
-      {authStarted }
+      {authStarted}
 
       <div className="w-full max-w-2xl">
-        {active.node}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
+          <div style={{ width: '100%', maxWidth: 720, margin: '0 auto', transform: 'translateY(-30px)' }}>
+            {active.node}
+          </div>
+        </div>
       </div>
 
       <div className="fixed bottom-4 right-4 z-50 flex gap-2">

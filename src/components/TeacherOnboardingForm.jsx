@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 
 export default function TeacherOnboardingForm({ initial = {}, onSave }) {
   const [name, setName] = useState(initial.name || "");
@@ -47,22 +51,18 @@ export default function TeacherOnboardingForm({ initial = {}, onSave }) {
     schoolData && schoolData.schoolName && schoolData.schoolName.length > 0;
 
   return (
-    <div
-      style={{
-        border: "1px solid #dcdcdc",
-        borderRadius: "12px",
-        padding: "20px",
-        background: "#fff",
-      }}
-    >
+    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4 }}>
+      <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 720, mx: 'auto', transform: 'translateY(-30px)' }}>
+        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Teacher Onboarding</Typography>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "20px",
-        }}
-      >
+        <div style={{ marginTop: 12 }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "12px",
+            }}
+          >
         {/* Teacher Name */}
         <div>
           <label
@@ -70,6 +70,7 @@ export default function TeacherOnboardingForm({ initial = {}, onSave }) {
               display: "block",
               marginBottom: "8px",
               fontSize: "14px",
+              fontWeight: 600,
             }}
           >
             Teacher name
@@ -91,6 +92,7 @@ export default function TeacherOnboardingForm({ initial = {}, onSave }) {
               display: "block",
               marginBottom: "8px",
               fontSize: "14px",
+              fontWeight: 600,
             }}
           >
             School code
@@ -136,7 +138,7 @@ export default function TeacherOnboardingForm({ initial = {}, onSave }) {
         <AutoField label="District" value={schoolData.district} />
       </div>
 
-      <div style={{ marginTop: "24px" }}>
+      <div style={{ marginTop: "16px" }}>
         <button
           onClick={() =>
             isValid && onSave &&
@@ -163,6 +165,8 @@ export default function TeacherOnboardingForm({ initial = {}, onSave }) {
         </button>
       </div>
     </div>
+      </Paper>
+    </Box>
   );
 }
 
@@ -174,6 +178,7 @@ function AutoField({ label, value }) {
           display: "block",
           marginBottom: "8px",
           fontSize: "14px",
+          fontWeight: 600,
         }}
       >
         {label}

@@ -1,22 +1,43 @@
 import React from 'react';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import SchoolIcon from '@mui/icons-material/School';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 export default function RoleRouting({ detectedRole, profileComplete, onSelect }) {
-  const roles = ['student', 'teacher', 'admin'];
+  const roles = [
+    { id: 'student', label: 'Student', icon: <SchoolIcon /> },
+    { id: 'teacher', label: 'Teacher', icon: <MenuBookIcon /> },
+    { id: 'admin', label: 'Admin', icon: <AdminPanelSettingsIcon /> },
+  ];
+
   return (
-    <div>
-      <div className="route-card">
-        <span>Role detected</span>
-        <strong>{detectedRole || 'Student / Teacher / Admin'}</strong>
-      </div>
-      <div style={{ marginTop: 8 }}>
-        <label>Choose role</label>
-        <div className="segmented">
+    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, transform: 'translateY(-30px)' }}>
+      <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 360, mx: 'auto' }}>
+        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>Choose Role</Typography>
+
+        <Stack spacing={1}>
           {roles.map((r) => (
-            <button key={r} onClick={() => onSelect && onSelect(r)}>{r.charAt(0).toUpperCase() + r.slice(1)}</button>
+            <Button
+              key={r.id}
+              variant="outlined"
+              onClick={() => onSelect && onSelect(r.id)}
+              fullWidth
+              startIcon={(
+                <Box sx={{ width: 36, height: 36, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', bgcolor: 'grey.100' }}>
+                  {r.icon}
+                </Box>
+              )}
+            >
+              {r.label}
+            </Button>
           ))}
-        </div>
-      </div>
-      <div className="status-strip" style={{ marginTop: 8 }}>Next screen is selected by role and profile status</div>
-    </div>
+        </Stack>
+      </Paper>
+    </Box>
   );
 }
