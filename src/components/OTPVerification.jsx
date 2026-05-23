@@ -1,41 +1,50 @@
 import React, { useState } from 'react';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 export default function OTPVerification({ phone, onVerify, onResend }) {
   const [otp, setOtp] = useState('');
 
-  return (
-    <div className="flex flex-col gap-4">
-      <div className="text-sm text-gray-600">OTP sent to <span className="font-medium text-gray-800">{phone || '+91 XXXXX XXXXX'}</span></div>
+  const card = (
+    <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 420 }}>
+      <Stack spacing={2}>
+        <Typography variant="body2" color="text.secondary">
+          OTP sent to <Typography component="span" sx={{ fontWeight: 600, color: 'text.primary' }}>{phone || '+91 XXXXX XXXXX'}</Typography>
+        </Typography>
 
-      <div>
-        <input
+        <TextField
           value={otp}
           onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
           placeholder="Enter OTP"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          className="w-32 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-300"
+          inputProps={{ maxLength: 6, inputMode: 'numeric' }}
+          fullWidth
         />
-      </div>
 
-      <div className="flex items-center">
-        <button
-          className={`px-4 py-2 rounded-md text-white ${otp.length === 6 ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-300 cursor-not-allowed'}`}
-          onClick={() => otp.length === 6 && onVerify && onVerify(otp)}
-          disabled={otp.length !== 6}
-        >
-          Verify and Continue
-        </button>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => otp.length === 6 && onVerify && onVerify(otp)}
+            disabled={otp.length !== 6}
+          >
+            Verify and Continue
+          </Button>
 
-        <button
-          className="ml-3 text-sm text-gray-700 hover:underline"
-          onClick={() => onResend && onResend()}
-        >
-          Resend OTP
-        </button>
-      </div>
+          <Button variant="text" sx={{ ml: 2 }} onClick={() => onResend && onResend()}>
+            Resend OTP
+          </Button>
+        </Box>
+      </Stack>
+    </Paper>
+  );
 
-      
-    </div>
+  return (
+    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, transform: 'translateY(-40px)' }}>
+      {card}
+    </Box>
   );
 }

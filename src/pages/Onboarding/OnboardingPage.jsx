@@ -57,6 +57,12 @@ export default function OnboardingPage() {
       setAuthStarted(true);
       next(2);
     } else {
+      if (provider === 'microsoft') {
+        setProfileData({ email: payload.email });
+        setAuthStarted(true);
+        next(2);
+        return;
+      }
       console.log('social', provider, payload);
     }
   };
@@ -105,22 +111,14 @@ export default function OnboardingPage() {
   const active = steps[step] || steps[0];
 
   return (
-    <div className="max-w-2xl mx-auto mt-10">
+    <div className="min-h-screen flex items-center justify-center p-4">
 
       {authStarted }
 
-      <div>
-        {step === 0 ? (
-          <LoginComponent onSendOTP={handleSendOTP} onSocial={handleSocial} />
-        ) : (
-          <Panel title={active.title} className="mx-auto">
-            {active.node}
-          </Panel>
-        )}
-
-        
+      <div className="w-full max-w-2xl">
+        {active.node}
       </div>
-      
+
       <div className="fixed bottom-4 right-4 z-50 flex gap-2">
         <button
           onClick={handleBack}

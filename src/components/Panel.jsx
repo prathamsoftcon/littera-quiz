@@ -13,26 +13,28 @@ export default function Panel({
   const [open, setOpen] = useState(!!defaultOpen);
 
   return (
-    <Paper className={`panel ${compact ? 'panel-compact' : ''} ${className}`} elevation={2}>
-      {title && (
-        <div className="panel-title" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-            <div style={{ fontWeight: 700 }}>{title}</div>
-            {collapsible && (
-              <button
-                onClick={() => setOpen((s) => !s)}
-                style={{ border: 'none', background: 'transparent', color: 'var(--muted)', cursor: 'pointer' }}
-                aria-expanded={open}
-              >
-                {open ? '▾' : '▸'}
-              </button>
-            )}
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Paper className={`panel ${compact ? 'panel-compact' : ''} ${className}`} elevation={2}>
+        {title && (
+          <div className="panel-title" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+              <div style={{ fontWeight: 700 }}>{title}</div>
+              {collapsible && (
+                <button
+                  onClick={() => setOpen((s) => !s)}
+                  style={{ border: 'none', background: 'transparent', color: 'var(--muted)', cursor: 'pointer' }}
+                  aria-expanded={open}
+                >
+                  {open ? '▾' : '▸'}
+                </button>
+              )}
+            </div>
+            <div style={{ display: 'flex', gap: 8 }}>{actions}</div>
           </div>
-          <div style={{ display: 'flex', gap: 8 }}>{actions}</div>
-        </div>
-      )}
+        )}
 
-      {(!collapsible || open) && <div className="panel-body">{children}</div>}
-    </Paper>
+        {(!collapsible || open) && <div className="panel-body">{children}</div>}
+      </Paper>
+    </div>
   );
 }
