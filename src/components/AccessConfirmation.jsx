@@ -5,69 +5,124 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import HomeWorkIcon from '@mui/icons-material/HomeWork';
-import AccountTreeIcon from '@mui/icons-material/AccountTree';
-import MapIcon from '@mui/icons-material/Map';
-import LocationCityIcon from '@mui/icons-material/LocationCity';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import locations from '../data/locations';
 
-export default function AccessConfirmation({ summary, onContinue, role = 'teacher' }) {
+export default function AccessConfirmation({ onContinue, role = 'student' }) {
   const navigate = useNavigate();
-  const [selected, setSelected] = useState(null);
 
-  const options = [
-    { key: 'village', label: 'Village', icon: <HomeWorkIcon /> },
-    { key: 'crc', label: 'CRC', icon: <AccountTreeIcon /> },
-    { key: 'block', label: 'Block', icon: <MapIcon /> },
-    { key: 'district', label: 'District', icon: <LocationCityIcon /> },
-  ];
+  const [selectedState, setSelectedState] = useState('');
+  const [selectedDistrict, setSelectedDistrict] = useState('');
+  const [selectedBlock, setSelectedBlock] = useState('');
+  const [selectedVillage, setSelectedVillage] = useState('');
+  const [error, setError] = useState('');
+
+  const stateOptions = locations;
+  const districtOptions = selectedState ? (locations.find(s => s.key === selectedState)?.districts || []) : [];
+  const blockOptions = selectedDistrict ? (districtOptions.find(d => d.key === selectedDistrict)?.blocks || []) : [];
+  const villageOptions = selectedBlock ? (blockOptions.find(b => b.key === selectedBlock)?.villages || []) : [];
 
   const handleContinue = () => {
-    if (onContinue) onContinue(selected);
-    if (role === 'teacher') navigate('/teacher');
-    else navigate('/student');
+    setError('');
+    if (!selectedDistrict) {
+      setError('Please select a district');
+      return;
+    }
+
+    const payload = {
+      location: {
+        state: selectedState || null,
+        district: selectedDistrict || null,
+        block: selectedBlock || null,
+        village: selectedVillage || null
+      }
+    };
+    if (onContinue) onContinue(payload);
+    navigate('/teacher');
   };
 
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4 }}>
       <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 520, mx: 'auto', transform: 'translateY(-20px)' }}>
-        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Confirm access level</Typography>
+        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Access Confirmation</Typography>
 
-        <Stack spacing={1} sx={{ mt: 2 }}>
-          {options.map((o) => (
-            <Box
-              key={o.key}
-              onClick={() => setSelected(o.key)}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 2,
-                p: 1.5,
-                borderRadius: 1,
-                cursor: 'pointer',
-                border: selected === o.key ? '1px solid' : '1px solid transparent',
-                borderColor: selected === o.key ? 'primary.main' : 'transparent',
-                bgcolor: selected === o.key ? 'rgba(15,118,110,0.06)' : 'background.paper',
-                transition: 'all 150ms ease'
+        <Stack spacing={2} sx={{ mt: 2 }}>
+          <FormControl fullWidth>
+            <InputLabel id="state-label">State</InputLabel>
+            <Select
+              labelId="state-label"
+              value={selectedState}
+              label="State"
+              onChange={(e) => {
+                setSelectedState(e.target.value);
+                setSelectedDistrict('');
+                setSelectedBlock('');
+                setSelectedVillage('');
               }}
             >
-              <Box sx={{ width: 44, height: 44, borderRadius: '50%', display: 'grid', placeItems: 'center', bgcolor: 'grey.100' }}>
-                {o.icon}
-              </Box>
+              {stateOptions.map(s => (
+                <MenuItem key={s.key} value={s.key}>{s.label}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-              <Box sx={{ flex: 1 }}>
-                <Typography sx={{ fontWeight: 600 }}>{o.label}</Typography>
-                <Typography variant="caption" color="text.secondary">{o.key === 'crc' ? 'Cluster Resource Center' : 'Select this area'}</Typography>
-              </Box>
+          <FormControl fullWidth disabled={!selectedState}>
+            <InputLabel id="district-label">District</InputLabel>
+            <Select
+              labelId="district-label"
+              value={selectedDistrict}
+              label="District"
+              onChange={(e) => {
+                setSelectedDistrict(e.target.value);
+                setSelectedBlock('');
+                setSelectedVillage('');
+              }}
+            >
+              {districtOptions.map(d => (
+                <MenuItem key={d.key} value={d.key}>{d.label}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-              {selected === o.key && (
-                <Typography sx={{ color: 'primary.main', fontWeight: 600 }}>Selected</Typography>
-              )}
-            </Box>
-          ))}
+          <FormControl fullWidth disabled={!selectedDistrict}>
+            <InputLabel id="block-label">Block</InputLabel>
+            <Select
+              labelId="block-label"
+              value={selectedBlock}
+              label="Block"
+              onChange={(e) => {
+                setSelectedBlock(e.target.value);
+                setSelectedVillage('');
+              }}
+            >
+              {blockOptions.map(b => (
+                <MenuItem key={b.key} value={b.key}>{b.label}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <FormControl fullWidth disabled={!selectedBlock}>
+            <InputLabel id="village-label">Village</InputLabel>
+            <Select
+              labelId="village-label"
+              value={selectedVillage}
+              label="Village"
+              onChange={(e) => setSelectedVillage(e.target.value)}
+            >
+              {villageOptions.map(v => (
+                <MenuItem key={v.key} value={v.key}>{v.label}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Stack>
 
+        {error && <Typography color="error" sx={{ mt: 2 }}>{error}</Typography>}
+
         <Box sx={{ mt: 3 }}>
-          <Button variant="contained" color="primary" fullWidth disabled={!selected} onClick={handleContinue}>
+          <Button variant="contained" color="primary" fullWidth disabled={!selectedDistrict} onClick={handleContinue}>
             Go to Dashboard
           </Button>
         </Box>
