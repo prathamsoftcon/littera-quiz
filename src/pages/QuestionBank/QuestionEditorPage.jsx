@@ -1,6 +1,6 @@
 import React from 'react';
 import Panel from '../../components/Panel';
-import QuestionForm from '../../components/QuestionForm';
+import QuestionForm from '../../features/question-bank/QuestionForm';
 
 export default function QuestionEditorPage() {
   const handleSave = (q) => {

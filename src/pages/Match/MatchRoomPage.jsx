@@ -1,7 +1,7 @@
 import React from 'react';
 import Panel from '../../components/Panel';
 import Board from '../../components/Board';
-import QuestionCard from '../../components/QuestionCard';
+import QuestionCard from '../../features/question-bank/QuestionCard';
 
 export default function MatchRoomPage() {
   return (

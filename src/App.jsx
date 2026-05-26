@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.css';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import MainLayout from './layouts/MainLayout';
+import MainLayout from './layout/MainLayout';
 import OnboardingPage from './pages/Onboarding/OnboardingPage';
 import StudentPage from './pages/Student/StudentPage';
 import TeacherPage from './pages/Teacher/TeacherPage';

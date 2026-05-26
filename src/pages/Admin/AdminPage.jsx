@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Panel from '../../components/Panel';
-import LiveMonitoring from '../../components/LiveMonitoring';
-import MasterUpload from '../../components/MasterUpload';
+import LiveMonitoring from '../../features/admin/LiveMonitoring';
+import MasterUpload from '../../features/admin/MasterUpload';
 import QueueTable from '../../components/QueueTable';
-import ReviewDetail from '../../components/ReviewDetail';
+import ReviewDetail from '../../features/question-bank/ReviewDetail';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';

@@ -32,12 +32,12 @@ export default function StudentOnboardingForm({ initial = {}, onSave }) {
   const isValid = name && name.trim().length > 0 && schoolCode && schoolCode.trim().length > 0 && schoolData && schoolData.schoolName;
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4 }}>
+    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, borderRadius: 3 }}>
       <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 720, mx: 'auto', transform: 'translateY(-30px)' }}>
         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Student Onboarding</Typography>
 
         <div style={{ marginTop: 12 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5px' }}>
             <div>
               <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', fontWeight: 600 }}>Student name</label>
               <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter student name" style={inputStyle} />

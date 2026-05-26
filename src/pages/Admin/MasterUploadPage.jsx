@@ -1,6 +1,6 @@
 import React from 'react';
 import Panel from '../../components/Panel';
-import MasterUpload from '../../components/MasterUpload';
+import MasterUpload from '../../features/admin/MasterUpload';
 
 export default function MasterUploadPage() {
   return (

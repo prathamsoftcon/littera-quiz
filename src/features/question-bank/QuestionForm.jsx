@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import SegmentedControl from './SegmentedControl';
-import { Textarea } from './Input';
+import SegmentedControl from '../../components/SegmentedControl';
+import { Textarea } from '../../components/Input';
 
 export default function QuestionForm({ initialData = null, onSave }) {
   const [type, setType] = useState(initialData?.type || 'mcq');

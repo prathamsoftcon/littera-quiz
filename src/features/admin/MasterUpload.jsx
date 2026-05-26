@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import UploadBox from './UploadBox';
+import UploadBox from '../../features/question-bank/UploadBox';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -42,10 +42,8 @@ export default function MasterUpload({ onImport }) {
 
   function detectHeader(text) {
     const firstLine = (text || '').split(/\r?\n/).find(Boolean) || '';
-    // naive split by comma
     const cols = firstLine.split(',').map((c) => c.trim());
     setDetectedColumns(cols);
-    // initialize mapping if empty
     const init = {};
     expectedFields.forEach((ef) => { init[ef] = cols.includes(ef) ? ef : ''; });
     setMapping(init);
@@ -72,7 +70,6 @@ export default function MasterUpload({ onImport }) {
       alert('Please choose a file to import');
       return;
     }
-    // Build a small payload: file + mapping
     const payload = { file, mapping };
     onImport && onImport(payload);
   }
@@ -105,8 +102,6 @@ export default function MasterUpload({ onImport }) {
                     <Typography variant="body2">Reading file preview...</Typography>
                   )}
                 </Box>
-
-                {/* Mapping UI */}
                 <Box sx={{ mt: 1 }}>
                   <Typography variant="subtitle2">Column mapping</Typography>
                   {detectedColumns.length > 0 ? (

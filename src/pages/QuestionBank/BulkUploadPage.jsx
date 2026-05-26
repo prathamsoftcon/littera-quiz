@@ -1,7 +1,7 @@
 import React from 'react';
 import Panel from '../../components/Panel';
-import UploadBox from '../../components/UploadBox';
-import ValidationPreview from '../../components/ValidationPreview';
+import UploadBox from '../../features/question-bank/UploadBox';
+import ValidationPreview from '../../features/question-bank/ValidationPreview';
 
 export default function BulkUploadPage() {
   return (

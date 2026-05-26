@@ -16,7 +16,7 @@ export default function RoleRouting({ detectedRole, profileComplete, onSelect })
   ];
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, transform: 'translateY(-30px)' }}>
+    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, transform: 'translateY(-30px)', borderRadius: 3 }}>
       <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 360, mx: 'auto' }}>
         <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>Choose Role</Typography>
 

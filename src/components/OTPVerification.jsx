@@ -5,13 +5,14 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import OTPBox from './OTPBoxes';
 
 export default function OTPVerification({ phone, onVerify, onResend }) {
   const [otp, setOtp] = useState('');
 
   const card = (
-    <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 520, mx: 'auto', transform: 'translateY(-20px)' }}>
-      <Stack spacing={2}>
+    <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 520, mx: 'auto', transform: 'translateY(-20px)', borderRadius: 3 }}>
+      <Stack spacing={1.5}>
         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Verify OTP</Typography>
         <Typography variant="body2" color="text.secondary">Enter the 6-digit code sent to your phone to continue.</Typography>
 
@@ -26,6 +27,7 @@ export default function OTPVerification({ phone, onVerify, onResend }) {
           inputProps={{ maxLength: 6, inputMode: 'numeric' }}
           fullWidth
         />
+        {/* < OTPBox /> */}
 
         <Box>
           <Button

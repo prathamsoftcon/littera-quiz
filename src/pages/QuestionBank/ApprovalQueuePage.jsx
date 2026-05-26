@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Panel from '../../components/Panel';
 import QueueTable from '../../components/QueueTable';
-import ReviewDetail from '../../components/ReviewDetail';
+import ReviewDetail from '../../features/question-bank/ReviewDetail';
 
 const mock = [
   { id: 1, title: 'Fractions MCQ', teacher: 'Ms. Patel', type: 'mcq', status: 'Pending' },

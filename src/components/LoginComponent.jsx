@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 // use project asset from src/assets
-import logo from '../assets/littera_logo.svg';
+import logo from '../assets/littera_logo.png';
 
 export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }) {
   const [mobile, setMobile] = useState('');
@@ -53,7 +53,7 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
   );
 
   const card = (
-    <Paper elevation={3} sx={{ p: 4, width: '100%', maxWidth: 420, mx: 'auto' }}>
+    <Paper elevation={3} sx={{ p: 4, width: '100%', maxWidth: 420, mx: 'auto', borderRadius: 3 }}>
       <Stack spacing={2} alignItems="center">
         {showImage ? (
           <Box component="img" src={logo} alt="Littera Logo" sx={{ width: 72, height: 72, objectFit: 'contain' }} onError={(e) => { setShowImage(false); }} />
@@ -74,7 +74,7 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
           size="small"
           inputProps={{ maxLength: 10, inputMode: 'numeric' }}
           fullWidth
-          sx={{ mt: 1 }}
+          sx={{ mt: 1, '& .MuiOutlinedInput-root': { borderRadius: 2, backgroundColor: 'background.paper' } }}
         />
 
         <Button variant="contained" color="primary" onClick={handleSendOTP} disabled={loading} fullWidth sx={{ mt: 2 }}>
@@ -89,7 +89,7 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
             startIcon={<GoogleMulti />}
             onClick={() => handleSocialClick('google')}
             fullWidth
-            sx={{ borderColor: 'transparent', color: 'black', boxShadow: 'none', '&:hover': { borderColor: 'transparent', backgroundColor: 'rgba(0,0,0,0.04)' }, '& .MuiButton-startIcon': { color: 'unset' } }}
+            sx={{ borderColor: 'transparent', color: 'text.primary', boxShadow: 'none', borderRadius: 2, py: 1.25, justifyContent: 'flex-start', '&:hover': { backgroundColor: 'rgba(0,0,0,0.04)' }, '& .MuiButton-startIcon': { marginLeft: 6 } }}
           >
             Sign in with Google
           </Button>
@@ -99,9 +99,9 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
             startIcon={<MicrosoftMulti />}
             onClick={() => handleSocialClick('microsoft')}
             fullWidth
-            sx={{ borderColor: 'transparent', color: 'black', boxShadow: 'none', '&:hover': { borderColor: 'transparent', backgroundColor: 'rgba(0,0,0,0.04)' }, '& .MuiButton-startIcon': { color: 'unset' } }}
+            sx={{ borderColor: 'transparent', color: 'text.primary', boxShadow: 'none', borderRadius: 2, py: 1.25, justifyContent: 'flex-start', '&:hover': { backgroundColor: 'rgba(0,0,0,0.04)' }, '& .MuiButton-startIcon': { marginLeft: 6 } }}
           >
-            Sign in with Microsoft account
+            Sign in with Microsoft
           </Button>
         </Stack>
       </Box>

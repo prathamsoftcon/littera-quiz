@@ -51,7 +51,7 @@ export default function TeacherOnboardingForm({ initial = {}, onSave }) {
     schoolData && schoolData.schoolName && schoolData.schoolName.length > 0;
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4 }}>
+    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, borderRadius: 3 }}>
       <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 720, mx: 'auto', transform: 'translateY(-30px)' }}>
         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Teacher Onboarding</Typography>
 
@@ -60,7 +60,7 @@ export default function TeacherOnboardingForm({ initial = {}, onSave }) {
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: "12px",
+              gap: "5px",
             }}
           >
         {/* Teacher Name */}

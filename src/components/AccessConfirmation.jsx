@@ -45,7 +45,7 @@ export default function AccessConfirmation({ onContinue, role = 'student' }) {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4 }}>
+    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, borderRadius: 3 }}>
       <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 520, mx: 'auto', transform: 'translateY(-20px)' }}>
         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Access Confirmation</Typography>
 
