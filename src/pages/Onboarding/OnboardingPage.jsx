@@ -11,6 +11,29 @@ import AccessConfirmation from '../../components/AccessConfirmation';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
+const VERIFIED_MOBILES_KEY = 'verified_mobiles';
+
+function getVerifiedMobiles() {
+  try {
+    const raw = localStorage.getItem(VERIFIED_MOBILES_KEY);
+    const parsed = JSON.parse(raw || '[]');
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveVerifiedMobile(mobile) {
+  if (!mobile) {
+    return;
+  }
+  const current = getVerifiedMobiles();
+  if (current.includes(mobile)) {
+    return;
+  }
+  localStorage.setItem(VERIFIED_MOBILES_KEY, JSON.stringify([...current, mobile]));
+}
+
 export default function OnboardingPage() {
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
@@ -47,7 +70,17 @@ export default function OnboardingPage() {
   const handleSendOTP = (m) => {
     setPhone(m);
     setAuthStarted(true);
+    const verifiedMobiles = getVerifiedMobiles();
+    if (verifiedMobiles.includes(m)) {
+      next(2);
+      return;
+    }
     next(1);
+  };
+
+  const handleOTPVerify = () => {
+    saveVerifiedMobile(phone);
+    next(2);
   };
 
   const handleSocial = (provider, payload) => {
@@ -76,7 +109,7 @@ export default function OnboardingPage() {
     },
     {
       title: 'OTP Verification',
-      node: <OTPVerification phone={phone} onVerify={() => next(2)} onResend={() => {}} />,
+      node: <OTPVerification phone={phone} onVerify={handleOTPVerify} onResend={() => {}} />,
     },
     {
       title: 'Role Routing',
