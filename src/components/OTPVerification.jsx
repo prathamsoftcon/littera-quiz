@@ -14,20 +14,20 @@ export default function OTPVerification({ phone, onVerify, onResend }) {
     <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 520, mx: 'auto', transform: 'translateY(-20px)', borderRadius: 3 }}>
       <Stack spacing={1.5}>
         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Verify OTP</Typography>
-        <Typography variant="body2" color="text.secondary">Enter the 6-digit code sent to your phone to continue.</Typography>
+        <Typography variant="body2" color="text.secondary">Enter the 6-digit code for Verify & Continue.</Typography>
 
         <Typography variant="body2" color="text.secondary">
           OTP sent to <Typography component="span" sx={{ fontWeight: 600, color: 'text.primary' }}>{phone || '+91 XXXXX XXXXX'}</Typography>
         </Typography>
 
-        <TextField
+        {/* <TextField
           value={otp}
           onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
           placeholder="Enter OTP"
           inputProps={{ maxLength: 6, inputMode: 'numeric' }}
           fullWidth
-        />
-        {/* < OTPBox /> */}
+        /> */}
+        <OTPBox value={otp} onChange={setOtp} />
 
         <Box>
           <Button

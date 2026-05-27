@@ -345,15 +345,27 @@ label {
 
 .otp-row {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 6px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  width: 100%;
 }
 
-.otp-row span {
+.otp-cell {
+  width: 100%;
   aspect-ratio: 1;
   border: 1px solid var(--line);
   border-radius: 6px;
   background: #f8fafc;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  outline: none;
+}
+
+.otp-cell:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
 }
 
 .compact-form {
