@@ -1,0 +1,59 @@
+{
+  "topbarTitle": "लिटेरा क्विज प्लेटफॉर्म",
+  "languageSelect": "भाषा चुनें",
+  "languageOptions": "भाषा विकल्प",
+  "english": "अंग्रेजी",
+  "hindi": "हिंदी",
+  "studentOnboarding": "छात्र ऑनबोर्डिंग",
+  "teacherOnboarding": "शिक्षक ऑनबोर्डिंग",
+  "studentName": "छात्र का नाम",
+  "teacherName": "शिक्षक का नाम",
+  "schoolCode": "स्कूल कोड",
+  "schoolName": "स्कूल का नाम",
+  "village": "गांव",
+  "crc": "सीआरसी",
+  "block": "ब्लॉक",
+  "district": "जिला",
+  "fetch": "खोजें",
+  "saveAndContinue": "सेव करें और आगे बढ़ें",
+  "autoFilled": "स्वतः भरा गया",
+  "schoolCodeNotFound": "स्कूल कोड नहीं मिला",
+  "enterStudentName": "छात्र का नाम दर्ज करें",
+  "enterTeacherName": "शिक्षक का नाम दर्ज करें"
+  ,"enterValidMobile": "मान्य 10 अंकों का मोबाइल नंबर दर्ज करें"
+  ,"enterProviderEmail": "जारी रखने के लिए {provider} खाते का ईमेल दर्ज करें"
+  ,"enterMobileToStart": "शुरू करने के लिए अपना मोबाइल नंबर दर्ज करें"
+  ,"mobileNumberLabel": "मोबाइल नंबर"
+  ,"mobilePlaceholder": "10 अंकों का नंबर"
+  ,"sending": "भेजा जा रहा है..."
+  ,"login": "लॉगिन"
+  ,"orContinueWith": "या इसके साथ जारी रखें"
+  ,"signInGoogle": "Google से साइन इन करें"
+  ,"signInMicrosoft": "Microsoft से साइन इन करें"
+  ,"verifyOtp": "ओटीपी सत्यापित करें"
+  ,"enterOtpInstruction": "सत्यापित करें और जारी रखें के लिए 6 अंकों का कोड दर्ज करें।"
+  ,"otpSentTo": "ओटीपी भेजा गया"
+  ,"otpBoxes": "ओटीपी बॉक्स"
+  ,"otpDigit": "ओटीपी अंक"
+  ,"verifyAndContinue": "सत्यापित करें और जारी रखें"
+  ,"resendOtp": "ओटीपी फिर भेजें"
+  ,"accessConfirmation": "एक्सेस पुष्टि"
+  ,"state": "राज्य"
+  ,"pleaseSelectDistrict": "कृपया जिला चुनें"
+  ,"goToDashboard": "डैशबोर्ड पर जाएं"
+  ,"signIn": "साइन इन"
+  ,"otpVerification": "ओटीपी सत्यापन"
+  ,"roleRouting": "भूमिका रूटिंग"
+  ,"back": "वापस"
+  ,"chooseRole": "भूमिका चुनें"
+  ,"selectOneRoleToContinue": "जारी रखने के लिए एक भूमिका चुनें"
+  ,"detectedRole": "पहचानी गई भूमिका"
+  ,"selected": "चयनित"
+  ,"profileComplete": "प्रोफाइल पूर्ण"
+  ,"continue": "जारी रखें"
+  ,"studentRole": "छात्र"
+  ,"teacherRole": "शिक्षक"
+  ,"adminRole": "एडमिन"
+  ,"roleSelected": "{role} चयनित"
+  ,"roleSelectedWithProfile": "{role} चयनित - प्रोफाइल पूर्ण"
+}

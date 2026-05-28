@@ -84,12 +84,12 @@ export default function StudentOnboardingForm({ initial = {}, onSave }) {
               padding: '11px',
               border: 'none',
               borderRadius: '10px',
-              background: isValid ? 'linear-gradient(90deg, #0f766e 0%, #0d9488 100%)' : '#94a3b8',
+              background: isValid ? 'linear-gradient(90deg, #2563eb 0%, #0ea5e9 100%)' : '#94a3b8',
               color: '#fff',
               fontSize: '15px',
               fontWeight: 700,
               cursor: isValid ? 'pointer' : 'not-allowed',
-              boxShadow: isValid ? '0 10px 18px rgba(15, 118, 110, 0.28)' : 'none'
+              boxShadow: isValid ? '0 10px 18px rgba(37, 99, 235, 0.28)' : 'none'
             }}
           >
             {t('saveAndContinue')}

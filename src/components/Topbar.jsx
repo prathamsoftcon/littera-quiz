@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import flagIn from '../assets/flag-in.png';
 import flagUs from '../assets/flag-us.png';
+import litteraLogo from '../assets/littera_logo.png';
 import { useTranslation } from '../context/TranslationContext';
 
 export default function Topbar() {
@@ -29,6 +30,7 @@ export default function Topbar() {
   return (
     <header className="topbar">
       <div className="topbar-title-wrap">
+        <img src={litteraLogo} alt="Littera logo" className="topbar-logo" />
         <h1>{t('topbarTitle')}</h1>
       </div>
 
