@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
 
 export default function TeacherOnboardingForm({ initial = {}, onSave }) {
   const [name, setName] = useState(initial.name || "");
@@ -35,7 +34,7 @@ export default function TeacherOnboardingForm({ initial = {}, onSave }) {
   };
 
   const handleFetch = () => {
-    const data = schoolDatabase[schoolCode];
+    const data = schoolDatabase[schoolCode.trim().toUpperCase()];
 
     if (data) {
       setSchoolData(data);
@@ -51,120 +50,77 @@ export default function TeacherOnboardingForm({ initial = {}, onSave }) {
     schoolData && schoolData.schoolName && schoolData.schoolName.length > 0;
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, borderRadius: 3 }}>
-      <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 720, mx: 'auto', transform: 'translateY(-30px)' }}>
-        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Teacher Onboarding</Typography>
+    <Box sx={{ width: '100%' }}>
+      <Paper elevation={0} sx={{ p: { xs: 2, sm: 2.5 }, width: '100%', maxWidth: 640, mx: 'auto', borderRadius: 3, border: '1px solid #dbe4f0', background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)', boxShadow: '0 18px 40px rgba(15, 23, 42, 0.08)' }}>
+        <Typography variant="h5" sx={{ fontWeight: 800, color: '#0f172a' }}>
+          Teacher Onboarding
+        </Typography>
 
         <div style={{ marginTop: 12 }}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "5px",
-            }}
-          >
-        {/* Teacher Name */}
-        <div>
-          <label
-            style={{
-              display: "block",
-              marginBottom: "8px",
-              fontSize: "14px",
-              fontWeight: 600,
-            }}
-          >
-            Teacher name
-          </label>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '10px' }}>
+            <div>
+              <label style={labelStyle}>Teacher name</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter teacher name"
+                style={inputStyle}
+              />
+            </div>
 
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter teacher name"
-            style={inputStyle}
-          />
-        </div>
+            <div>
+              <label style={labelStyle}>School code</label>
+              <div style={{ display: 'flex', gap: '10px' }}>
+                <input
+                  type="text"
+                  value={schoolCode}
+                  onChange={(e) => setSchoolCode(e.target.value.toUpperCase())}
+                  placeholder="MP123"
+                  style={{ ...inputStyle, flex: 1, textTransform: 'uppercase' }}
+                />
 
-        {/* School Code */}
-        <div>
-          <label
-            style={{
-              display: "block",
-              marginBottom: "8px",
-              fontSize: "14px",
-              fontWeight: 600,
-            }}
-          >
-            School code
-          </label>
+                <button onClick={handleFetch} style={fetchButtonStyle}>
+                  Fetch
+                </button>
+              </div>
+            </div>
 
-          <div
-            style={{
-              display: "flex",
-              gap: "10px",
-            }}
-          >
-            <input
-              type="text"
-              value={schoolCode}
-              onChange={(e) => setSchoolCode(e.target.value)}
-              placeholder="MP123"
-              style={{
-                ...inputStyle,
-                flex: 1,
-              }}
-            />
-
-            <button
-              onClick={handleFetch}
-              style={{
-                padding: "0 18px",
-                borderRadius: "8px",
-                border: "1px solid #ccc",
-                background: "#fff",
-                cursor: "pointer",
-              }}
-            >
-              Fetch
-            </button>
+            <AutoField label="School name" value={schoolData.schoolName} />
+            <AutoField label="Village" value={schoolData.village} />
+            <AutoField label="CRC" value={schoolData.crc} />
+            <AutoField label="Block" value={schoolData.block} />
+            <AutoField label="District" value={schoolData.district} />
           </div>
         </div>
 
-        {/* Auto-filled Fields */}
-        <AutoField label="School name" value={schoolData.schoolName} />
-        <AutoField label="Village" value={schoolData.village} />
-        <AutoField label="CRC" value={schoolData.crc} />
-        <AutoField label="Block" value={schoolData.block} />
-        <AutoField label="District" value={schoolData.district} />
-      </div>
-
-      <div style={{ marginTop: "16px" }}>
-        <button
-          onClick={() =>
-            isValid && onSave &&
-            onSave({
-              name,
-              schoolCode,
-              ...schoolData,
-            })
-          }
-          disabled={!isValid}
-          style={{
-            width: "100%",
-            padding: "14px",
-            border: "none",
-            borderRadius: "10px",
-            background: isValid ? "#0f766e" : "#94a3b8",
-            color: "#fff",
-            fontSize: "16px",
-            fontWeight: "600",
-            cursor: isValid ? "pointer" : "not-allowed",
-          }}
-        >
-          Save and Continue
-        </button>
-      </div>
-    </div>
+        <div style={{ marginTop: '14px' }}>
+          <button
+            onClick={() =>
+              isValid && onSave &&
+              onSave({
+                name,
+                schoolCode,
+                ...schoolData,
+              })
+            }
+            disabled={!isValid}
+            style={{
+              width: '100%',
+              padding: '11px',
+              border: 'none',
+              borderRadius: '10px',
+              background: isValid ? 'linear-gradient(90deg, #2563eb 0%, #0ea5e9 100%)' : '#94a3b8',
+              color: '#fff',
+              fontSize: '15px',
+              fontWeight: 700,
+              cursor: isValid ? 'pointer' : 'not-allowed',
+              boxShadow: isValid ? '0 10px 18px rgba(37, 99, 235, 0.28)' : 'none'
+            }}
+          >
+            Save and Continue
+          </button>
+        </div>
       </Paper>
     </Box>
   );
@@ -173,39 +129,52 @@ export default function TeacherOnboardingForm({ initial = {}, onSave }) {
 function AutoField({ label, value }) {
   return (
     <div>
-      <label
-        style={{
-          display: "block",
-          marginBottom: "8px",
-          fontSize: "14px",
-          fontWeight: 600,
-        }}
-      >
-        {label}
-      </label>
+      <label style={labelStyle}>{label}</label>
 
       <div
         style={{
           ...inputStyle,
-          background: "#e8f5ee",
-          color: "#065f46",
-          display: "flex",
-          alignItems: "center",
+          background: '#eff6ff',
+          color: '#1e3a8a',
+          display: 'flex',
+          alignItems: 'center',
+          border: '1px dashed #93c5fd'
         }}
       >
-        {value || "Auto-filled"}
+        {value || 'Auto-filled'}
       </div>
     </div>
   );
 }
 
+const labelStyle = {
+  display: 'block',
+  marginBottom: '6px',
+  fontSize: '12px',
+  fontWeight: 700,
+  color: '#334155'
+};
+
 const inputStyle = {
-  width: "100%",
-  height: "40px",
-  border: "1px solid #d1d5db",
-  borderRadius: "8px",
-  padding: "0 12px",
-  fontSize: "14px",
-  outline: "none",
-  boxSizing: "border-box",
+  width: '100%',
+  height: '38px',
+  border: '1px solid #cbd5e1',
+  borderRadius: '8px',
+  padding: '0 10px',
+  fontSize: '13px',
+  color: '#0f172a',
+  background: '#fff',
+  outline: 'none',
+  boxSizing: 'border-box',
+};
+
+const fetchButtonStyle = {
+  padding: '0 14px',
+  borderRadius: '8px',
+  border: '1px solid #bfdbfe',
+  background: '#dbeafe',
+  color: '#1e3a8a',
+  fontWeight: 600,
+  fontSize: '13px',
+  cursor: 'pointer'
 };
