@@ -5,18 +5,19 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 // use project asset from src/assets
 import logo from '../assets/littera_logo.png';
+import { useTranslation } from '../context/TranslationContext';
 
 export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }) {
+  const { t } = useTranslation();
   const [mobile, setMobile] = useState('');
   const [loading, setLoading] = useState(false);
   const [showImage, setShowImage] = useState(true);
 
   const handleSendOTP = () => {
-    if (!mobile || mobile.length !== 10) return alert('Enter a valid 10-digit mobile number');
+    if (!mobile || mobile.length !== 10) return alert(t('enterValidMobile'));
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
@@ -25,7 +26,8 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
   };
 
   const handleSocialClick = (provider) => {
-    const email = window.prompt(`Enter ${provider} account email to continue`);
+    const providerLabel = provider === 'google' ? 'Google' : 'Microsoft';
+    const email = window.prompt(t('enterProviderEmail').replace('{provider}', providerLabel));
     if (!email) return;
     setLoading(true);
     setTimeout(() => {
@@ -61,15 +63,15 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
           <Avatar sx={{ bgcolor: 'primary.main', width: 72, height: 72 }}>L</Avatar>
         )}
         <Typography variant="h5" sx={{ fontWeight: 'bold' }}>Littera Quiz</Typography>
-        <Typography variant="body2" color="text.secondary">Enter your mobile number to start</Typography>
+        <Typography variant="body2" color="text.secondary">{t('enterMobileToStart')}</Typography>
       </Stack>
 
       <Box sx={{ mt: 3 }}>
-        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>MOBILE NUMBER</Typography>
+        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>{t('mobileNumberLabel')}</Typography>
         <TextField
           value={mobile}
           onChange={(e) => setMobile(e.target.value.replace(/\D/g, '').slice(0, 10))}
-          placeholder="10-digit number"
+          placeholder={t('mobilePlaceholder')}
           variant="outlined"
           size="small"
           inputProps={{ maxLength: 10, inputMode: 'numeric' }}
@@ -78,10 +80,10 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
         />
 
         <Button variant="contained" color="primary" onClick={handleSendOTP} disabled={loading} fullWidth sx={{ mt: 2 }}>
-          {loading ? 'Sending…' : 'Login'}
+          {loading ? t('sending') : t('login')}
         </Button>
 
-        <Typography variant="body2" color="text.secondary" align="center" sx={{ my: 2 }}>or continue with</Typography>
+        <Typography variant="body2" color="text.secondary" align="center" sx={{ my: 2 }}>{t('orContinueWith')}</Typography>
 
         <Stack spacing={1}>
           <Button
@@ -91,7 +93,7 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
             fullWidth
             sx={{ borderColor: 'transparent', color: 'text.primary', boxShadow: 'none', borderRadius: 2, py: 1.25, justifyContent: 'flex-start', '&:hover': { backgroundColor: 'rgba(0,0,0,0.04)' }, '& .MuiButton-startIcon': { marginLeft: 6 } }}
           >
-            Sign in with Google
+            {t('signInGoogle')}
           </Button>
 
           <Button
@@ -101,7 +103,7 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
             fullWidth
             sx={{ borderColor: 'transparent', color: 'text.primary', boxShadow: 'none', borderRadius: 2, py: 1.25, justifyContent: 'flex-start', '&:hover': { backgroundColor: 'rgba(0,0,0,0.04)' }, '& .MuiButton-startIcon': { marginLeft: 6 } }}
           >
-            Sign in with Microsoft
+            {t('signInMicrosoft')}
           </Button>
         </Stack>
       </Box>

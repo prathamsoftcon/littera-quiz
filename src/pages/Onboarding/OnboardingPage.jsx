@@ -9,7 +9,7 @@ import StudentOnboardingForm from '../../components/StudentOnboardingForm';
 import TeacherOnboardingForm from '../../components/TeacherOnboardingForm';
 import AccessConfirmation from '../../components/AccessConfirmation';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useTranslation } from '../../context/TranslationContext';
 
 const VERIFIED_MOBILES_KEY = 'verified_mobiles';
 
@@ -35,6 +35,7 @@ function saveVerifiedMobile(mobile) {
 }
 
 export default function OnboardingPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [history, setHistory] = useState([]);
@@ -102,17 +103,17 @@ export default function OnboardingPage() {
 
   const steps = [
     {
-      title: 'Sign In',
+      title: t('signIn'),
       node: (
         <LoginComponent onSendOTP={handleSendOTP} onSocial={handleSocial} />
       ),
     },
     {
-      title: 'OTP Verification',
+      title: t('otpVerification'),
       node: <OTPVerification phone={phone} onVerify={handleOTPVerify} onResend={() => {}} />,
     },
     {
-      title: 'Role Routing',
+      title: t('roleRouting'),
         node: (
           <RoleRouting
             detectedRole={null}
@@ -128,15 +129,15 @@ export default function OnboardingPage() {
         ),
     },
     {
-      title: 'Student Onboarding',
+      title: t('studentOnboarding'),
       node: <StudentOnboardingForm onSave={(data) => { setProfileData(data); navigate('/student'); }} />,
     },
     {
-      title: 'Teacher Onboarding',
+      title: t('teacherOnboarding'),
       node: <TeacherOnboardingForm onSave={(data) => { setProfileData(data); next(5); }} />,
     },
     {
-      title: 'Access Confirmation',
+      title: t('accessConfirmation'),
       node: <AccessConfirmation summary={profileData} onContinue={() => {/* go to dashboard */}} />,
     },
   ];
@@ -163,7 +164,7 @@ export default function OnboardingPage() {
           className={`flex items-center px-6 py-3 rounded text-white ${step === 0 || step >= steps.length - 1 ? 'bg-gray-300' : 'bg-blue-600 hover:bg-blue-700'}`}
         >
           <ArrowBackIosNewIcon fontSize="small" className="mr-2" />
-          Back
+          {t('back')}
         </button>
 
         {/* <button

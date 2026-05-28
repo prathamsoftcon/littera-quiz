@@ -2,22 +2,23 @@ import React, { useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import OTPBox from './OTPBoxes';
+import { useTranslation } from '../context/TranslationContext';
 
 export default function OTPVerification({ phone, onVerify, onResend }) {
+  const { t } = useTranslation();
   const [otp, setOtp] = useState('');
 
   const card = (
     <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 520, mx: 'auto', transform: 'translateY(-20px)', borderRadius: 3 }}>
       <Stack spacing={1.5}>
-        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Verify OTP</Typography>
-        <Typography variant="body2" color="text.secondary">Enter the 6-digit code for Verify & Continue.</Typography>
+        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>{t('verifyOtp')}</Typography>
+        <Typography variant="body2" color="text.secondary">{t('enterOtpInstruction')}</Typography>
 
         <Typography variant="body2" color="text.secondary">
-          OTP sent to <Typography component="span" sx={{ fontWeight: 600, color: 'text.primary' }}>{phone || '+91 XXXXX XXXXX'}</Typography>
+          {t('otpSentTo')} <Typography component="span" sx={{ fontWeight: 600, color: 'text.primary' }}>{phone || '+91 XXXXX XXXXX'}</Typography>
         </Typography>
 
         {/* <TextField
@@ -27,7 +28,7 @@ export default function OTPVerification({ phone, onVerify, onResend }) {
           inputProps={{ maxLength: 6, inputMode: 'numeric' }}
           fullWidth
         /> */}
-        <OTPBox value={otp} onChange={setOtp} />
+        <OTPBox value={otp} onChange={setOtp} rowAriaLabel={t('otpBoxes')} digitAriaLabel={t('otpDigit')} />
 
         <Box>
           <Button
@@ -37,11 +38,11 @@ export default function OTPVerification({ phone, onVerify, onResend }) {
             disabled={otp.length !== 6}
             fullWidth
           >
-            Verify and Continue
+            {t('verifyAndContinue')}
           </Button>
 
           <Button variant="text" sx={{ mt: 1 }} onClick={() => onResend && onResend()} fullWidth>
-            Resend OTP
+            {t('resendOtp')}
           </Button>
         </Box>
       </Stack>

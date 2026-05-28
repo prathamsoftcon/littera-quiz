@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import { useTranslation } from '../context/TranslationContext';
 
 export default function TeacherOnboardingForm({ initial = {}, onSave }) {
+  const { t } = useTranslation();
   const [name, setName] = useState(initial.name || "");
   const [schoolCode, setSchoolCode] = useState(initial.schoolCode || "");
 
@@ -39,7 +41,7 @@ export default function TeacherOnboardingForm({ initial = {}, onSave }) {
     if (data) {
       setSchoolData(data);
     } else {
-      alert("School code not found");
+      alert(t('schoolCodeNotFound'));
       setSchoolData({ schoolName: "", village: "", crc: "", block: "", district: "" });
     }
   };
@@ -53,24 +55,24 @@ export default function TeacherOnboardingForm({ initial = {}, onSave }) {
     <Box sx={{ width: '100%' }}>
       <Paper elevation={0} sx={{ p: { xs: 2, sm: 2.5 }, width: '100%', maxWidth: 640, mx: 'auto', borderRadius: 3, border: '1px solid #dbe4f0', background: 'linear-gradient(180deg, #ffffff 0%, #f8fafc 100%)', boxShadow: '0 18px 40px rgba(15, 23, 42, 0.08)' }}>
         <Typography variant="h5" sx={{ fontWeight: 800, color: '#0f172a' }}>
-          Teacher Onboarding
+          {t('teacherOnboarding')}
         </Typography>
 
         <div style={{ marginTop: 12 }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '10px' }}>
             <div>
-              <label style={labelStyle}>Teacher name</label>
+              <label style={labelStyle}>{t('teacherName')}</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Enter teacher name"
+                placeholder={t('enterTeacherName')}
                 style={inputStyle}
               />
             </div>
 
             <div>
-              <label style={labelStyle}>School code</label>
+              <label style={labelStyle}>{t('schoolCode')}</label>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <input
                   type="text"
@@ -81,16 +83,16 @@ export default function TeacherOnboardingForm({ initial = {}, onSave }) {
                 />
 
                 <button onClick={handleFetch} style={fetchButtonStyle}>
-                  Fetch
+                  {t('fetch')}
                 </button>
               </div>
             </div>
 
-            <AutoField label="School name" value={schoolData.schoolName} />
-            <AutoField label="Village" value={schoolData.village} />
-            <AutoField label="CRC" value={schoolData.crc} />
-            <AutoField label="Block" value={schoolData.block} />
-            <AutoField label="District" value={schoolData.district} />
+            <AutoField label={t('schoolName')} value={schoolData.schoolName} autoFilledText={t('autoFilled')} />
+            <AutoField label={t('village')} value={schoolData.village} autoFilledText={t('autoFilled')} />
+            <AutoField label={t('crc')} value={schoolData.crc} autoFilledText={t('autoFilled')} />
+            <AutoField label={t('block')} value={schoolData.block} autoFilledText={t('autoFilled')} />
+            <AutoField label={t('district')} value={schoolData.district} autoFilledText={t('autoFilled')} />
           </div>
         </div>
 
@@ -118,7 +120,7 @@ export default function TeacherOnboardingForm({ initial = {}, onSave }) {
               boxShadow: isValid ? '0 10px 18px rgba(37, 99, 235, 0.28)' : 'none'
             }}
           >
-            Save and Continue
+            {t('saveAndContinue')}
           </button>
         </div>
       </Paper>
@@ -126,7 +128,7 @@ export default function TeacherOnboardingForm({ initial = {}, onSave }) {
   );
 }
 
-function AutoField({ label, value }) {
+function AutoField({ label, value, autoFilledText }) {
   return (
     <div>
       <label style={labelStyle}>{label}</label>
@@ -141,7 +143,7 @@ function AutoField({ label, value }) {
           border: '1px dashed #93c5fd'
         }}
       >
-        {value || 'Auto-filled'}
+        {value || autoFilledText}
       </div>
     </div>
   );

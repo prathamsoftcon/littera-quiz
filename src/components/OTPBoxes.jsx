@@ -1,6 +1,6 @@
 import React, { useMemo, useRef } from 'react';
 
-export default function OTPBoxes({ length = 6, value = '', onChange }) {
+export default function OTPBoxes({ length = 6, value = '', onChange, rowAriaLabel = 'OTP boxes', digitAriaLabel = 'OTP digit' }) {
   const refs = useRef([]);
   const chars = useMemo(() => String(value || '').split('').slice(0, length), [value, length]);
 
@@ -48,7 +48,7 @@ export default function OTPBoxes({ length = 6, value = '', onChange }) {
   };
 
   return (
-    <div className="otp-row" aria-label="OTP boxes">
+    <div className="otp-row" aria-label={rowAriaLabel}>
       {Array.from({ length }).map((_, i) => (
         <input
           key={i}
@@ -61,7 +61,7 @@ export default function OTPBoxes({ length = 6, value = '', onChange }) {
           autoComplete="one-time-code"
           maxLength={1}
           value={chars[i] || ''}
-          aria-label={`OTP digit ${i + 1}`}
+          aria-label={`${digitAriaLabel} ${i + 1}`}
           onChange={(event) => handleChange(i, event.target.value)}
           onKeyDown={(event) => handleKeyDown(i, event)}
           onPaste={handlePaste}

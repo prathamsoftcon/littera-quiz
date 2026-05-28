@@ -1,0 +1,59 @@
+{
+  "topbarTitle": "Littera Quiz Platform",
+  "languageSelect": "Select language",
+  "languageOptions": "Language options",
+  "english": "English",
+  "hindi": "Hindi",
+  "studentOnboarding": "Student Onboarding",
+  "teacherOnboarding": "Teacher Onboarding",
+  "studentName": "Student name",
+  "teacherName": "Teacher name",
+  "schoolCode": "School code",
+  "schoolName": "School name",
+  "village": "Village",
+  "crc": "CRC",
+  "block": "Block",
+  "district": "District",
+  "fetch": "Fetch",
+  "saveAndContinue": "Save and Continue",
+  "autoFilled": "Auto-filled",
+  "schoolCodeNotFound": "School code not found",
+  "enterStudentName": "Enter student name",
+  "enterTeacherName": "Enter teacher name"
+  ,"enterValidMobile": "Enter a valid 10-digit mobile number"
+  ,"enterProviderEmail": "Enter {provider} account email to continue"
+  ,"enterMobileToStart": "Enter your mobile number to start"
+  ,"mobileNumberLabel": "MOBILE NUMBER"
+  ,"mobilePlaceholder": "10-digit number"
+  ,"sending": "Sending..."
+  ,"login": "Login"
+  ,"orContinueWith": "or continue with"
+  ,"signInGoogle": "Sign in with Google"
+  ,"signInMicrosoft": "Sign in with Microsoft"
+  ,"verifyOtp": "Verify OTP"
+  ,"enterOtpInstruction": "Enter the 6-digit code for Verify & Continue."
+  ,"otpSentTo": "OTP sent to"
+  ,"otpBoxes": "OTP boxes"
+  ,"otpDigit": "OTP digit"
+  ,"verifyAndContinue": "Verify and Continue"
+  ,"resendOtp": "Resend OTP"
+  ,"accessConfirmation": "Access Confirmation"
+  ,"state": "State"
+  ,"pleaseSelectDistrict": "Please select a district"
+  ,"goToDashboard": "Go to Dashboard"
+  ,"signIn": "Sign In"
+  ,"otpVerification": "OTP Verification"
+  ,"roleRouting": "Role Routing"
+  ,"back": "Back"
+  ,"chooseRole": "Choose Role"
+  ,"selectOneRoleToContinue": "Select one role to continue"
+  ,"detectedRole": "Detected role"
+  ,"selected": "selected"
+  ,"profileComplete": "profile complete"
+  ,"continue": "Continue"
+  ,"studentRole": "Student"
+  ,"teacherRole": "Teacher"
+  ,"adminRole": "Admin"
+  ,"roleSelected": "{role} selected"
+  ,"roleSelectedWithProfile": "{role} selected - profile complete"
+}

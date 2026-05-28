@@ -8,8 +8,10 @@ import Chip from '@mui/material/Chip';
 import SchoolIcon from '@mui/icons-material/School';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import { useTranslation } from '../context/TranslationContext';
 
 export default function RoleRouting({ detectedRole, profileComplete, onSelect }) {
+  const { t } = useTranslation();
   const [selectedRole, setSelectedRole] = useState(detectedRole || '');
 
   useEffect(() => {
@@ -21,17 +23,17 @@ export default function RoleRouting({ detectedRole, profileComplete, onSelect })
   const roles = [
     {
       id: 'student',
-      label: 'Student',
+      label: t('studentRole'),
       icon: <SchoolIcon />,
     },
     {
       id: 'teacher',
-      label: 'Teacher',
+      label: t('teacherRole'),
       icon: <MenuBookIcon />,
     },
     {
       id: 'admin',
-      label: 'Admin',
+      label: t('adminRole'),
       icon: <AdminPanelSettingsIcon />,
     },
   ];
@@ -40,6 +42,11 @@ export default function RoleRouting({ detectedRole, profileComplete, onSelect })
     const found = roles.find((r) => r.id === selectedRole);
     return found ? found.label : '';
   }, [roles, selectedRole]);
+
+  const detectedRoleLabel = useMemo(() => {
+    const found = roles.find((r) => r.id === detectedRole);
+    return found ? found.label : detectedRole;
+  }, [roles, detectedRole]);
 
   const handleContinue = () => {
     if (!selectedRole) {
@@ -54,12 +61,10 @@ export default function RoleRouting({ detectedRole, profileComplete, onSelect })
     <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, transform: 'translateY(-30px)', borderRadius: 3 }}>
       <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 460, mx: 'auto', borderRadius: 3 }}>
         <Stack spacing={1.5} sx={{ mb: 2 }}>
-          <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Choose Role</Typography>
-          <Typography variant="body2" color="text.secondary">
-          </Typography>
+          <Typography variant="h6" sx={{ fontWeight: 'bold' }}>{t('chooseRole')}</Typography>
           {detectedRole && (
             <Chip
-              label={`Detected role: ${detectedRole}`}
+              label={`${t('detectedRole')}: ${detectedRoleLabel}`}
               color="primary"
               variant="outlined"
               sx={{ width: 'fit-content' }}
@@ -110,8 +115,10 @@ export default function RoleRouting({ detectedRole, profileComplete, onSelect })
         <Stack spacing={1} sx={{ mt: 2 }}>
           <Typography variant="caption" color="text.secondary">
             {selectedRole
-              ? `${selectedLabel} selected${profileComplete ? ' - profile complete' : ''}`
-              : 'Select one role to continue'}
+              ? (profileComplete
+                ? t('roleSelectedWithProfile').replace('{role}', selectedLabel)
+                : t('roleSelected').replace('{role}', selectedLabel))
+              : t('selectOneRoleToContinue')}
           </Typography>
           <Button
             variant="contained"
@@ -119,7 +126,7 @@ export default function RoleRouting({ detectedRole, profileComplete, onSelect })
             disabled={!selectedRole}
             fullWidth
           >
-            Continue
+            {t('continue')}
           </Button>
         </Stack>
       </Paper>

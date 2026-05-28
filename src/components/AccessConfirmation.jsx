@@ -10,8 +10,10 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import locations from '../data/locations';
+import { useTranslation } from '../context/TranslationContext';
 
 export default function AccessConfirmation({ onContinue, role = 'student' }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [selectedState, setSelectedState] = useState('');
@@ -28,7 +30,7 @@ export default function AccessConfirmation({ onContinue, role = 'student' }) {
   const handleContinue = () => {
     setError('');
     if (!selectedDistrict) {
-      setError('Please select a district');
+      setError(t('pleaseSelectDistrict'));
       return;
     }
 
@@ -47,15 +49,15 @@ export default function AccessConfirmation({ onContinue, role = 'student' }) {
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, borderRadius: 3 }}>
       <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 520, mx: 'auto', transform: 'translateY(-20px)' }}>
-        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Access Confirmation</Typography>
+        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>{t('accessConfirmation')}</Typography>
 
         <Stack spacing={2} sx={{ mt: 2 }}>
           <FormControl fullWidth>
-            <InputLabel id="state-label">State</InputLabel>
+            <InputLabel id="state-label">{t('state')}</InputLabel>
             <Select
               labelId="state-label"
               value={selectedState}
-              label="State"
+              label={t('state')}
               onChange={(e) => {
                 setSelectedState(e.target.value);
                 setSelectedDistrict('');
@@ -70,11 +72,11 @@ export default function AccessConfirmation({ onContinue, role = 'student' }) {
           </FormControl>
 
           <FormControl fullWidth disabled={!selectedState}>
-            <InputLabel id="district-label">District</InputLabel>
+            <InputLabel id="district-label">{t('district')}</InputLabel>
             <Select
               labelId="district-label"
               value={selectedDistrict}
-              label="District"
+              label={t('district')}
               onChange={(e) => {
                 setSelectedDistrict(e.target.value);
                 setSelectedBlock('');
@@ -88,11 +90,11 @@ export default function AccessConfirmation({ onContinue, role = 'student' }) {
           </FormControl>
 
           <FormControl fullWidth disabled={!selectedDistrict}>
-            <InputLabel id="block-label">Block</InputLabel>
+            <InputLabel id="block-label">{t('block')}</InputLabel>
             <Select
               labelId="block-label"
               value={selectedBlock}
-              label="Block"
+              label={t('block')}
               onChange={(e) => {
                 setSelectedBlock(e.target.value);
                 setSelectedVillage('');
@@ -105,11 +107,11 @@ export default function AccessConfirmation({ onContinue, role = 'student' }) {
           </FormControl>
 
           <FormControl fullWidth disabled={!selectedBlock}>
-            <InputLabel id="village-label">Village</InputLabel>
+            <InputLabel id="village-label">{t('village')}</InputLabel>
             <Select
               labelId="village-label"
               value={selectedVillage}
-              label="Village"
+              label={t('village')}
               onChange={(e) => setSelectedVillage(e.target.value)}
             >
               {villageOptions.map(v => (
@@ -123,7 +125,7 @@ export default function AccessConfirmation({ onContinue, role = 'student' }) {
 
         <Box sx={{ mt: 3 }}>
           <Button variant="contained" color="primary" fullWidth disabled={!selectedDistrict} onClick={handleContinue}>
-            Go to Dashboard
+            {t('goToDashboard')}
           </Button>
         </Box>
       </Paper>
