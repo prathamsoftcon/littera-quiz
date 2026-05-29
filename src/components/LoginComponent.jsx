@@ -55,7 +55,16 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
   );
 
   const card = (
-    <Paper elevation={3} sx={{ p: 4, width: '100%', maxWidth: 420, mx: 'auto', borderRadius: 3 }}>
+    <Paper
+      elevation={3}
+      sx={{
+        p: { xs: 2.5, sm: 4 },
+        width: '100%',
+        maxWidth: 420,
+        mx: 'auto',
+        borderRadius: { xs: 2.5, sm: 3 },
+      }}
+    >
       <Stack spacing={2} alignItems="center">
         {showImage ? (
           <Box component="img" src={logo} alt="Littera Logo" sx={{ width: 72, height: 72, objectFit: 'contain' }} onError={(e) => { setShowImage(false); }} />
@@ -111,7 +120,16 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
   );
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, transform: 'translateY(-40px)' }}>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        p: { xs: 2, sm: 4 },
+        transform: { xs: 'none', sm: 'translateY(-40px)' },
+      }}
+    >
       {card}
     </Box>
   );

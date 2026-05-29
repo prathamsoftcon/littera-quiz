@@ -859,6 +859,11 @@ th {
     flex-direction: column;
   }
 
+  .topbar-title-wrap {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
   .language-dropdown {
     align-self: stretch;
   }
@@ -910,6 +915,14 @@ th {
   .topbar {
     padding: 12px 14px;
     gap: 12px;
+  }
+
+  .topbar-title-wrap h1 {
+    font-size: 18px;
+  }
+
+  .onboarding-stage > div {
+    transform: none !important;
   }
 
   .topbar-logo {

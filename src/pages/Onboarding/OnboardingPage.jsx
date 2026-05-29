@@ -150,7 +150,7 @@ export default function OnboardingPage() {
       {authStarted}
 
       <div className="w-full max-w-2xl">
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
+        <div className="onboarding-stage" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
           <div style={{ width: '100%', maxWidth: 720, margin: '0 auto', transform: 'translateY(-30px)' }}>
             {active.node}
           </div>
