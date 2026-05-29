@@ -12,10 +12,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Disable page scrolling globally (no scrollbars) */
+/* Allow page scrolling globally */
 html, body, #root {
-  height: 100%;
-  overflow: hidden;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 code {

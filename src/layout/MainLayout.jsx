@@ -5,7 +5,7 @@ export default function MainLayout({ children }) {
   return (
     <div>
       <Topbar />
-      <main style={{ padding: 20 }}>
+      <main className="app-main">
         {children}
       </main>
     </div>

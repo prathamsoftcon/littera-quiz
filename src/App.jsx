@@ -25,7 +25,7 @@ export default function App() {
   return (
     <MainLayout>
       <Routes>
-        <Route path="/" element={<OnboardingPage />} />
+        <Route path="/quiz" element={<OnboardingPage />} />
         <Route path="/student" element={<StudentPage />} />
         <Route path="/teacher" element={<TeacherPage />} />
         <Route path="/admin" element={<AdminPage />} />
@@ -43,8 +43,13 @@ export default function App() {
         <Route path="/question-bank/bulk" element={<BulkUploadPage />} />
         <Route path="/question-bank/approval" element={<ApprovalQueuePage />} />
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/quiz" replace />} />
       </Routes>
     </MainLayout>
   );
 }
+
+
+
+
+

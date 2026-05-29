@@ -80,7 +80,7 @@ export default function Topbar() {
             className="signout-btn"
             onClick={() => navigate('/quiz')}
           >
-            Sign Out
+            {t('signOut')}
           </button>
         ) : null}
       </div>

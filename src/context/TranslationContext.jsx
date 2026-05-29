@@ -27,12 +27,13 @@ export function TranslationProvider({ children }) {
 
   useEffect(() => {
     let isMounted = true;
+    const baseUrl = import.meta?.env?.BASE_URL || '/';
 
     const loadTranslations = async () => {
       try {
         const [enResponse, hiResponse] = await Promise.all([
-          fetch('/en.json'),
-          fetch('/hi.json'),
+          fetch(`${baseUrl}en.json`),
+          fetch(`${baseUrl}hi.json`),
         ]);
 
         if (!enResponse.ok || !hiResponse.ok) {

@@ -14,6 +14,14 @@
   box-sizing: border-box;
 }
 
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -56,8 +64,15 @@ body {
 }
 
 .topbar-title-wrap h1 {
+  font-size: clamp(18px, 2.1vw, 24px);
   color: #eff6ff;
   text-shadow: 0 1px 2px rgba(15, 23, 42, 0.18);
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .language-dropdown {
@@ -128,6 +143,23 @@ body {
   background: #eff6ff;
 }
 
+.signout-btn {
+  min-width: 110px;
+  min-height: 38px;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  color: #0f172a;
+  background: rgba(255, 255, 255, 0.95);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.signout-btn:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+}
+
 h1,
 h2,
 h3,
@@ -181,8 +213,9 @@ button.primary {
   background: var(--accent);
 }
 
-main {
-  padding: 24px;
+.app-main {
+  width: 100%;
+  padding: clamp(12px, 2vw, 24px);
 }
 
 .screen {
@@ -830,6 +863,12 @@ th {
     align-self: stretch;
   }
 
+  .topbar-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .language-trigger {
     width: 100%;
     justify-content: space-between;
@@ -838,6 +877,10 @@ th {
   .language-menu {
     left: 0;
     right: auto;
+    width: 100%;
+  }
+
+  .signout-btn {
     width: 100%;
   }
 
@@ -860,5 +903,23 @@ th {
 
   h2 {
     font-size: 23px;
+  }
+}
+
+@media (max-width: 600px) {
+  .topbar {
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  .topbar-logo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .screen {
+    margin-bottom: 16px;
+    padding: 12px;
+    border-radius: 12px;
   }
 }
