@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -10,6 +10,36 @@ import { useTranslation } from '../context/TranslationContext';
 export default function OTPVerification({ phone, onVerify, onResend }) {
   const { t } = useTranslation();
   const [otp, setOtp] = useState('');
+  const [timeLeft, setTimeLeft] = useState(120);
+
+  useEffect(() => {
+    setTimeLeft(120);
+  }, [phone]);
+
+  useEffect(() => {
+    if (timeLeft <= 0) return undefined;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+
+  const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+  const seconds = String(timeLeft % 60).padStart(2, '0');
+
+  function handleResend() {
+    if (timeLeft > 0) return;
+    onResend && onResend();
+    setTimeLeft(120);
+  }
 
   const card = (
     <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 520, mx: 'auto', transform: 'translateY(-20px)', borderRadius: 3 }}>
@@ -30,6 +60,10 @@ export default function OTPVerification({ phone, onVerify, onResend }) {
         /> */}
         <OTPBox value={otp} onChange={setOtp} rowAriaLabel={t('otpBoxes')} digitAriaLabel={t('otpDigit')} />
 
+        <Typography variant="caption" color={timeLeft === 0 ? 'success.main' : 'text.secondary'}>
+          {timeLeft === 0 ? 'You can now resend OTP.' : `Resend available in ${minutes}:${seconds}`}
+        </Typography>
+
         <Box>
           <Button
             variant="contained"
@@ -41,7 +75,13 @@ export default function OTPVerification({ phone, onVerify, onResend }) {
             {t('verifyAndContinue')}
           </Button>
 
-          <Button variant="text" sx={{ mt: 1 }} onClick={() => onResend && onResend()} fullWidth>
+          <Button
+            variant="text"
+            sx={{ mt: 1 }}
+            onClick={handleResend}
+            disabled={timeLeft > 0}
+            fullWidth
+          >
             {t('resendOtp')}
           </Button>
         </Box>
