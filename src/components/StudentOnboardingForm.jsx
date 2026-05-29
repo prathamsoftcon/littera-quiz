@@ -104,7 +104,7 @@ function AutoField({ label, value, autoFilledText }) {
   return (
     <div>
       <label style={labelStyle}>{label}</label>
-      <div style={{ ...inputStyle, background: '#f0fdf4', color: '#166534', display: 'flex', alignItems: 'center', border: '1px dashed #86efac' }}>{value || autoFilledText}</div>
+      <div style={{ ...inputStyle, background: '#eff6ff', color: '#1d4ed8', display: 'flex', alignItems: 'center', border: '1px dashed #93c5fd' }}>{value || autoFilledText}</div>
     </div>
   );
 }
@@ -133,9 +133,9 @@ const inputStyle = {
 const fetchButtonStyle = {
   padding: '0 14px',
   borderRadius: '8px',
-  border: '1px solid #99f6e4',
-  background: '#ccfbf1',
-  color: '#0f766e',
+  border: '1px solid #93c5fd',
+  background: '#dbeafe',
+  color: '#1d4ed8',
   fontWeight: 600,
   fontSize: '13px',
   cursor: 'pointer'
