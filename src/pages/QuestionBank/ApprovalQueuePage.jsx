@@ -9,41 +9,67 @@ const mock = [
 ];
 
 export default function ApprovalQueuePage() {
-  const [rows] = useState(mock);
+  const [rows, setRows] = useState(mock);
   const [selected, setSelected] = useState(null);
+  const [reviewItem, setReviewItem] = useState(null);
+
+  function handleApprove(item) {
+    setRows((prev) => prev.map((row) => (row.id === item.id ? { ...row, status: 'Approved' } : row)));
+  }
+
+  function handleReject(item) {
+    setRows((prev) => prev.map((row) => (row.id === item.id ? { ...row, status: 'Rejected' } : row)));
+  }
+
+  function handleReview(item) {
+    setReviewItem(item);
+  }
+
+  function closeReview() {
+    setReviewItem(null);
+  }
 
   return (
     <div className="screen">
       <div className="screen-heading">
-        <p className="eyebrow">Admin workflow</p>
         <h2>Approval Queue and Review Detail</h2>
       </div>
 
-      <div className="grid two">
+      <div className="grid one">
         <Panel>
-          <QueueTable rows={rows} onSelect={setSelected} />
-        </Panel>
-
-        <Panel title={`Review Question: ${selected ? selected.title : ''}`}>
-          {selected ? (
-            <div>
-              <div className="question-preview">
-                <div className="thumbnail-box">Category thumbnail</div>
-                <div>
-                  <strong>{selected.title}</strong>
-                  <span>Submitted by: {selected.teacher}</span>
-                </div>
-              </div>
-              <div className="actions">
-                <button>Reject</button>
-                <button className="primary">Approve</button>
-              </div>
-            </div>
-          ) : (
-            <ReviewDetail />
-          )}
+          <QueueTable
+            rows={rows}
+            onSelect={setSelected}
+            onApprove={handleApprove}
+            onReject={handleReject}
+            onReview={handleReview}
+          />
         </Panel>
       </div>
+
+      {reviewItem ? (
+        <div className="modal-overlay" role="dialog" aria-modal="true">
+          <div className="modal-card">
+            <div className="modal-header">
+              <h3>Review Question</h3>
+              <button type="button" className="modal-close" onClick={closeReview} aria-label="Close review">
+                x
+              </button>
+            </div>
+            <ReviewDetail
+              item={reviewItem}
+              onApprove={(item) => {
+                handleApprove(item);
+                closeReview();
+              }}
+              onReject={(item) => {
+                handleReject(item);
+                closeReview();
+              }}
+            />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

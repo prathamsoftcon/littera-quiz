@@ -8,7 +8,7 @@ import AnnouncementsPanel from '../../features/admin/AnnouncementsPanel';
 import ApprovalPanel from '../../features/admin/ApprovalPanel';
 import RewardsPanel from '../../features/admin/RewardsPanel';
 import SlotsPanel from '../../features/admin/SlotsPanel';
-import UploadPanel from '../../features/admin/UploadPanel';
+import MasterUpload from '../../features/admin/MasterUpload';
 import './AdminPage.css';
 
 const initialQueue = [
@@ -54,15 +54,6 @@ const initialQueue = [
   },
 ];
 
-const uploadChecklist = [
-  { type: 'State', required: 'State Name, State Code' },
-  { type: 'District', required: 'District Name, District Code, State Code' },
-  { type: 'Block', required: 'Block Name, Block Code, State Code, District Code' },
-  { type: 'CRC', required: 'CRC Name, CRC Code, State Code, District Code, Block Code' },
-  { type: 'Village', required: 'Village Name, Village Code, State Code, District Code, Block Code, CRC Code' },
-  { type: 'School', required: 'School Name, School Code, State Code, District Code, Block Code, CRC Code, Village Code' },
-];
-
 const slotDefaults = [
   { label: 'Morning', time: '10:30 AM', active: true, concurrency: 2500 },
   { label: 'Afternoon', time: '1:00 PM', active: true, concurrency: 1800 },
@@ -93,7 +84,6 @@ export default function AdminPage() {
   const [rewardRules, setRewardRules] = useState(rewardDefaults);
   const [announcements, setAnnouncements] = useState(announcementSeed);
   const [draftAnnouncement, setDraftAnnouncement] = useState({ target: 'All Students', text: '' });
-  const [validation, setValidation] = useState({ total: 500, valid: 482, duplicate: 4, missing: 6, parentRef: 8 });
   const [activeModule, setActiveModule] = useState('approval');
 
   useEffect(() => {
@@ -155,16 +145,6 @@ export default function AdminPage() {
     updateQueueStatus(selectedItem.id, 'Rejected');
   }
 
-  function runValidationPreview() {
-    setValidation((prev) => ({
-      ...prev,
-      total: prev.total + 25,
-      valid: Math.max(0, prev.valid + Math.round(Math.random() * 12 - 4)),
-      duplicate: Math.max(0, prev.duplicate + Math.round(Math.random() * 3 - 1)),
-      missing: Math.max(0, prev.missing + Math.round(Math.random() * 3 - 1)),
-      parentRef: Math.max(0, prev.parentRef + Math.round(Math.random() * 4 - 1)),
-    }));
-  }
 
   function updateSlot(index, key, value) {
     setSlots((prev) => prev.map((slot, i) => (i === index ? { ...slot, [key]: value } : slot)));
@@ -187,7 +167,6 @@ export default function AdminPage() {
     setDraftAnnouncement((prev) => ({ ...prev, text: '' }));
   }
 
-  const importReady = validation.duplicate === 0 && validation.missing === 0 && validation.parentRef === 0;
   const sidebarItems = [
     { key: 'approval', label: t('adminSidebarApproval') },
     // { key: 'slots', label: 'Slot Controls' },
@@ -238,13 +217,10 @@ export default function AdminPage() {
           ) : null}
 
           {activeModule === 'upload' ? (
-            <UploadPanel
-              t={t}
-              validation={validation}
-              uploadChecklist={uploadChecklist}
-              runValidationPreview={runValidationPreview}
-              importReady={importReady}
-            />
+            <article className="panel admin-panel active-panel">
+              <div className="panel-title">{t('adminGoMasterUpload')}</div>
+              <MasterUpload />
+            </article>
           ) : null}
 
           {activeModule === 'announce' ? (

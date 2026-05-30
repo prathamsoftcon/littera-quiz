@@ -490,6 +490,42 @@
   margin-bottom: 10px;
 }
 
+.upload-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid #d8e7f8;
+  border-radius: 12px;
+  background: linear-gradient(140deg, #ffffff, #f3f8ff);
+  margin-bottom: 10px;
+}
+
+.upload-title {
+  margin: 0;
+  font-size: 16px;
+}
+
+.upload-subtitle {
+  margin: 0 0 4px;
+  color: var(--admin-muted);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.upload-chip {
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #bae6fd;
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 .upload-stats div {
   padding: 10px;
   border-radius: 10px;
@@ -526,6 +562,10 @@
   display: flex;
   gap: 8px;
   margin-top: 10px;
+}
+
+.upload-actions {
+  justify-content: flex-end;
 }
 
 .announce-composer {
