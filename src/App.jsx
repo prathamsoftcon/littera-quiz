@@ -18,7 +18,7 @@ import MatchLobbyPage from './pages/Match/MatchLobbyPage';
 import MatchRoomPage from './pages/Match/MatchRoomPage';
 import SettingsPage from './pages/Settings/SettingsPage';
 import AnalyticsPage from './pages/Analytics/AnalyticsPage';
-import MasterUploadPage from './pages/Admin/MasterUploadPage';
+import MasterUploadPage from './features/admin/MasterUploadPage';
 import NotificationsPage from './pages/Notifications/NotificationsPage';
 
 export default function App() {

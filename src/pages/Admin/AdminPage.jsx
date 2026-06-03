@@ -11,48 +11,7 @@ import SlotsPanel from '../../features/admin/SlotsPanel';
 import MasterUpload from '../../features/admin/MasterUpload';
 import './AdminPage.css';
 
-const initialQueue = [
-  {
-    id: 'Q-1782',
-    title: 'Image MCQ - Fractions of Pizza',
-    teacher: 'Ms. Patel',
-    type: 'MCQ',
-    category: 'Math',
-    difficulty: 'Medium',
-    status: 'Pending',
-    age: '18m',
-  },
-  {
-    id: 'Q-1783',
-    title: 'Fill Blank - Photosynthesis',
-    teacher: 'Mr. Khan',
-    type: 'Fill',
-    category: 'Science',
-    difficulty: 'Easy',
-    status: 'Pending',
-    age: '24m',
-  },
-  {
-    id: 'Q-1785',
-    title: 'Match Capitals and States',
-    teacher: 'Ms. Das',
-    type: 'Match',
-    category: 'Geography',
-    difficulty: 'Hard',
-    status: 'Under review',
-    age: '36m',
-  },
-  {
-    id: 'Q-1788',
-    title: 'Audio Question - Birds Sound',
-    teacher: 'Mr. Nair',
-    type: 'Media',
-    category: 'EVS',
-    difficulty: 'Medium',
-    status: 'Pending',
-    age: '42m',
-  },
-];
+// ApprovalPanel now manages its own queue state
 
 const slotDefaults = [
   { label: 'Morning', time: '10:30 AM', active: true, concurrency: 2500 },
@@ -74,12 +33,11 @@ const announcementSeed = [
 export default function AdminPage() {
   const { t } = useTranslation();
   const [stats, setStats] = useState({ players: 12480, slots: 327, violations: 41 });
-  const [queue, setQueue] = useState(initialQueue);
-  const [selectedId, setSelectedId] = useState(initialQueue[0].id);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
   const [typeFilter, setTypeFilter] = useState('All');
   const [rejectReason, setRejectReason] = useState('');
+  const [pendingCount, setPendingCount] = useState(0);
   const [slots, setSlots] = useState(slotDefaults);
   const [rewardRules, setRewardRules] = useState(rewardDefaults);
   const [announcements, setAnnouncements] = useState(announcementSeed);
@@ -98,24 +56,7 @@ export default function AdminPage() {
     return () => clearInterval(tick);
   }, []);
 
-  const filteredQueue = useMemo(() => {
-    return queue.filter((item) => {
-      if (statusFilter !== 'All' && item.status !== statusFilter) return false;
-      if (typeFilter !== 'All' && item.type !== typeFilter) return false;
-      if (!search.trim()) return true;
-
-      const q = search.toLowerCase();
-      return (
-        item.id.toLowerCase().includes(q)
-        || item.title.toLowerCase().includes(q)
-        || item.teacher.toLowerCase().includes(q)
-        || item.category.toLowerCase().includes(q)
-      );
-    });
-  }, [queue, search, statusFilter, typeFilter]);
-
-  const selectedItem = filteredQueue.find((item) => item.id === selectedId) || filteredQueue[0] || null;
-  const pendingCount = queue.filter((q) => q.status === 'Pending').length;
+  // ApprovalPanel computes its own filtered queue and selected item internally.
 
   const analytics = useMemo(() => {
     const weeklyUsers = [73, 68, 79, 84, 88, 81, 91];
@@ -124,26 +65,7 @@ export default function AdminPage() {
     return { weeklyUsers, completionRate, teacherParticipation };
   }, []);
 
-  function updateQueueStatus(id, nextStatus) {
-    setQueue((prev) => prev.map((item) => (item.id === id ? { ...item, status: nextStatus } : item)));
-    if (nextStatus !== 'Rejected') {
-      setRejectReason('');
-    }
-  }
-
-  function applyApprove() {
-    if (!selectedItem) return;
-    updateQueueStatus(selectedItem.id, 'Approved');
-  }
-
-  function applyReject() {
-    if (!selectedItem) return;
-    if (!rejectReason.trim()) {
-      alert(t('adminEnterRejectionReason'));
-      return;
-    }
-    updateQueueStatus(selectedItem.id, 'Rejected');
-  }
+  // Approval actions handled inside ApprovalPanel
 
 
   function updateSlot(index, key, value) {
@@ -194,22 +116,7 @@ export default function AdminPage() {
 
           <div className="admin-main-grid">
           {activeModule === 'approval' ? (
-            <ApprovalPanel
-              t={t}
-              search={search}
-              setSearch={setSearch}
-              statusFilter={statusFilter}
-              setStatusFilter={setStatusFilter}
-              typeFilter={typeFilter}
-              setTypeFilter={setTypeFilter}
-              filteredQueue={filteredQueue}
-              selectedItem={selectedItem}
-              setSelectedId={setSelectedId}
-              rejectReason={rejectReason}
-              setRejectReason={setRejectReason}
-              applyReject={applyReject}
-              applyApprove={applyApprove}
-            />
+            <ApprovalPanel t={t} onPendingCountChange={setPendingCount} />
           ) : null}
 
           {activeModule === 'slots' ? (

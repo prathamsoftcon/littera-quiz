@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from '../../context/TranslationContext';
 
-export default function StudentPerformancePanel({ bars, notes }) {
+export default function StudentPerformancePanel() {
   const { t } = useTranslation();
+  const bars = useMemo(() => [42, 75, 62, 88, 54], []);
+  const notes = useMemo(() => [
+    t('teacherPerformanceNoteAccuracy'),
+    t('teacherPerformanceNoteNeedsRetry'),
+    t('teacherPerformanceNoteRankProgression'),
+  ], [t]);
+
   return (
     <article className="panel teacher-panel">
       <div className="teacher-panel-header">

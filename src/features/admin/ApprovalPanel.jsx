@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 function getStatusTone(status) {
   if (status === 'Approved') return 'ok';
@@ -13,23 +13,64 @@ function getStatusLabel(status, t) {
   if (status === 'Under review') return t('adminUnderReview');
   return t('adminPending');
 }
+export default function ApprovalPanel({ t, onPendingCountChange }) {
+  const initialQueue = [
+    {
+      id: 'Q-1782',
+      title: 'Image MCQ - Fractions of Pizza',
+      teacher: 'Ms. Patel',
+      type: 'MCQ',
+      category: 'Math',
+      difficulty: 'Medium',
+      status: 'Pending',
+      age: '18m',
+    },
+    {
+      id: 'Q-1783',
+      title: 'Fill Blank - Photosynthesis',
+      teacher: 'Mr. Khan',
+      type: 'Fill',
+      category: 'Science',
+      difficulty: 'Easy',
+      status: 'Pending',
+      age: '24m',
+    },
+    {
+      id: 'Q-1785',
+      title: 'Match Capitals and States',
+      teacher: 'Ms. Das',
+      type: 'Match',
+      category: 'Geography',
+      difficulty: 'Hard',
+      status: 'Under review',
+      age: '36m',
+    },
+    {
+      id: 'Q-1788',
+      title: 'Audio Question - Birds Sound',
+      teacher: 'Mr. Nair',
+      type: 'Media',
+      category: 'EVS',
+      difficulty: 'Medium',
+      status: 'Pending',
+      age: '42m',
+    },
+  ];
 
-export default function ApprovalPanel({
-  t,
-  search,
-  setSearch,
-  statusFilter,
-  setStatusFilter,
-  typeFilter,
-  setTypeFilter,
-  filteredQueue,
-  selectedItem,
-  setSelectedId,
-  rejectReason,
-  setRejectReason,
-  applyReject,
-  applyApprove,
-}) {
+  const [queue, setQueue] = useState(initialQueue);
+  const [search, setSearch] = useState('');
+  const [statusFilter, setStatusFilter] = useState('All');
+  const [typeFilter, setTypeFilter] = useState('All');
+  const [selectedId, setSelectedId] = useState(initialQueue[0]?.id || null);
+  const [rejectReason, setRejectReason] = useState('');
+
+  useEffect(() => {
+    if (typeof onPendingCountChange === 'function') {
+      const pending = queue.filter((q) => q.status === 'Pending').length;
+      onPendingCountChange(pending);
+    }
+  }, [queue, onPendingCountChange]);
+
   const statusOptions = [
     { value: 'All', label: t('adminAll') },
     { value: 'Pending', label: t('adminPending') },
@@ -44,6 +85,45 @@ export default function ApprovalPanel({
     { value: 'Match', label: t('adminTypeMatch') },
     { value: 'Media', label: t('adminTypeMedia') },
   ];
+
+  const filteredQueue = useMemo(() => {
+    return queue.filter((item) => {
+      if (statusFilter !== 'All' && item.status !== statusFilter) return false;
+      if (typeFilter !== 'All' && item.type !== typeFilter) return false;
+      if (!search.trim()) return true;
+
+      const q = search.toLowerCase();
+      return (
+        item.id.toLowerCase().includes(q)
+        || item.title.toLowerCase().includes(q)
+        || item.teacher.toLowerCase().includes(q)
+        || item.category.toLowerCase().includes(q)
+      );
+    });
+  }, [queue, search, statusFilter, typeFilter]);
+
+  const selectedItem = filteredQueue.find((item) => item.id === selectedId) || filteredQueue[0] || null;
+
+  function updateQueueStatus(id, nextStatus) {
+    setQueue((prev) => prev.map((item) => (item.id === id ? { ...item, status: nextStatus } : item)));
+    if (nextStatus !== 'Rejected') {
+      setRejectReason('');
+    }
+  }
+
+  function applyApprove() {
+    if (!selectedItem) return;
+    updateQueueStatus(selectedItem.id, 'Approved');
+  }
+
+  function applyReject() {
+    if (!selectedItem) return;
+    if (!rejectReason.trim()) {
+      alert(t('adminEnterRejectionReason'));
+      return;
+    }
+    updateQueueStatus(selectedItem.id, 'Rejected');
+  }
 
   return (
     <article className="panel admin-panel queue-panel active-panel">

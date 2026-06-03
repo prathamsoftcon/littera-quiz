@@ -1,28 +1,59 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from '../../context/TranslationContext';
 import SegmentedControl from '../../components/SegmentedControl';
 
-export default function QuestionSubmissionPanel({
-  questionTypes,
-  selectedType,
-  onTypeChange,
-  questionText,
-  onQuestionTextChange,
-  answerData,
-  onAnswerDataChange,
-  category,
-  onCategoryChange,
-  subCategory,
-  onSubCategoryChange,
-  mediaUrl,
-  onMediaUrlChange,
-  difficultyOptions,
-  selectedDifficulty,
-  onDifficultyChange,
-  onSaveDraft,
-  onSubmit,
-}) {
+export default function QuestionSubmissionPanel({ onAction } = {}) {
   const { t } = useTranslation();
+  const questionTypes = [
+    { value: 'MCQ', label: t('teacherTypeMcq') },
+    { value: 'Fill', label: t('teacherTypeFill') },
+    { value: 'Match', label: t('teacherTypeMatch') },
+    { value: 'Media', label: t('teacherTypeMedia') },
+  ];
+  const difficultyOptions = [
+    { value: 'Easy', label: t('teacherDifficultyEasy') },
+    { value: 'Medium', label: t('teacherDifficultyMedium') },
+    { value: 'Hard', label: t('teacherDifficultyHard') },
+  ];
+
+  const [selectedType, setSelectedType] = useState('MCQ');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('Medium');
+  const [questionText, setQuestionText] = useState('');
+  const [answerData, setAnswerData] = useState('');
+  const [category, setCategory] = useState('');
+  const [subCategory, setSubCategory] = useState('');
+  const [mediaUrl, setMediaUrl] = useState('');
+  const messageTimer = useRef(null);
+
+  function showMessage(msg) {
+    if (typeof onAction === 'function') onAction(msg);
+    if (messageTimer.current) clearTimeout(messageTimer.current);
+    messageTimer.current = setTimeout(() => {
+      if (typeof onAction === 'function') onAction('');
+    }, 2800);
+  }
+
+  function handleSaveDraft() {
+    if (!questionText.trim()) {
+      showMessage(t('teacherMessageDraftNeedQuestion'));
+      return;
+    }
+    showMessage(t('teacherMessageDraftSaved'));
+  }
+
+  function handleSubmit() {
+    if (!questionText.trim() || !category.trim() || !subCategory.trim()) {
+      showMessage(t('teacherMessageSubmitMissing'));
+      return;
+    }
+    showMessage(t('teacherMessageSubmitSuccess'));
+    setQuestionText('');
+    setCategory('');
+    setSubCategory('');
+    setMediaUrl('');
+    setAnswerData('');
+  }
+
   return (
     <article className="panel teacher-panel">
       <div className="teacher-panel-header">
@@ -31,7 +62,7 @@ export default function QuestionSubmissionPanel({
           <p className="teacher-panel-subtitle">{t('teacherSubmissionSubtitle')}</p>
         </div>
       </div>
-      <SegmentedControl options={questionTypes} value={selectedType} onChange={onTypeChange} />
+      <SegmentedControl options={questionTypes} value={selectedType} onChange={setSelectedType} />
       <div className="teacher-form-row">
         <div>
           <label htmlFor="teacher-category">{t('teacherSubmissionCategory')}</label>
@@ -39,7 +70,7 @@ export default function QuestionSubmissionPanel({
             id="teacher-category"
             className="teacher-input"
             value={category}
-            onChange={(event) => onCategoryChange(event.target.value)}
+            onChange={(event) => setCategory(event.target.value)}
             placeholder={t('teacherSubmissionCategoryPlaceholder')}
           />
         </div>
@@ -49,7 +80,7 @@ export default function QuestionSubmissionPanel({
             id="teacher-subcategory"
             className="teacher-input"
             value={subCategory}
-            onChange={(event) => onSubCategoryChange(event.target.value)}
+            onChange={(event) => setSubCategory(event.target.value)}
             placeholder={t('teacherSubmissionSubCategoryPlaceholder')}
           />
         </div>
@@ -59,7 +90,7 @@ export default function QuestionSubmissionPanel({
         id="teacher-question"
         className="teacher-textarea"
         value={questionText}
-        onChange={(event) => onQuestionTextChange(event.target.value)}
+        onChange={(event) => setQuestionText(event.target.value)}
         placeholder={t('teacherSubmissionQuestionPlaceholder')}
       />
       <div className="teacher-form-row">
@@ -69,7 +100,7 @@ export default function QuestionSubmissionPanel({
             id="teacher-media"
             className="teacher-input"
             value={mediaUrl}
-            onChange={(event) => onMediaUrlChange(event.target.value)}
+            onChange={(event) => setMediaUrl(event.target.value)}
             placeholder={t('teacherSubmissionMediaPlaceholder')}
           />
         </div>
@@ -78,7 +109,7 @@ export default function QuestionSubmissionPanel({
           <SegmentedControl
             options={difficultyOptions}
             value={selectedDifficulty}
-            onChange={onDifficultyChange}
+            onChange={setSelectedDifficulty}
           />
         </div>
       </div>
@@ -87,12 +118,12 @@ export default function QuestionSubmissionPanel({
         id="teacher-answer"
         className="teacher-textarea"
         value={answerData}
-        onChange={(event) => onAnswerDataChange(event.target.value)}
+        onChange={(event) => setAnswerData(event.target.value)}
         placeholder={t('teacherSubmissionAnswerPlaceholder')}
       />
       <div className="teacher-inline-actions">
-        <button type="button" className="teacher-btn ghost" onClick={onSaveDraft}>{t('teacherSubmissionSaveDraft')}</button>
-        <button type="button" className="teacher-btn" onClick={onSubmit}>{t('teacherSubmissionSubmit')}</button>
+        <button type="button" className="teacher-btn ghost" onClick={handleSaveDraft}>{t('teacherSubmissionSaveDraft')}</button>
+        <button type="button" className="teacher-btn" onClick={handleSubmit}>{t('teacherSubmissionSubmit')}</button>
       </div>
     </article>
   );
