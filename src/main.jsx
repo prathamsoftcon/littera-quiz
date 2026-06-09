@@ -9,7 +9,7 @@ const root = createRoot(document.getElementById('root') || document.body.appendC
 root.render(
   <React.StrictMode>
     <TranslationProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/quiz">
         <App />
       </BrowserRouter>
     </TranslationProvider>

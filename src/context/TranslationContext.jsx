@@ -29,10 +29,10 @@ export function TranslationProvider({ children }) {
     let isMounted = true;
     
     //for development 
-    const baseUrl = import.meta?.env?.BASE_URL || '/';
+    // const baseUrl = import.meta?.env?.BASE_URL || '/';
 
     //for production (Build)
-    // const baseUrl = import.meta?.env?.BASE_URL || '/quiz/';
+    const baseUrl = import.meta?.env?.BASE_URL || '/quiz/';
 
     const loadTranslations = async () => {
       try {
