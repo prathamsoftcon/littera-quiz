@@ -27,7 +27,12 @@ export function TranslationProvider({ children }) {
 
   useEffect(() => {
     let isMounted = true;
+    
+    //for development 
     const baseUrl = import.meta?.env?.BASE_URL || '/';
+
+    //for production (Build)
+    // const baseUrl = import.meta?.env?.BASE_URL || '/quiz/';
 
     const loadTranslations = async () => {
       try {
