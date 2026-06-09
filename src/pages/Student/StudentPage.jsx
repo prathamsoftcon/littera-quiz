@@ -3,7 +3,10 @@ import { useTranslation } from '../../context/TranslationContext';
 import StudentSidebar from '../../components/student/StudentSidebar';
 import StudentOverviewPanel from '../../features/student/StudentOverviewPanel';
 import StudentLobbyPanel from '../../features/student/StudentLobbyPanel';
-import StudentBoardPanel from '../../features/student/StudentBoardPanel';
+// StudentBoardPanel replaced by specific board components (1v1 / Group / Tournament)
+import OneVOneGameBoard from '../../features/student/1v1gameboard';
+import GroupGameBoard from '../../features/student/groupegameboard';
+import TournamentGameBoard from '../../features/student/tournamentgameboard';
 import StudentNotificationsPanel from '../../features/student/StudentNotificationsPanel';
 
 const sidebarItems = [
@@ -154,7 +157,20 @@ export default function StudentPage() {
             )}
 
             {activeModule === 'board' && (
-              <StudentBoardPanel variant={boardVariant} settings={boardSettings} diceRoll={diceRoll} onRollDice={handleRollDice} />
+              <>
+                {boardVariant === '1v1' && (
+                  <OneVOneGameBoard variant="1v1" settings={boardSettings} initial={{ p1: 0, p2: 0 }} />
+                )}
+                {boardVariant === 'Group' && (
+                  <GroupGameBoard variant="Group" settings={boardSettings} />
+                )}
+                {boardVariant === 'Tournament' && (
+                  <TournamentGameBoard variant="Tournament" settings={boardSettings} />
+                )}
+                {!boardVariant && (
+                  <div className="rounded-2xl p-6 bg-white text-slate-700">{t('board.noSelection', 'No board selected — join a match from Lobby.')}</div>
+                )}
+              </>
             )}
 
             {activeModule === 'notifications' && (

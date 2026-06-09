@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from '../../context/TranslationContext';
+import OneVOneGameBoard from './1v1gameboard';
+import GroupGameBoard from './groupegameboard';
+import TournamentGameBoard from './tournamentgameboard';
 
 export default function StudentLobbyPanel({ modes, queuePosition, notes, selectedMode, onModeSelect, onJoin }) {
   const { t } = useTranslation();
@@ -9,12 +12,24 @@ export default function StudentLobbyPanel({ modes, queuePosition, notes, selecte
   const [preloadedCount, setPreloadedCount] = useState(12);
   const [lowNetwork, setLowNetwork] = useState(true);
   const [speedBonus, setSpeedBonus] = useState('Small');
+  const [joined, setJoined] = useState(false);
+  const [joinedMode, setJoinedMode] = useState(null);
+  const [joinedSettings, setJoinedSettings] = useState({});
+  const [joinedKey, setJoinedKey] = useState(null);
 
   useEffect(() => setLocalMode(selectedMode), [selectedMode]);
 
   function handleConfirmJoin() {
     setConfirmOpen(false);
-    onJoin && onJoin({ mode: localMode, settings: { preloadedCount, lowNetwork, speedBonus } });
+    const settings = { preloadedCount, lowNetwork, speedBonus };
+    setJoined(true);
+    setJoinedMode(localMode);
+    setJoinedSettings(settings);
+    const normalize = (m) => (typeof m === 'string' ? m.toLowerCase().replace(/\s+/g, '') : m);
+    const key = normalize(localMode);
+    setJoinedKey(key);
+    console.log('[Lobby] handleConfirmJoin:', { localMode, key, settings });
+    onJoin && onJoin({ mode: localMode, settings });
   }
 
   function toggleNote(n) {
@@ -22,6 +37,7 @@ export default function StudentLobbyPanel({ modes, queuePosition, notes, selecte
   }
 
   return (
+    <>
     <article className="rounded-[32px] border border-slate-200/80 bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.08)] sm:p-8">
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
@@ -138,5 +154,25 @@ export default function StudentLobbyPanel({ modes, queuePosition, notes, selecte
         </div>
       ) : null}
     </article>
+
+    {joined && joinedKey === '1v1' && (
+      <div className="mt-6">
+        {console.log('[Lobby] rendering 1v1 board, joinedMode=', joinedMode)}
+        <OneVOneGameBoard variant="1v1" settings={joinedSettings} />
+      </div>
+    )}
+    {joined && joinedKey === 'group' && (
+      <div className="mt-6">
+        {console.log('[Lobby] rendering Group board, joinedMode=', joinedMode)}
+        <GroupGameBoard variant="Group" settings={joinedSettings} />
+      </div>
+    )}
+    {joined && joinedKey === 'tournament' && (
+      <div className="mt-6">
+        {console.log('[Lobby] rendering Tournament board, joinedMode=', joinedMode)}
+        <TournamentGameBoard variant="Tournament" settings={joinedSettings} />
+      </div>
+    )}
+    </>
   );
 }

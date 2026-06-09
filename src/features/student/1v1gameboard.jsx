@@ -1,101 +1,259 @@
+import React, { useState } from "react";
+import {
+  GiSnake,
+  GiLadder,
+} from "react-icons/gi";
 
-import React from 'react';
-import { useTranslation } from '../../context/TranslationContext';
+const snakes = {
+  99: 78,
+  95: 75,
+  93: 73,
+  87: 24,
+  64: 60,
+  62: 19,
+  54: 34,
+  17: 7,
+};
 
-const boardCells = Array.from({ length: 25 }).map((_, index) => {
-  const number = 100 - index * 4;
-  return {
-    number,
-    type: [6, 18].includes(index) ? 'snake' : [11].includes(index) ? 'ladder' : null,
+const ladders = {
+  4: 14,
+  9: 31,
+  20: 38,
+  28: 84,
+  40: 59,
+  51: 67,
+  63: 81,
+  71: 91,
+};
+
+const specialMoves = {
+  ...snakes,
+  ...ladders,
+};
+
+const generateBoard = () => {
+  const rows = [];
+
+  for (let row = 0; row < 10; row++) {
+    let start = row * 10 + 1;
+    let rowCells = [];
+
+    for (let i = 0; i < 10; i++) {
+      rowCells.push(start + i);
+    }
+
+    if (row % 2 === 1) {
+      rowCells.reverse();
+    }
+
+    rows.unshift(...rowCells);
+  }
+
+  return rows;
+};
+
+const boardCells = generateBoard();
+
+export default function GameBoard() {
+  const [dice, setDice] = useState(null);
+  const [currentPlayer, setCurrentPlayer] = useState(1);
+
+  const [positions, setPositions] = useState({
+    1: 1,
+    2: 1,
+  });
+
+  const [winner, setWinner] = useState(null);
+  const [rolling, setRolling] = useState(false);
+
+  const rollDice = () => {
+    if (rolling || winner) return;
+
+    setRolling(true);
+
+    const value = Math.floor(Math.random() * 6) + 1;
+
+    setTimeout(() => {
+      setDice(value);
+
+      setPositions((prev) => {
+        const currentPos = prev[currentPlayer];
+
+        let nextPos = currentPos + value;
+
+        if (nextPos > 100) {
+          nextPos = currentPos;
+        }
+
+        if (specialMoves[nextPos]) {
+          nextPos = specialMoves[nextPos];
+        }
+
+        const updated = {
+          ...prev,
+          [currentPlayer]: nextPos,
+        };
+
+        if (nextPos === 100) {
+          setWinner(currentPlayer);
+        }
+
+        return updated;
+      });
+
+      if (!winner) {
+        setCurrentPlayer((p) => (p === 1 ? 2 : 1));
+      }
+
+      setRolling(false);
+    }, 700);
   };
-});
 
-export default function StudentBoardPanel({ variant = '1v1', settings = {}, diceRoll, onRollDice }) {
-  const { t } = useTranslation();
-  const title =
-    variant === 'Group'
-      ? t('board.variant.group')
-      : variant === 'Tournament'
-      ? t('board.variant.tournament')
-      : t('board.variant.1v1');
-  const { preloadedCount = 12, lowNetwork = false, speedBonus = 'Small' } = settings;
+  const resetGame = () => {
+    setPositions({
+      1: 1,
+      2: 1,
+    });
+
+    setWinner(null);
+    setDice(null);
+    setCurrentPlayer(1);
+    setRolling(false);
+  };
 
   return (
-    <article className="rounded-[32px] border border-slate-200/80 bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.08)] sm:p-8">
-      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-          <p className="text-sm uppercase tracking-[0.18em] text-slate-500">{t('board.title')}</p>
-          <h2 className="mt-2 text-2xl font-semibold text-sky-700">{title}</h2>
+    <div className="w-full p-6 bg-slate-50 min-h-screen">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold text-blue-700">
+          Game Board
+        </h2>
+
+        <h2 className="text-2xl font-bold text-green-700">
+          🐍 Snakes & Ladders Match
+        </h2>
+      </div>
+
+      {/* Players */}
+      <div className="grid grid-cols-2 gap-6 mb-6">
+        <div className="bg-rose-50 rounded-xl p-4 shadow">
+          <div className="font-bold text-lg">Player 1</div>
+          <div>Position: {positions[1]}</div>
+
+          <div className="mt-3 w-12 h-12 bg-rose-500 rounded-full text-white flex items-center justify-center font-bold">
+            P1
+          </div>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="rounded-full bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-800">{t('board.dice')}: {diceRoll}</div>
+
+        <div className="bg-emerald-50 rounded-xl p-4 shadow text-right">
+          <div className="font-bold text-lg">Player 2</div>
+          <div>Position: {positions[2]}</div>
+
+          <div className="mt-3 ml-auto w-12 h-12 bg-emerald-500 rounded-full text-white flex items-center justify-center font-bold">
+            P2
+          </div>
+        </div>
+      </div>
+
+      {/* Dice */}
+      <div className="text-center mb-8">
+        <div className="text-7xl font-bold text-blue-700">
+          {dice || "-"}
+        </div>
+
+        <button
+          onClick={rollDice}
+          disabled={rolling || winner}
+          className="mt-4 px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold disabled:opacity-50"
+        >
+          {rolling ? "Rolling..." : "Roll Dice"}
+        </button>
+
+        <div className="mt-3 text-gray-700">
+          Current Turn: Player {currentPlayer}
+        </div>
+      </div>
+
+      {/* Info */}
+      <div className="flex justify-between items-center mb-6">
+        <div>
+          Preloaded Questions: 12
+          <br />
+          Low Network: Enabled
+        </div>
+
+        <div className="text-right">
           <button
-            type="button"
-            onClick={() => onRollDice && onRollDice()}
-            className="rounded-full bg-sky-800 px-3 py-2 text-sm font-semibold text-white hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500"
+            onClick={resetGame}
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
           >
-            {t('board.roll')}
+            Restart
           </button>
+
+          <div className="mt-2">
+            Rolled: {dice || "-"}
+          </div>
         </div>
       </div>
 
-      <div className="mb-6">
-        {variant === 'Group' && (
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-slate-700">
-            <div className="font-semibold">{t('board.group.title')}</div>
-            <div className="mt-2">{t('board.group.desc')}</div>
-            <div className="mt-3 text-sm text-slate-500">{t('board.preloaded', { count: preloadedCount })} • {lowNetwork ? t('board.lowNetworkEnabled') : t('board.lowNetworkDisabled')} • {t('board.speedBonus', { speedBonus })}</div>
-          </div>
-        )}
-        {variant === 'Tournament' && (
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-slate-700">
-            <div className="font-semibold">{t('board.tournament.title')}</div>
-            <div className="mt-2">{t('board.tournament.desc')}</div>
-            <div className="mt-3 text-sm text-slate-500">{t('board.preloaded', { count: preloadedCount })} • {lowNetwork ? t('board.lowNetworkEnabled') : t('board.lowNetworkDisabled')} • {t('board.speedBonus', { speedBonus })}</div>
-          </div>
-        )}
-        {variant === '1v1' && (
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-slate-700">
-            <div className="font-semibold">{t('board.1v1.title')}</div>
-            <div className="mt-2">{t('board.1v1.desc')}</div>
-            <div className="mt-3 text-sm text-slate-500">{t('board.preloaded', { count: preloadedCount })} • {lowNetwork ? t('board.lowNetworkEnabled') : t('board.lowNetworkDisabled')} • {t('board.speedBonus', { speedBonus })}</div>
-          </div>
-        )}
+      {/* Board */}
+      <div className="grid grid-cols-10 gap-1 bg-white p-2 rounded-xl shadow-lg">
+        {boardCells.map((number) => {
+          const isSnake = snakes[number];
+          const isLadder = ladders[number];
+
+          return (
+            <div
+              key={number}
+              className="relative aspect-square border border-slate-300 bg-white rounded-lg overflow-hidden"
+            >
+              <div className="absolute top-1 left-1 text-xs font-bold">
+                {number}
+              </div>
+
+              {isSnake && (
+                <GiSnake className="absolute inset-0 m-auto text-red-500 text-4xl opacity-70" />
+              )}
+
+              {isLadder && (
+                <GiLadder
+                   className="absolute inset-0 m-auto text-green-600 text-4xl opacity-70"
+                />
+              )}
+
+              {positions[1] === number && (
+                <div className="absolute bottom-1 left-1 w-6 h-6 bg-rose-500 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                  1
+                </div>
+              )}
+
+              {positions[2] === number && (
+                <div className="absolute bottom-1 right-1 w-6 h-6 bg-emerald-500 text-white rounded-full flex items-center justify-center text-xs font-bold">
+                  2
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
 
-      <div className="grid gap-2 rounded-[28px] border border-slate-200 bg-slate-950/95 p-4 text-slate-100 grid-cols-2 sm:grid-cols-5">
-        {boardCells.map((cell) => (
-          <div
-            key={cell.number}
-            className={`relative flex min-h-[64px] sm:min-h-[88px] flex-col items-center justify-between rounded-3xl border border-slate-800/70 bg-slate-900/95 p-2 text-xs sm:text-sm ${
-              cell.type === 'snake' ? 'bg-rose-500/10' : cell.type === 'ladder' ? 'bg-emerald-500/10' : ''
-            }`}
-          >
-            <span className="font-semibold text-slate-200">{cell.number}</span>
-            {cell.type ? (
-              <span className={`rounded-full px-2 py-1 text-[10px] uppercase tracking-[0.18em] ${
-                cell.type === 'snake' ? 'bg-rose-500/15 text-rose-300' : 'bg-emerald-500/15 text-emerald-300'
-              }`}>
-                {cell.type}
-              </span>
-            ) : null}
-          </div>
-        ))}
-      </div>
+      {/* Winner Modal */}
+      {winner && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white p-8 rounded-2xl text-center shadow-2xl">
+            <h2 className="text-4xl font-bold text-green-600">
+              🎉 Player {winner} Wins!
+            </h2>
 
-      <div className="mt-6 rounded-3xl border border-slate-200 bg-slate-50 p-5 text-slate-700">
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">{t('board.objective')}</p>
-        <p className="mt-3 leading-6">
-          {variant === 'Tournament' ? (
-            <>{t('board.objective.tournament', { speedBonus })}</>
-          ) : variant === 'Group' ? (
-            <>{t('board.objective.group', { lowNetwork: lowNetwork ? t('board.lowNetworkEnabled') : t('board.lowNetworkDisabled') })}</>
-          ) : (
-            <>{t('board.objective.1v1', { speedBonus })}</>
-          )}
-        </p>
-        <div className="mt-4 text-sm text-slate-500">{t('board.preloaded', { count: preloadedCount })}</div>
-      </div>
-    </article>
+            <button
+              onClick={resetGame}
+              className="mt-5 px-5 py-2 bg-blue-600 text-white rounded-lg"
+            >
+              Play Again
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
