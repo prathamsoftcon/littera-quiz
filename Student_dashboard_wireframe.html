@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dashboard Wireframe</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f5f7fb;padding:20px}
+.header,.card,.panel,.sidebar,.table{background:#fff;border:2px solid #ccc;border-radius:10px}
+.layout{display:grid;grid-template-columns:260px 1fr;gap:20px}
+.sidebar{padding:20px;height:calc(100vh - 40px)}
+.sidebar ul{list-style:none}
+.sidebar li{padding:12px;border:1px dashed #999;margin-bottom:10px}
+.content{display:flex;flex-direction:column;gap:20px}
+.header{padding:20px}
+.cards{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.card{padding:20px;text-align:center;min-height:90px}
+.grid2{display:grid;grid-template-columns:2fr 1fr;gap:20px}
+.panel{padding:20px;min-height:220px}
+.modecards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.board{display:grid;grid-template-columns:2fr 1fr;gap:15px}
+.boardarea{height:500px;border:2px dashed #999;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.rightwidgets{display:flex;flex-direction:column;gap:10px}
+.widget{height:115px;border:2px dashed #999;border-radius:10px;padding:10px}
+.table{padding:20px}
+table{width:100%;border-collapse:collapse}
+td,th{border:1px solid #999;padding:10px;text-align:left}
+.section-title{margin-bottom:15px;font-weight:bold}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<div class="sidebar">
+<h2>STUDENT MENU</h2><br>
+<ul>
+<li>Dashboard</li>
+<li>Match Lobby</li>
+<li>Game Board</li>
+<li>Leaderboard</li>
+<li>Quiz History</li>
+<li>Subjects</li>
+<li>Achievements</li>
+<li>Rewards</li>
+<li>Notifications</li>
+<li>Profile</li>
+<li>Settings</li>
+</ul>
+</div>
+
+<div class="content">
+
+<div class="header">
+<h1>Welcome Back Student 👋</h1>
+<p>XP: 2450 | Coins: 1250 | Level: 12 | Notifications</p>
+</div>
+
+<div class="cards">
+<div class="card">Rank #18</div>
+<div class="card">Accuracy 86%</div>
+<div class="card">Streak 6 Days</div>
+<div class="card">Level 12</div>
+<div class="card">Coins 1250</div>
+<div class="card">XP 2450</div>
+</div>
+
+<div class="grid2">
+<div class="panel">
+<div class="section-title">Performance Chart</div>
+<div style="height:150px;border:2px dashed #999"></div>
+</div>
+<div class="panel">
+<div class="section-title">Upcoming Matches</div>
+Math Sprint<br><br>
+Science Clash<br><br>
+Tournament
+</div>
+</div>
+
+<div class="panel">
+<div class="section-title">Match Lobby</div>
+<div class="modecards">
+<div class="card">1v1 Battle<br>Prize 50 XP</div>
+<div class="card">Group Match<br>Prize 100 XP</div>
+<div class="card">Tournament<br>Prize 500 XP</div>
+</div>
+</div>
+
+<div class="panel">
+<div class="section-title">Game Board</div>
+<div class="board">
+<div class="boardarea">SNAKES & LADDERS BOARD</div>
+<div class="rightwidgets">
+<div class="widget">Leaderboard</div>
+<div class="widget">Players</div>
+<div class="widget">Timer</div>
+<div class="widget">Question Panel</div>
+</div>
+</div>
+</div>
+
+<div class="table">
+<div class="section-title">Leaderboard</div>
+<table>
+<tr><th>Rank</th><th>Name</th><th>Points</th></tr>
+<tr><td>1</td><td>Rahul</td><td>9420</td></tr>
+<tr><td>2</td><td>Meera</td><td>8860</td></tr>
+<tr><td>3</td><td>Pooja</td><td>8420</td></tr>
+</table>
+</div>
+
+<div class="table">
+<div class="section-title">Quiz History</div>
+<table>
+<tr><th>Quiz</th><th>Score</th><th>Accuracy</th></tr>
+<tr><td>Math</td><td>95</td><td>95%</td></tr>
+<tr><td>Science</td><td>82</td><td>82%</td></tr>
+</table>
+</div>
+
+<div class="grid2">
+<div class="panel">
+<div class="section-title">Achievements</div>
+🏆 First Victory<br><br>
+🔥 7 Day Streak<br><br>
+⚡ Speed Master<br><br>
+🎯 90% Accuracy
+</div>
+
+<div class="panel">
+<div class="section-title">Rewards</div>
+Coins: 1250<br><br>
+XP: 2450<br><br>
+Premium Avatar<br>
+Golden Badge
+</div>
+</div>
+
+<div class="grid2">
+<div class="panel">
+<div class="section-title">Subject Progress</div>
+Mathematics 85%<br><br>
+Science 72%<br><br>
+English 90%
+</div>
+
+<div class="panel">
+<div class="section-title">Notifications</div>
+Match Started<br><br>
+Reward Claimed<br><br>
+Tournament Live
+</div>
+</div>
+
+<div class="panel">
+<div class="section-title">Profile</div>
+Avatar<br><br>
+Name<br>
+Class<br>
+School<br><br>
+Matches Played | Wins | Accuracy
+</div>
+
+</div>
+</div>
+
+</body>
+</html>
