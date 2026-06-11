@@ -11,6 +11,7 @@ export default function OTPVerification({ phone, onVerify, onResend }) {
   const { t } = useTranslation();
   const [otp, setOtp] = useState('');
   const [timeLeft, setTimeLeft] = useState(120);
+  const [otpDisabled, setOtpDisabled] = useState(false);
 
   useEffect(() => {
     setTimeLeft(120);
@@ -32,14 +33,44 @@ export default function OTPVerification({ phone, onVerify, onResend }) {
     return () => clearInterval(timer);
   }, [timeLeft]);
 
+  useEffect(() => {
+  if (timeLeft <= 0) {
+    setOtp('');
+    setOtpDisabled(true);
+    return;
+  }
+
+  const timer = setInterval(() => {
+    setTimeLeft((prev) => {
+      if (prev <= 1) {
+        clearInterval(timer);
+        return 0;
+      }
+      return prev - 1;
+    });
+  }, 1000);
+
+  return () => clearInterval(timer);
+}, [timeLeft]);
+
   const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
   const seconds = String(timeLeft % 60).padStart(2, '0');
 
   function handleResend() {
     if (timeLeft > 0) return;
+
+    setOtp('');
+    setOtpDisabled(false);
+
     onResend && onResend();
     setTimeLeft(120);
   }
+
+  useEffect(() => {
+    setTimeLeft(120);
+    setOtp('');
+    setOtpDisabled(false);
+  }, [phone]);
 
   const card = (
     <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 520, mx: 'auto', transform: 'translateY(-20px)', borderRadius: 3 }}>
@@ -58,7 +89,7 @@ export default function OTPVerification({ phone, onVerify, onResend }) {
           inputProps={{ maxLength: 6, inputMode: 'numeric' }}
           fullWidth
         /> */}
-        <OTPBox value={otp} onChange={setOtp} rowAriaLabel={t('otpBoxes')} digitAriaLabel={t('otpDigit')} />
+        <OTPBox value={otp} onChange={setOtp} disabled={otpDisabled} rowAriaLabel={t('otpBoxes')} digitAriaLabel={t('otpDigit')} />
 
         <Typography variant="caption" color={timeLeft === 0 ? 'success.main' : 'text.secondary'}>
           {timeLeft === 0 ? 'You can now resend OTP.' : `Resend available in ${minutes}:${seconds}`}
@@ -69,7 +100,7 @@ export default function OTPVerification({ phone, onVerify, onResend }) {
             variant="contained"
             color="primary"
             onClick={() => otp.length === 6 && onVerify && onVerify(otp)}
-            disabled={otp.length !== 6}
+            disabled={otp.length !== 6 || otpDisabled}
             fullWidth
           >
             {t('verifyAndContinue')}
