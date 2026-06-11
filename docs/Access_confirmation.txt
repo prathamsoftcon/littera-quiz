@@ -1,0 +1,316 @@
+Access Confirmation Study Document
+
+1. Purpose
+
+The purpose of this study is to validate and confirm role-based access permissions across different administrative levels of the education management system. The system follows a hierarchical structure consisting of District, Block, CRC, and Village levels. Each user should only be able to access data and functionalities according to their assigned role.
+
+
+
+2. Administrative Hierarchy
+
+District
+│
+├── Block
+│
+├── CRC
+│
+└── Village
+
+The hierarchy ensures that higher-level users can access lower-level data while lower-level users cannot access higher-level information.
+
+
+
+3. Objectives
+
+Verify user authentication and authorization.
+Validate access permissions at each hierarchy level.
+Ensure data security and privacy.
+Prevent unauthorized access.
+Confirm that role-based dashboards and reports function correctly.
+Validate approval and workflow processes.
+
+
+4. User Roles and Access Levels
+
+Role	Access Scope	View Data	Edit Data	Approve Data
+Village User	Village Only	Yes	Yes	No
+CRC User	CRC + Villages Under CRC	Yes	Yes	Yes
+Block User	Block + CRC + Villages	Yes	Yes	Yes
+District User	Entire District	Yes	Yes	Yes
+
+
+5. Village Level Access Confirmation
+Access Rights
+
+Village users should:
+
+Login successfully.
+View village dashboard.
+View village-specific records.
+Create and update village data.
+Submit reports.
+Restrictions
+
+Village users should NOT:
+
+Access CRC dashboards.
+Access Block dashboards.
+Access District dashboards.
+Approve higher-level reports.
+Expected Result
+
+The user can access only data belonging to the assigned village.
+
+
+6. CRC Level Access Confirmation
+Access Rights
+
+CRC users should:
+
+Login successfully.
+View CRC dashboard.
+View all villages mapped under the CRC.
+Monitor village-level activities.
+Verify village submissions.
+Generate CRC reports.
+Restrictions
+
+CRC users should NOT:
+
+Access Block administration settings.
+Access District administration settings.
+Expected Result
+
+The user can access CRC data and all villages assigned to that CRC.
+
+
+7. Block Level Access Confirmation
+Access Rights
+
+Block users should:
+
+Login successfully.
+View Block dashboard.
+Access all CRCs under the block.
+Access all villages under mapped CRCs.
+Review and approve CRC submissions.
+Generate block-level reports.
+Restrictions
+
+Block users should NOT:
+
+Modify district-level configurations.
+Access district administrative controls.
+Expected Result
+
+The user can access Block, CRC, and Village-level information within the assigned block.
+
+
+
+8. District Level Access Confirmation
+Access Rights
+
+District users should:
+
+Login successfully.
+View district dashboard.
+Access all blocks within the district.
+Access all CRCs.
+Access all villages.
+Approve block-level submissions.
+Generate district-level reports.
+Monitor complete district performance.
+Expected Result
+
+The user has access to all data within the district.
+
+
+
+9. Access Verification Test Cases
+
+Test Case 1: Village User
+Steps:
+
+Login as Village User.
+Open Dashboard.
+Attempt to access CRC Dashboard URL.
+
+Expected Result:
+
+Village Dashboard opens successfully.
+CRC Dashboard access denied.
+
+Status:
+Pass / Fail
+
+
+Test Case 2: CRC User
+
+Steps:
+
+Login as CRC User.
+View village records.
+Attempt to access Block Administration.
+
+Expected Result:
+
+Village records visible.
+Block Administration access denied.
+
+Status:
+Pass / Fail
+
+
+Test Case 3: Block User
+
+Steps:
+
+Login as Block User.
+View CRC records.
+View village records.
+
+Expected Result:
+
+CRC and Village records visible.
+District administration unavailable.
+
+Status:
+Pass / Fail
+
+
+Test Case 4: District User
+
+Steps:
+
+Login as District User.
+Access all blocks.
+Access all CRCs.
+Access all villages.
+
+Expected Result:
+
+Full district access available.
+
+Status:
+Pass / Fail
+
+
+
+10. Security Validation
+
+The following security validations must be performed:
+
+Role-based access control enforced.
+API-level authorization implemented.
+Unauthorized URL access blocked.
+Session validation active.
+JWT token validation enabled.
+Audit logs maintained.
+Failed access attempts recorded.
+
+
+11. Database Access Mapping
+
+Example Mapping:
+
+User ID	Role	District	Block	CRC	Village
+U001	Village	D01	B01	C01	V01
+U002	CRC	D01	B01	C01	NULL
+U003	Block	D01	B01	NULL	NULL
+U004	District	D01	NULL	NULL	NULL
+
+
+12. Success Criteria
+
+The access confirmation study will be considered successful when:
+
+Users can access only authorized modules.
+Users cannot access higher-level information.
+Dashboard visibility matches assigned roles.
+API responses are restricted according to permissions.
+Unauthorized access attempts are blocked.
+Approval workflows follow the hierarchy.
+Audit logs capture all user activities.
+
+
+13. Conclusion
+
+The Access Confirmation Study ensures that the education management system follows
+proper Role-Based Access Control (RBAC) principles. By validating permissions 
+at Village, CRC, Block, and District levels, the system maintains security, 
+data privacy, and operational accountability across all administrative layers.
+
+
+
+# Access Confirmation Flowchart
+
+
+                           ┌─────────────┐
+                           │    Start    │
+                           └──────┬──────┘
+                                  │
+                                  ▼
+                        ┌──────────────────┐
+                        │   User Login     │
+                        └────────┬─────────┘
+                                 │
+                                 ▼
+                    ┌─────────────────────────┐
+                    │ Authenticate User       │
+                    │ (JWT / Session Check)   │
+                    └──────────┬──────────────┘
+                               │
+                 ┌─────────────┴─────────────┐
+                 │ Authentication Successful?│
+                 └───────┬───────────┬───────┘
+                         │Yes        │No
+                         ▼           ▼
+              ┌─────────────────┐  ┌─────────────────┐
+              │ Identify Role   │  │ Access Denied   │
+              └────────┬────────┘  └─────────────────┘
+                       │
+         ┌─────────────┼─────────────┬─────────────┐
+         │             │             │             │
+         ▼             ▼             ▼             ▼
+
+ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+ │ Village     │ │ CRC User    │ │ Block User  │ │ District    │
+ │ User        │ │             │ │             │ │ User        │
+ └──────┬──────┘ └──────┬──────┘ └──────┬──────┘ └──────┬──────┘
+        │               │               │               │
+        ▼               ▼               ▼               ▼
+
+┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+│ Village     │ │ CRC         │ │ Block       │ │ District    │
+│ Dashboard   │ │ Dashboard   │ │ Dashboard   │ │ Dashboard   │
+└──────┬──────┘ └──────┬──────┘ └──────┬──────┘ └──────┬──────┘
+       │               │               │               │
+       ▼               ▼               ▼               ▼
+
+┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+│ Access Own  │ │ Access CRC  │ │ Access All  │ │ Access All  │
+│ Village     │ │ + Villages  │ │ CRCs +      │ │ Blocks +    │
+│ Data Only   │ │             │ │ Villages    │ │ CRCs +      │
+└──────┬──────┘ └──────┬──────┘ └──────┬──────┘ │ Villages    │
+       │               │               │        └──────┬──────┘
+       ▼               ▼               ▼               ▼
+
+┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+│ Unauthorized│ │ Unauthorized│ │ Unauthorized│ │ Full Access │
+│ Higher Role │ │ District    │ │ District    │ │ Within      │
+│ Access      │ │ Access      │ │ Settings    │ │ District    │
+│ Blocked     │ │ Blocked     │ │ Blocked     │ └──────┬──────┘
+└──────┬──────┘ └──────┬──────┘ └──────┬──────┘        │
+       │               │               │               │
+       └───────────────┴───────────────┴───────────────┘
+                               │
+                               ▼
+                    ┌────────────────────┐
+                    │ Audit Log Created  │
+                    │ Access Recorded    │
+                    └─────────┬──────────┘
+                              │
+                              ▼
+                       ┌────────────┐
+                       │    End     │
+                       └────────────┘
