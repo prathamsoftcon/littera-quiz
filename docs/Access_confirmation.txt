@@ -32,11 +32,11 @@ Validate approval and workflow processes.
 
 4. User Roles and Access Levels
 
-Role	Access Scope	View Data	Edit Data	Approve Data
-Village User	Village Only	Yes	Yes	No
-CRC User	CRC + Villages Under CRC	Yes	Yes	Yes
-Block User	Block + CRC + Villages	Yes	Yes	Yes
-District User	Entire District	Yes	Yes	Yes
+Role	        Access Scope	          View Data	  Edit Data	  Approve Data
+Village User	Village Only	            Yes	        Yes	          No
+CRC User	    CRC + Villages Under CRC	Yes	        Yes	          Yes
+Block User	    Block + CRC + Villages	    Yes	        Yes	          Yes
+District User	Entire District	            Yes	        Yes	          Yes
 
 
 5. Village Level Access Confirmation
@@ -213,11 +213,11 @@ Failed access attempts recorded.
 
 Example Mapping:
 
-User ID	Role	District	Block	CRC	Village
-U001	Village	D01	B01	C01	V01
-U002	CRC	D01	B01	C01	NULL
-U003	Block	D01	B01	NULL	NULL
-U004	District	D01	NULL	NULL	NULL
+User ID	  Role	    District	Block	CRC	   Village
+U001	  Village	D01	        B01	    C01	    V01
+U002	  CRC	    D01	        B01	    C01	    NULL
+U003	  Block	    D01	        B01	    NULL	NULL
+U004	  District	D01	        NULL	NULL	NULL
 
 
 12. Success Criteria
@@ -314,3 +314,6 @@ data privacy, and operational accountability across all administrative layers.
                        ┌────────────┐
                        │    End     │
                        └────────────┘
+
+
+

@@ -1,0 +1,95 @@
+
+MASTER UPLOAD FUNCTIONALITY STUDY
+ADMIN AND TEACHER DASHBOARD
+
+1. OBJECTIVE
+
+The Master Upload functionality enables bulk data upload using Excel or CSV files instead of manual data entry. This feature reduces manual effort, improves data accuracy, and supports large-scale onboarding of users and master records.
+
+Examples:
+- District Master
+- Block Master
+- CRC Master
+- Village Master
+- School Master
+- Teacher Master
+- Student Master
+- Subject Master
+- Class Master
+- Quiz Master
+- Question Bank
+
+2. USER ROLES
+
+ADMIN
+- District Master
+- Block Master
+- CRC Master
+- Village Master
+- School Master
+- Teacher Master
+- Student Master
+- Subject Master
+- Class Master
+- Quiz Master
+- Question Bank
+
+Admin Permissions:
+- Download Template
+- Upload File
+- Validate Data
+- View Error Report
+- Approve Upload
+- Rollback Upload
+- Audit History
+
+TEACHER
+- Student Master
+- Student Enrollment
+- Student Profile Updates
+- Marks Data
+- Attendance Data
+
+Teacher Permissions:
+- Download Template
+- Upload File
+- View Error Report
+
+Teacher Restrictions:
+- Cannot Approve Upload
+- Cannot Rollback Upload
+
+3. WORKFLOW
+
+User Login -> Open Dashboard -> Master Upload Section -> Download Template -> Fill Excel/CSV File -> Upload File -> Validation -> Preview -> Submit Upload -> Save to Database -> Audit Log Entry -> Success Message
+
+4. VALIDATION RULES
+
+- Mandatory Field Validation
+- Data Type Validation
+- Length Validation
+- Duplicate Validation
+- Relationship Validation
+
+5. SECURITY
+
+- File Validation
+- Role-Based Access
+- Permission Verification
+- Secure APIs
+- Activity Logging
+
+6. BENEFITS
+
+- Faster User Onboarding
+- Reduced Manual Work
+- Improved Data Accuracy
+- Centralized Master Data Management
+- Better Audit Compliance
+- Easy Bulk Updates
+- Enhanced Reporting
+- Improved Analytics
+
+CONCLUSION
+
+The Admin dashboard manages all master data uploads, while the Teacher dashboard manages student-related uploads. Strong validation, security, audit tracking, and upload history mechanisms are critical for a scalable and reliable implementation.
