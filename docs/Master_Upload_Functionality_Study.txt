@@ -61,7 +61,10 @@ Teacher Restrictions:
 
 3. WORKFLOW
 
-User Login -> Open Dashboard -> Master Upload Section -> Download Template -> Fill Excel/CSV File -> Upload File -> Validation -> Preview -> Submit Upload -> Save to Database -> Audit Log Entry -> Success Message
+User Login -> Open Dashboard -> Master Upload Section -> 
+Download Template -> Fill Excel/CSV File -> Upload File -> 
+Validation -> Preview -> Submit Upload -> Save to Database -> 
+Audit Log Entry -> Success Message
 
 4. VALIDATION RULES
 

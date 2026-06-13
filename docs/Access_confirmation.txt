@@ -2,7 +2,10 @@ Access Confirmation Study Document
 
 1. Purpose
 
-The purpose of this study is to validate and confirm role-based access permissions across different administrative levels of the education management system. The system follows a hierarchical structure consisting of District, Block, CRC, and Village levels. Each user should only be able to access data and functionalities according to their assigned role.
+The purpose of this study is to validate and confirm role-based access permissions across different 
+administrative levels of the education management system. The system follows a hierarchical structure 
+consisting of District, Block, CRC, and Village levels. Each user should only be able to access data 
+and functionalities according to their assigned role.
 
 
 
@@ -16,7 +19,8 @@ District
 │
 └── Village
 
-The hierarchy ensures that higher-level users can access lower-level data while lower-level users cannot access higher-level information.
+The hierarchy ensures that higher-level users can access lower-level data while lower-level users 
+cannot access higher-level information.
 
 
 
@@ -213,11 +217,11 @@ Failed access attempts recorded.
 
 Example Mapping:
 
-User ID	  Role	    District	Block	CRC	   Village
-U001	  Village	D01	        B01	    C01	    V01
-U002	  CRC	    D01	        B01	    C01	    NULL
-U003	  Block	    D01	        B01	    NULL	NULL
-U004	  District	D01	        NULL	NULL	NULL
+User ID	  Role	    District	  Block	CRC	   Village
+U001	        Village	D01	        B01	    C01	    V01
+U002	        CRC	       D01	        B01	    C01	    NULL
+U003	        Block	       D01	        B01	    NULL	NULL
+U004	       District	D01	        NULL	NULL	NULL
 
 
 12. Success Criteria
