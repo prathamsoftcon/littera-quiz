@@ -19,6 +19,15 @@ html, body, #root {
   overflow-y: auto;
 }
 
+body.onboarding-no-scroll {
+  overflow: hidden;
+}
+
+body.onboarding-no-scroll #root {
+  height: 100vh;
+  overflow: hidden;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

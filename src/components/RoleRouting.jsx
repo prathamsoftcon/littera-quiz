@@ -10,7 +10,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { useTranslation } from '../context/TranslationContext';
 
-export default function RoleRouting({ detectedRole, profileComplete, onSelect }) {
+export default function RoleRouting({ detectedRole, profileComplete, onSelect, compact = false }) {
   const { t } = useTranslation();
   const [selectedRole, setSelectedRole] = useState(detectedRole || '');
 
@@ -58,8 +58,8 @@ export default function RoleRouting({ detectedRole, profileComplete, onSelect })
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, transform: 'translateY(-30px)', borderRadius: 3 }}>
-      <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 460, mx: 'auto', borderRadius: 3 }}>
+    <Box sx={{ minHeight: compact ? 'auto' : '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: compact ? 0 : 4, transform: compact ? 'none' : 'translateY(-30px)', borderRadius: 3 }}>
+      <Paper elevation={compact ? 0 : 3} sx={{ p: 3, width: '100%', maxWidth: 460, mx: 'auto', borderRadius: 3, boxShadow: compact ? 'none' : undefined }}>
         <Stack spacing={1.5} sx={{ mb: 2 }}>
           <Typography variant="h6" sx={{ fontWeight: 'bold' }}>{t('chooseRole')}</Typography>
           {detectedRole && (

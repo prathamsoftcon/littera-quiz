@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Panel from '../../components/Panel';
-import StepFlow from '../../components/StepFlow';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
 import LoginComponent from '../../components/LoginComponent';
 import OTPVerification from '../../components/OTPVerification';
 import RoleRouting from '../../components/RoleRouting';
-import StudentOnboardingForm from '../../components/StudentOnboardingForm';
-import TeacherOnboardingForm from '../../components/TeacherOnboardingForm';
+import OnboardingForm from '../../components/OnboardingForm';
 import AccessConfirmation from '../../components/AccessConfirmation';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useTranslation } from '../../context/TranslationContext';
@@ -40,9 +39,13 @@ export default function OnboardingPage() {
   const [step, setStep] = useState(0);
   const [history, setHistory] = useState([]);
   const [phone, setPhone] = useState('');
-  const [role, setRole] = useState(null);
   const [profileData, setProfileData] = useState(null);
   const [authStarted, setAuthStarted] = useState(false);
+
+  useEffect(() => {
+    document.body.classList.add('onboarding-no-scroll');
+    return () => document.body.classList.remove('onboarding-no-scroll');
+  }, []);
 
   const next = (to = null) => {
     setStep((s) => {
@@ -63,11 +66,6 @@ export default function OnboardingPage() {
       return newH;
     });
   };
-  const handleNext = () => {
-    if (step === 0) return; // Sign in step should use the form to proceed
-    if (step < steps.length - 1) next();
-  };
-
   const handleSendOTP = (m) => {
     setPhone(m);
     setAuthStarted(true);
@@ -110,19 +108,19 @@ export default function OnboardingPage() {
     },
     {
       title: t('otpVerification'),
-      node: <OTPVerification phone={phone} onVerify={handleOTPVerify} onResend={() => {}} />,
+      node: <OTPVerification phone={phone} onVerify={handleOTPVerify} onResend={() => {}} compact />,
     },
     {
       title: t('roleRouting'),
         node: (
           <RoleRouting
             detectedRole={null}
+            compact
             onSelect={(r) => {
               if (r === 'admin') {
                 navigate('/admin');
                 return;
               }
-              setRole(r);
               next(r === 'student' ? 3 : 4);
             }}
           />
@@ -130,51 +128,66 @@ export default function OnboardingPage() {
     },
     {
       title: t('studentOnboarding'),
-      node: <StudentOnboardingForm onSave={(data) => { setProfileData(data); navigate('/student'); }} />,
+      node: <OnboardingForm type="student" onSave={(data) => { setProfileData(data); navigate('/student'); }} />,
     },
     {
       title: t('teacherOnboarding'),
-      node: <TeacherOnboardingForm onSave={(data) => { setProfileData(data); next(5); }} />,
+      node: <OnboardingForm type="teacher" onSave={(data) => { setProfileData(data); next(5); }} />,
     },
     {
       title: t('accessConfirmation'),
-      node: <AccessConfirmation summary={profileData} onContinue={() => {/* go to dashboard */}} />,
+      node: <AccessConfirmation summary={profileData} onContinue={() => {/* go to dashboard */}} compact />,
     },
   ];
 
   const active = steps[step] || steps[0];
+  const showPopup = step > 0;
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
-
-      {authStarted}
-
+    <div className="flex items-center justify-center px-4" style={{ height: '100%', overflow: 'hidden' }}>
       <div className="w-full max-w-2xl">
-        <div className="onboarding-stage" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
-          <div style={{ width: '100%', maxWidth: 720, margin: '0 auto', transform: 'translateY(-30px)' }}>
-            {active.node}
+        <div className="onboarding-stage" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ width: '100%', maxWidth: 720, margin: '0 auto' }}>
+            {steps[0].node}
           </div>
         </div>
       </div>
 
-      <div className="fixed bottom-4 right-4 z-50 flex gap-2">
-        <button
-          onClick={handleBack}
-          disabled={step === 0}
-          className={`flex items-center px-6 py-3 rounded text-white ${step === 0 || step >= steps.length - 1 ? 'bg-gray-300' : 'bg-blue-600 hover:bg-blue-700'}`}
-        >
-          <ArrowBackIosNewIcon fontSize="small" className="mr-2" />
-          {t('back')}
-        </button>
+      <Dialog
+        open={showPopup}
+        maxWidth={step === 3 || step === 4 ? 'md' : 'sm'}
+        fullWidth
+        PaperProps={{
+          sx: {
+            borderRadius: 0,
+            overflow: 'visible',
+            background: 'transparent',
+            boxShadow: 'none',
+          },
+        }}
+        BackdropProps={{
+          sx: {
+            backgroundColor: 'rgba(15, 23, 42, 0.42)',
+            backdropFilter: 'blur(5px)',
+          },
+        }}
+      >
+        <DialogContent sx={{ p: 0, overflow: 'visible' }}>
+          {active.node}
+        </DialogContent>
+      </Dialog>
 
-        {/* <button
-          onClick={handleNext}
-          disabled={step === 0 || step >= steps.length - 1}
-          className={`px-4 py-2 rounded text-white ${step === 0 || step >= steps.length - 1 ? 'bg-gray-300' : 'bg-blue-600 hover:bg-blue-700'}`}
-        >
-          Next
-        </button> */}
-      </div>
+      {showPopup && (
+        <div className="fixed bottom-4 right-4" style={{ zIndex: 1500 }}>
+          <button
+            onClick={handleBack}
+            className="flex items-center px-6 py-3 rounded text-white bg-blue-600 hover:bg-blue-700 shadow-lg"
+          >
+            <ArrowBackIosNewIcon fontSize="small" className="mr-2" />
+            {t('back')}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import OTPBox from './OTPBoxes';
 import { useTranslation } from '../context/TranslationContext';
 
-export default function OTPVerification({ phone, onVerify, onResend }) {
+export default function OTPVerification({ phone, onVerify, onResend, compact = false }) {
   const { t } = useTranslation();
   const [otp, setOtp] = useState('');
   const [timeLeft, setTimeLeft] = useState(120);
@@ -73,7 +73,7 @@ export default function OTPVerification({ phone, onVerify, onResend }) {
   }, [phone]);
 
   const card = (
-    <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 520, mx: 'auto', transform: 'translateY(-20px)', borderRadius: 3 }}>
+    <Paper elevation={compact ? 0 : 3} sx={{ p: 3, width: '100%', maxWidth: 520, mx: 'auto', transform: compact ? 'none' : 'translateY(-20px)', borderRadius: 3, boxShadow: compact ? 'none' : undefined }}>
       <Stack spacing={1.5}>
         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>{t('verifyOtp')}</Typography>
         <Typography variant="body2" color="text.secondary">{t('enterOtpInstruction')}</Typography>
@@ -121,7 +121,7 @@ export default function OTPVerification({ phone, onVerify, onResend }) {
   );
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, transform: 'translateY(-40px)' }}>
+    <Box sx={{ minHeight: compact ? 'auto' : '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: compact ? 0 : 4, transform: compact ? 'none' : 'translateY(-40px)' }}>
       {card}
     </Box>
   );

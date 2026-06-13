@@ -12,7 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import locations from '../data/locations';
 import { useTranslation } from '../context/TranslationContext';
 
-export default function AccessConfirmation({ onContinue, role = 'student' }) {
+export default function AccessConfirmation({ onContinue, role = 'student', compact = false }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -47,8 +47,8 @@ export default function AccessConfirmation({ onContinue, role = 'student' }) {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: 4, borderRadius: 3 }}>
-      <Paper elevation={3} sx={{ p: 3, width: '100%', maxWidth: 520, mx: 'auto', transform: 'translateY(-20px)' }}>
+    <Box sx={{ minHeight: compact ? 'auto' : '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', p: compact ? 0 : 4, borderRadius: 3 }}>
+      <Paper elevation={compact ? 0 : 3} sx={{ p: 3, width: '100%', maxWidth: 520, mx: 'auto', transform: compact ? 'none' : 'translateY(-20px)', boxShadow: compact ? 'none' : undefined }}>
         <Typography variant="h6" sx={{ fontWeight: 'bold' }}>{t('accessConfirmation')}</Typography>
 
         <Stack spacing={2} sx={{ mt: 2 }}>

@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Build files
+index.html
+index-Dwn2jyGW.css
+index-EKn2Q05A.js

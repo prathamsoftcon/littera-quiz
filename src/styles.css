@@ -218,6 +218,12 @@ button.primary {
   padding: clamp(12px, 2vw, 24px);
 }
 
+body.onboarding-no-scroll .app-main {
+  height: calc(100vh - 67px);
+  padding: 0;
+  overflow: hidden;
+}
+
 .screen {
   max-width: 1280px;
   margin: 0 auto 28px;

@@ -122,12 +122,11 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
   return (
     <Box
       sx={{
-        minHeight: '100vh',
+        minHeight: fullPage ? '100vh' : '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        p: { xs: 2, sm: 4 },
-        transform: { xs: 'none', sm: 'translateY(-40px)' },
+        p: { xs: 2, sm: 3 },
       }}
     >
       {card}
