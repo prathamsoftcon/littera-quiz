@@ -1,0 +1,78 @@
+                                                Google Authentication Flow
+                                                     ┌─────────────┐
+                                                     │    User     │
+                                                     └──────┬──────┘
+                                                            │
+                                                            ▼
+                                                  ┌─────────────────────┐
+                                                  │ Click Google Login  │
+                                                  └─────────┬───────────┘
+                                                            │
+                                                            ▼
+                                                  ┌─────────────────────┐
+                                                  │ Google Auth Screen  │
+                                                  └─────────┬───────────┘
+                                                            │
+                                                            ▼
+                                                  ┌─────────────────────┐
+                                                  │ User Select Account │
+                                                  └─────────┬───────────┘
+                                                            │
+                                                            ▼
+                                                  ┌─────────────────────┐
+                                                  │ Google Returns      │
+                                                  │ Authorization Code  │
+                                                  └─────────┬───────────┘
+                                                            │
+                                                            ▼
+                                                  ┌─────────────────────┐
+                                                  │ Backend Exchanges   │
+                                                  │ Code for ID Token   │
+                                                  │ & Access Token      │
+                                                  └─────────┬───────────┘
+                                                            │
+                                                            ▼
+                                                  ┌─────────────────────┐
+                                                  │ Verify Google Token │
+                                                  └─────────┬───────────┘
+                                                            │
+                                                            ▼
+                                                  ┌─────────────────────┐
+                                                  │ Get User Info       │
+                                                  │ Email, Name, Image  │
+                                                  └─────────┬───────────┘
+                                                            │
+                                                            ▼
+                                                  ┌─────────────────────┐
+                                                  │ Check User Exists?  │
+                                                  └──────┬───────┬──────┘
+                                                         │Yes    │No
+                                                         ▼       ▼
+                                                      Update    Create
+                                                    Last Login  New User
+                                                         │       │
+                                                         └───┬───┘
+                                                             │
+                                                             ▼
+                                                   ┌────────────────────┐
+                                                   │ Generate JWT Token │
+                                                   └────────┬───────────┘
+                                                            │
+                                                            ▼
+                                                  ┌─────────────────────┐
+                                                  │ Return JWT Token    │
+                                                  │ to Frontend         │
+                                                  └─────────┬───────────┘
+                                                            │
+                                                            ▼
+                                                  ┌─────────────────────┐
+                                                  │ Store Token         │
+                                                  │ HttpOnly Cookie     │
+                                                  │ or LocalStorage     │
+                                                  └─────────┬───────────┘
+                                                            │
+                                                            ▼
+                                                  ┌─────────────────────┐
+                                                  │ Access Protected    │
+                                                  │ APIs using JWT      │
+                                                  └─────────────────────┘
