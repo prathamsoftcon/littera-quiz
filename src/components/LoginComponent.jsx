@@ -9,6 +9,8 @@ import Stack from '@mui/material/Stack';
 // use project asset from src/assets
 import logo from '../assets/littera_logo.png';
 import { useTranslation } from '../context/TranslationContext';
+import { GoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from '@react-oauth/google';
 
 export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }) {
   const { t } = useTranslation();
@@ -35,6 +37,92 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
       onSocial && onSocial(provider, { email });
     }, 600);
   };
+
+  const googleLogin = useGoogleLogin({
+  onSuccess: async (tokenResponse) => {
+    try {
+      setLoading(true);
+
+      const loginData = {
+        provider: "google",
+        accesstoken: tokenResponse.access_token,
+      };
+
+      await loginUser(loginData);
+
+      toast.success("Google Login Successful!");
+    } catch (error) {
+      console.error("Google Login Error:", error);
+
+      toast.error(
+        error.response?.data?.message ||
+        "Google Login Failed"
+      );
+    } finally {
+      setLoading(false);
+    }
+  },
+
+  onError: () => {
+    toast.error("Google Login Failed");
+  },
+});
+
+  const loginUser = async (loginData) => {
+  const headers = {
+    "Content-Type": "application/json",
+    APIKey: import.meta.env.VITE_REACT_APP_API_KEY,
+  };
+
+  const response = await axios.post(
+    `${import.meta.env.VITE_REACT_APP_API_URL}/GetToken`,
+    loginData,
+    { headers }
+  );
+
+  setUser(response.data.result);
+  localStorage.setItem(
+    "user",
+    JSON.stringify(response.data.result)
+  );
+
+  const shouldOpenModal =
+    response.data.result.userdetails.usertype.length > 1;
+
+  const userTypeId =
+    selectedUserType ||
+    response.data.result.userdetails.usertype[0]?.usertypeid;
+
+  if (userTypeId == "4") {
+    navigate("/dashboard");
+    toast.success("Login successful!");
+  } else {
+    if (!shouldOpenModal) {
+      setSelectedUserType(userTypeId);
+      setIsOpenModal(true);
+    } else {
+      setIsOpen(true);
+      setIsOpenModal(true);
+    }
+  }
+
+  return response;
+};
+
+const handleOTPLogin = async () => {
+  try {
+    const loginData = {
+      otp,
+      ...(loginType === "emailid"
+        ? { emailid: username }
+        : { mobileno: `91-${username}` }),
+    };
+
+    await loginUser(loginData);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   const GoogleMulti = ({ size = 20 }) => (
     <svg width={size} height={size} viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden>
@@ -95,7 +183,7 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
         <Typography variant="body2" color="text.secondary" align="center" sx={{ my: 2 }}>{t('orContinueWith')}</Typography>
 
         <Stack spacing={1}>
-          <Button
+          {/* <Button
             variant="outlined"
             startIcon={<GoogleMulti />}
             onClick={() => handleSocialClick('google')}
@@ -103,6 +191,37 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
             sx={{ borderColor: 'transparent', color: 'text.primary', boxShadow: 'none', borderRadius: 2, py: 1.25, justifyContent: 'flex-start', '&:hover': { backgroundColor: 'rgba(0,0,0,0.04)' }, '& .MuiButton-startIcon': { marginLeft: 6 } }}
           >
             {t('signInGoogle')}
+          </Button> */}
+          {/* <Button
+            variant="outlined"
+            startIcon={<GoogleMulti />}
+            onClick={() => googleLogin()}
+            fullWidth
+            sx={{
+              borderColor: 'transparent',
+              color: 'text.primary',
+              boxShadow: 'none',
+              borderRadius: 2,
+              py: 1.25,
+              justifyContent: 'flex-start',
+              '&:hover': {
+                backgroundColor: 'rgba(0,0,0,0.04)',
+              },
+              '& .MuiButton-startIcon': {
+                marginLeft: 6,
+              },
+            }}
+          >
+            {t('signInGoogle')}
+          </Button> */}
+
+          <Button
+            variant="outlined"
+            startIcon={<GoogleMulti />}
+            onClick={() => googleLogin()}
+            fullWidth
+          >
+            Sign In With Google
           </Button>
 
           <Button
