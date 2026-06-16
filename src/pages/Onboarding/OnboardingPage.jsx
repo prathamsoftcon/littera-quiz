@@ -84,7 +84,10 @@ export default function OnboardingPage() {
 
   const handleSocial = (provider, payload) => {
     if (provider === 'google') {
-      setProfileData({ email: payload.email });
+      setProfileData({
+        email: payload.email || '',
+        googleAuthCode: payload.code || '',
+      });
       // skip OTP and go to RoleRouting
       setAuthStarted(true);
       next(2);

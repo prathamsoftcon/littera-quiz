@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -9,14 +9,17 @@ import Stack from '@mui/material/Stack';
 // use project asset from src/assets
 import logo from '../assets/littera_logo.png';
 import { useTranslation } from '../context/TranslationContext';
-import { GoogleLogin } from "@react-oauth/google";
-import { useGoogleLogin } from '@react-oauth/google';
 
 export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }) {
   const { t } = useTranslation();
+  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
   const [mobile, setMobile] = useState('');
   const [loading, setLoading] = useState(false);
   const [showImage, setShowImage] = useState(true);
+  const googleOAuthState = useMemo(
+    () => `google-oauth-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+    []
+  );
 
   const handleSendOTP = () => {
     if (!mobile || mobile.length !== 10) return alert(t('enterValidMobile'));
@@ -38,91 +41,53 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
     }, 600);
   };
 
-  const googleLogin = useGoogleLogin({
-  onSuccess: async (tokenResponse) => {
-    try {
-      setLoading(true);
+  const googleRedirectUri =
+    typeof window !== 'undefined' ? `${window.location.origin}${window.location.pathname}` : undefined;
 
-      const loginData = {
-        provider: "google",
-        accesstoken: tokenResponse.access_token,
-      };
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    const state = params.get('state');
 
-      await loginUser(loginData);
-
-      toast.success("Google Login Successful!");
-    } catch (error) {
-      console.error("Google Login Error:", error);
-
-      toast.error(
-        error.response?.data?.message ||
-        "Google Login Failed"
-      );
-    } finally {
-      setLoading(false);
+    if (!code || state !== sessionStorage.getItem('google_oauth_state')) {
+      return;
     }
-  },
 
-  onError: () => {
-    toast.error("Google Login Failed");
-  },
-});
+    sessionStorage.removeItem('google_oauth_state');
+    params.delete('code');
+    params.delete('scope');
+    params.delete('authuser');
+    params.delete('prompt');
+    params.delete('state');
 
-  const loginUser = async (loginData) => {
-  const headers = {
-    "Content-Type": "application/json",
-    APIKey: import.meta.env.VITE_REACT_APP_API_KEY,
+    const nextSearch = params.toString();
+    const nextUrl = `${window.location.pathname}${nextSearch ? `?${nextSearch}` : ''}${window.location.hash}`;
+    window.history.replaceState({}, document.title, nextUrl);
+
+    setLoading(false);
+    onSocial && onSocial('google', { code, state });
+  }, [onSocial]);
+
+  const handleGoogleLogin = () => {
+    if (!googleClientId) {
+      alert('Google Client ID is missing. Please check VITE_GOOGLE_CLIENT_ID in .env and restart the dev server.');
+      return;
+    }
+
+    sessionStorage.setItem('google_oauth_state', googleOAuthState);
+    setLoading(true);
+
+    const params = new URLSearchParams({
+      client_id: googleClientId,
+      redirect_uri: googleRedirectUri,
+      response_type: 'code',
+      scope: 'openid email profile',
+      state: googleOAuthState,
+      prompt: 'select_account',
+    });
+
+    window.location.assign(`https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`);
   };
-
-  const response = await axios.post(
-    `${import.meta.env.VITE_REACT_APP_API_URL}/GetToken`,
-    loginData,
-    { headers }
-  );
-
-  setUser(response.data.result);
-  localStorage.setItem(
-    "user",
-    JSON.stringify(response.data.result)
-  );
-
-  const shouldOpenModal =
-    response.data.result.userdetails.usertype.length > 1;
-
-  const userTypeId =
-    selectedUserType ||
-    response.data.result.userdetails.usertype[0]?.usertypeid;
-
-  if (userTypeId == "4") {
-    navigate("/dashboard");
-    toast.success("Login successful!");
-  } else {
-    if (!shouldOpenModal) {
-      setSelectedUserType(userTypeId);
-      setIsOpenModal(true);
-    } else {
-      setIsOpen(true);
-      setIsOpenModal(true);
-    }
-  }
-
-  return response;
-};
-
-const handleOTPLogin = async () => {
-  try {
-    const loginData = {
-      otp,
-      ...(loginType === "emailid"
-        ? { emailid: username }
-        : { mobileno: `91-${username}` }),
-    };
-
-    await loginUser(loginData);
-  } catch (error) {
-    console.error(error);
-  }
-};
 
   const GoogleMulti = ({ size = 20 }) => (
     <svg width={size} height={size} viewBox="0 0 48 48" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" aria-hidden>
@@ -214,14 +179,16 @@ const handleOTPLogin = async () => {
           >
             {t('signInGoogle')}
           </Button> */}
+          
 
           <Button
             variant="outlined"
             startIcon={<GoogleMulti />}
-            onClick={() => googleLogin()}
+            onClick={handleGoogleLogin}
+            disabled={loading || !googleClientId}
             fullWidth
           >
-            Sign In With Google
+            {t('signInGoogle')}
           </Button>
 
           <Button
