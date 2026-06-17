@@ -1,180 +1,199 @@
-import React, { useState } from 'react';
-import UploadBox from '../../features/question-bank/UploadBox';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  Paper,
+  Divider,
+} from "@mui/material";
 
-export default function MasterUpload({ onImport }) {
+import UploadTypeSelection from "./master-upload/UploadTypeSelection";
+import FileUpload from "./master-upload/FileUpload";
+import TemplateRequiredFields from "./master-upload/TemplateRequiredFields";
+import ValidationSummary from "./master-upload/ValidationSummary";
+import ImportConfirmationDialog from "./master-upload/ImportConfirmationDialog";
+import ImportCompleteScreen from "./master-upload/ImportCompleteScreen";
+import UploadHistory from "./master-upload/UploadHistory";
+import UploadDetailsDialog from "./master-upload/UploadDetailsDialog";
+
+export default function MasterUpload() {
+  // Upload Type
+  const [uploadType, setUploadType] = useState("School");
+
+  // File Upload
   const [file, setFile] = useState(null);
-  const [previewLines, setPreviewLines] = useState(null);
-  const expectedFields = ['school_code', 'school_name', 'school_type', 'block', 'district'];
-  const [detectedColumns, setDetectedColumns] = useState([]);
-  const [mapping, setMapping] = useState({});
-  const [templates, setTemplates] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('master_upload_templates') || '[]'); } catch (e) { return []; }
+  const [error, setError] = useState("");
+  const [rowCount, setRowCount] = useState(0);
+
+  // Validation Summary
+  const [summary, setSummary] = useState({
+    total: 0,
+    valid: 0,
+    missing: 0,
   });
-  const [selectedTemplate, setSelectedTemplate] = useState('');
-  const [fieldsIncluded, setFieldsIncluded] = useState(() => expectedFields.reduce((acc, f) => ({ ...acc, [f]: true }), {}));
 
-  function handleFile(f) {
-    setFile(f);
-    if (!f) {
-      setPreviewLines(null);
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const text = e.target.result || '';
-      const lines = text.split(/\r?\n/).filter(Boolean);
-      setPreviewLines(lines.slice(0, 6));
-      detectHeader(text);
-    };
-    reader.readAsText(f);
-  }
+  // Import Dialog
+  const [confirmOpen, setConfirmOpen] =
+    useState(false);
 
-  function detectHeader(text) {
-    const firstLine = (text || '').split(/\r?\n/).find(Boolean) || '';
-    const cols = firstLine.split(',').map((c) => c.trim());
-    setDetectedColumns(cols);
-    const init = {};
-    expectedFields.forEach((ef) => { init[ef] = cols.includes(ef) ? ef : ''; });
-    setMapping(init);
-  }
+  // Import Complete
+  const [importComplete, setImportComplete] =
+    useState(false);
 
-  function downloadTemplate() {
-    const cols = expectedFields.filter((f) => fieldsIncluded[f]);
-    const header = cols.join(',') + '\n';
-    const sample = cols.map((c, i) => `VAL${i + 1}`).join(',') + '\n';
-    const csv = header + sample;
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'master_upload_template.csv';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  }
+  // Upload Details Dialog
+  const [detailsOpen, setDetailsOpen] =
+    useState(false);
 
-  function handleImport() {
+  const [selectedHistory, setSelectedHistory] =
+    useState(null);
+
+  // Upload History Data
+  const [history, setHistory] = useState([
+    {
+      id: 1,
+      date: "17-Jun-2026",
+      type: "School",
+      file: "school_master_jaipur.csv",
+      status: "Complete",
+      imported: 1188,
+      skipped: 58,
+    },
+  ]);
+
+  // Validate File
+  const handleValidate = () => {
     if (!file) {
-      alert('Please choose a file to import');
+      alert("Please upload a file first.");
       return;
     }
-    const payload = { file, mapping };
-    onImport && onImport(payload);
-  }
+
+    // Temporary mock data
+    setSummary({
+      total: rowCount || 1246,
+      valid: 1188,
+      missing: 24,
+    });
+  };
+
+  // Import Records
+  const handleImport = () => {
+    setConfirmOpen(false);
+    setImportComplete(true);
+
+    const newHistory = {
+      id: Date.now(),
+      date: new Date().toLocaleDateString(),
+      type: uploadType,
+      file: file?.name || "",
+      status: "Complete",
+      imported: summary.valid,
+      skipped: summary.total - summary.valid,
+    };
+
+    setHistory((prev) => [newHistory, ...prev]);
+  };
+
+  // View Details
+  const handleViewDetails = (row) => {
+    setSelectedHistory(row);
+    setDetailsOpen(true);
+  };
 
   return (
-    <Paper sx={{ p: 2 }} elevation={2}>
-      <Box sx={{ width: '100%' }}>
-        <Box sx={{ border: '2px dashed', borderColor: 'divider', borderRadius: 1, p: 1.25, display: 'flex', alignItems: 'center', gap: 1.25, width: '100%' }}>
-          <CloudUploadIcon sx={{ fontSize: 36, color: 'action.active' }} />
-          <Box sx={{ flex: 1 }}>
-            <UploadBox onFile={handleFile} />
-          </Box>
-        </Box>
-      </Box>
+    <Box sx={{ width: "100%" }}>
+      <Paper sx={{ p: 3 }}>
+        {/* Upload Type Selection */}
+        <UploadTypeSelection
+          uploadType={uploadType}
+          setUploadType={setUploadType}
+        />
 
-      <Box sx={{ width: '100%', mt: 0.75 }}>
-        <Box sx={{ background: '#fafafa', p: 1, borderRadius: 1, minHeight: 120 }}>
-            {file ? (
-            <Box>
-                <Typography sx={{ fontWeight: 700 }}>{file.name}</Typography>
-                <Box sx={{ mt: 0.75, color: 'text.secondary' }}>
-                  {previewLines ? (
-                    <Box>
-                      <Typography variant="caption" sx={{ display: 'block', mb: 0.5 }}>Preview (first lines):</Typography>
-                      <Box sx={{ p: 1, borderRadius: 1, fontFamily: 'monospace', fontSize: 12 }}>
-                        {previewLines.map((l, i) => (<div key={i}>{l}</div>))}
-                      </Box>
-                    </Box>
-                  ) : (
-                    <Typography variant="body2">Reading file preview...</Typography>
-                  )}
-                </Box>
-                <Box sx={{ mt: 1 }}>
-                  <Typography variant="subtitle2">Column mapping</Typography>
-                  {detectedColumns.length > 0 ? (
-                    <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mt: 1 }}>
-                      {expectedFields.map((ef) => (
-                        <FormControl key={ef} size="small" sx={{ minWidth: 160 }}>
-                          <InputLabel>{ef}</InputLabel>
-                          <Select
-                            value={mapping[ef] || ''}
-                            label={ef}
-                            onChange={(e) => setMapping((m) => ({ ...m, [ef]: e.target.value }))}
-                          >
-                            <MenuItem value="">-- none --</MenuItem>
-                            {detectedColumns.map((dc) => (<MenuItem key={dc} value={dc}>{dc}</MenuItem>))}
-                          </Select>
-                        </FormControl>
-                      ))}
-                    </Box>
-                  ) : (
-                    <Typography variant="body2">No columns detected yet.</Typography>
-                  )}
+        <Divider sx={{ my: 3 }} />
 
-                  <Box sx={{ mt: 1, display: 'flex', gap: 1, alignItems: 'center' }}>
-                    <FormControl size="small" sx={{ minWidth: 160 }}>
-                      <InputLabel>Templates</InputLabel>
-                      <Select value={selectedTemplate} label="Templates" onChange={(e) => setSelectedTemplate(e.target.value)}>
-                        <MenuItem value="">-- none --</MenuItem>
-                        {templates.map((t) => (<MenuItem key={t.name} value={t.name}>{t.name}</MenuItem>))}
-                      </Select>
-                    </FormControl>
-                    <Button size="small" onClick={() => {
-                      if (!selectedTemplate) return;
-                      const t = templates.find((x) => x.name === selectedTemplate);
-                      if (t) { setMapping(t.mapping || {}); setFieldsIncluded(t.fieldsIncluded || {}); }
-                    }}>Load template</Button>
-                    <Button size="small" onClick={() => {
-                      const name = prompt('Template name');
-                      if (!name) return;
-                      const t = { name, mapping, fieldsIncluded };
-                      const next = [...templates.filter((x) => x.name !== name), t];
-                      setTemplates(next);
-                      localStorage.setItem('master_upload_templates', JSON.stringify(next));
-                      setSelectedTemplate(name);
-                    }}>Save template</Button>
-                    <Button size="small" color="error" onClick={() => {
-                      if (!selectedTemplate) return;
-                      const next = templates.filter((x) => x.name !== selectedTemplate);
-                      setTemplates(next);
-                      localStorage.setItem('master_upload_templates', JSON.stringify(next));
-                      setSelectedTemplate('');
-                    }}>Delete</Button>
-                  </Box>
+        {/* File Upload */}
+        <FileUpload
+          file={file}
+          setFile={setFile}
+          error={error}
+          setError={setError}
+          rowCount={rowCount}
+          setRowCount={setRowCount}
+        />
 
-                  <Box sx={{ mt: 1, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                    {expectedFields.map((f) => (
-                      <FormControlLabel key={f} control={<Checkbox checked={!!fieldsIncluded[f]} onChange={(e) => setFieldsIncluded((s) => ({ ...s, [f]: e.target.checked }))} />} label={`Include ${f}`} />
-                    ))}
-                  </Box>
-                </Box>
-            </Box>
-          ) : (
-            <Typography variant="body2" color="text.secondary">CSV mapping and preview for master data import</Typography>
-          )}
+        <Divider sx={{ my: 3 }} />
+
+        {/* Template & Required Fields */}
+        <TemplateRequiredFields
+          uploadType={uploadType}
+        />
+
+        <Divider sx={{ my: 3 }} />
+
+        {/* Validation Summary */}
+        <ValidationSummary summary={summary} />
+
+        <Box
+          sx={{
+            mt: 3,
+            display: "flex",
+            gap: 2,
+            justifyContent: "flex-end",
+          }}
+        >
+          <Button
+            variant="outlined"
+            onClick={handleValidate}
+          >
+            Validate File
+          </Button>
+
+          <Button
+            variant="contained"
+            onClick={() => setConfirmOpen(true)}
+            disabled={!summary.valid}
+          >
+            Import Records
+          </Button>
         </Box>
 
-          <Typography variant="h6" sx={{ mt: 0.75 }}>Master Data Upload</Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.25 }}>Download the template, map and validate before importing.</Typography>
+        {/* Import Complete */}
+        {importComplete && (
+          <>
+            <Divider sx={{ my: 3 }} />
 
-        <Box sx={{ mt: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Button variant="outlined" onClick={downloadTemplate}>Download template</Button>
-          <Button variant="contained" onClick={handleImport}>Validate & Import</Button>
-        </Box>
-      </Box>
-    </Paper>
+            <ImportCompleteScreen
+              imported={summary.valid}
+              skipped={
+                summary.total - summary.valid
+              }
+            />
+          </>
+        )}
+
+        <Divider sx={{ my: 3 }} />
+
+        {/* Upload History */}
+        <UploadHistory
+          history={history}
+          onDetails={handleViewDetails}
+        />
+      </Paper>
+
+      {/* Import Confirmation Dialog */}
+      <ImportConfirmationDialog
+        open={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        onImport={handleImport}
+        uploadType={uploadType}
+        file={file}
+        summary={summary}
+      />
+
+      {/* Upload Details Dialog */}
+      <UploadDetailsDialog
+        open={detailsOpen}
+        row={selectedHistory}
+        onClose={() => setDetailsOpen(false)}
+      />
+    </Box>
   );
 }
