@@ -2,8 +2,6 @@ import React from "react";
 import {
   Box,
   Button,
-  Chip,
-  Typography,
 } from "@mui/material";
 
 const requiredFields = {
@@ -48,6 +46,7 @@ const requiredFields = {
 
 export default function TemplateRequiredFields({
   uploadType,
+  actions,
 }) {
   const downloadTemplate = () => {
     const csv =
@@ -68,27 +67,58 @@ export default function TemplateRequiredFields({
   };
 
   return (
-    <Box sx={{ mb: 3 }}>
-      <Typography variant="h6" mb={2}>
-        Template 
-      </Typography>
-
-      <Button
-        variant="outlined"
-        onClick={downloadTemplate}
+    <Box>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 1.5,
+          flexWrap: "wrap",
+          p: 1.5,
+          border: "1px solid #dbe5f1",
+          borderRadius: 2,
+          bgcolor: "#f8fbff",
+        }}
       >
-        Download Template
-      </Button>
+        <Button
+          variant="outlined"
+          onClick={downloadTemplate}
+          sx={{
+            minHeight: 40,
+            px: 2,
+            borderRadius: 1.25,
+            borderColor: "#cbd8ea",
+            color: "#132238",
+            bgcolor: "#fff",
+            fontWeight: 800,
+            textTransform: "none",
+            whiteSpace: "nowrap",
+            boxShadow: "0 1px 2px rgba(15, 23, 42, 0.04)",
+            "&:hover": {
+              borderColor: "#2563eb",
+              bgcolor: "#eff6ff",
+            },
+          }}
+        >
+          Download Template
+        </Button>
 
-      {/* <Box mt={2}>
-        {requiredFields[uploadType].map((field) => (
-          <Chip
-            key={field}
-            label={field}
-            sx={{ mr: 1, mb: 1 }}
-          />
-        ))}
-      </Box> */}
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 1.25,
+            justifyContent: { xs: "stretch", sm: "flex-end" },
+            "& > button": {
+              minWidth: { xs: "100%", sm: "auto" },
+            },
+          }}
+        >
+          {actions}
+        </Box>
+      </Box>
+
     </Box>
   );
 }

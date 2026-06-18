@@ -1,161 +1,251 @@
-import React, { useState } from 'react';
-import UploadBox from '../../question-bank/UploadBox';
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import React, { useState } from "react";
+import UploadBox from "../../question-bank/UploadBox";
+import {
+  Box,
+  Paper,
+  Typography,
+} from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
-export default function MasterUpload({ onImport }) {
-  const [file, setFile] = useState(null);
+const muted = "#667085";
+const brand = "#2563eb";
+
+export default function FileUpload({
+  file: externalFile,
+  setFile,
+  setError,
+  setRowCount,
+}) {
+  const [localFile, setLocalFile] = useState(null);
   const [previewLines, setPreviewLines] = useState(null);
-  const expectedFields = ['school_code', 'school_name', 'school_type', 'block', 'district'];
-  const [detectedColumns, setDetectedColumns] = useState([]);
-  const [mapping, setMapping] = useState({});
-  const [templates, setTemplates] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('master_upload_templates') || '[]'); } catch (e) { return []; }
-  });
-  const [selectedTemplate, setSelectedTemplate] = useState('');
-  const [fieldsIncluded, setFieldsIncluded] = useState(() => expectedFields.reduce((acc, f) => ({ ...acc, [f]: true }), {}));
+  const file = externalFile || localFile;
 
   function handleFile(f) {
-    setFile(f);
+    setLocalFile(f);
+    setFile && setFile(f);
+
     if (!f) {
       setPreviewLines(null);
+      setRowCount && setRowCount(0);
       return;
     }
+
+    const extension = f.name.split(".").pop().toLowerCase();
+    const unsupported = !["csv", "xlsx"].includes(extension);
+    setError && setError(unsupported ? `${f.name} is not supported` : "");
+
     const reader = new FileReader();
     reader.onload = (e) => {
-      const text = e.target.result || '';
+      const text = e.target.result || "";
       const lines = text.split(/\r?\n/).filter(Boolean);
       setPreviewLines(lines.slice(0, 6));
-      detectHeader(text);
+      setRowCount && setRowCount(Math.max(lines.length - 1, 0));
     };
     reader.readAsText(f);
   }
 
-  function detectHeader(text) {
-    const firstLine = (text || '').split(/\r?\n/).find(Boolean) || '';
-    const cols = firstLine.split(',').map((c) => c.trim());
-    setDetectedColumns(cols);
-    const init = {};
-    expectedFields.forEach((ef) => { init[ef] = cols.includes(ef) ? ef : ''; });
-    setMapping(init);
-  }
-
-  function downloadTemplate() {
-    const cols = expectedFields.filter((f) => fieldsIncluded[f]);
-    const header = cols.join(',') + '\n';
-    const sample = cols.map((c, i) => `VAL${i + 1}`).join(',') + '\n';
-    const csv = header + sample;
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'master_upload_template.csv';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
-  }
-
-  function handleImport() {
-    if (!file) {
-      alert('Please choose a file to import');
-      return;
-    }
-    const payload = { file, mapping };
-    onImport && onImport(payload);
-  }
+  const extension = file?.name.split(".").pop().toLowerCase();
+  const isUnsupported = file && !["csv", "xlsx"].includes(extension);
 
   return (
-    <Paper sx={{ p: 2 }} elevation={2}>
-      <Box sx={{ width: '100%' }}>
-        <Box sx={{ border: '2px dashed', borderColor: 'divider', borderRadius: 1, p: 1.25, display: 'flex', alignItems: 'center', gap: 1.25, width: '100%' }}>
-          <CloudUploadIcon sx={{ fontSize: 36, color: 'action.active' }} />
-          <Box sx={{ flex: 1 }}>
+    <Box>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: { xs: "stretch", sm: "center" },
+          justifyContent: "space-between",
+          gap: 2,
+          mb: 2,
+          pb: 2,
+          borderBottom: `1px solid #dbe5f1`,
+          flexWrap: "wrap",
+        }}
+      >
+        <Box>
+          <Typography variant="h6" sx={{ color: "#0f172a", fontSize: 18, fontWeight: 900 }}>
+            File Upload
+          </Typography>
+          <Typography sx={{ mt: 0.25, color: "#52627a", fontSize: 13.5 }}>
+            CSV/XLSX drag-and-drop area, browse button, unsupported file error, and file metadata preview.
+          </Typography>
+        </Box>
+        <Box
+          component="span"
+          sx={{
+            px: 1.25,
+            py: 0.75,
+            borderRadius: 999,
+            color: "#b45309",
+            bgcolor: "#fef3c7",
+            border: "1px solid #fde68a",
+            fontSize: 12,
+            fontWeight: 800,
+            whiteSpace: "nowrap",
+          }}
+        >
+          CSV / XLSX only
+        </Box>
+      </Box>
+
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+          gap: 2,
+        }}
+      >
+        <Box
+          sx={{
+            minHeight: 236,
+            p: { xs: 2.5, md: 3 },
+            border: "1.5px dashed #86a6d5",
+            borderRadius: 2,
+            bgcolor: "#f8fbff",
+            background: "linear-gradient(180deg, #ffffff 0%, #f6fbff 100%)",
+            textAlign: "center",
+            display: "grid",
+            placeItems: "center",
+            transition: "border-color 160ms ease, background 160ms ease, box-shadow 160ms ease",
+            "&:hover": {
+              borderColor: "#2563eb",
+              boxShadow: "inset 0 0 0 1px rgba(37, 99, 235, 0.08)",
+            },
+            "& .upload-box": {
+              width: "100%",
+              border: "0 !important",
+              background: "transparent !important",
+              padding: "0 !important",
+            },
+            "& .upload-box > div": {
+              alignItems: "center",
+              gap: "8px !important",
+            },
+            "& strong": {
+              color: "#0f172a",
+              fontSize: 18,
+              fontWeight: 900,
+            },
+            "& span": {
+              color: "#52627a",
+            },
+            "& button": {
+              minHeight: 40,
+              px: 2,
+              py: 1,
+              border: `1px solid ${brand}`,
+              borderRadius: 1.25,
+              color: "#fff",
+              bgcolor: brand,
+              fontWeight: 800,
+              cursor: "pointer",
+              boxShadow: "0 8px 18px rgba(37, 99, 235, 0.22)",
+            },
+          }}
+        >
+          <Box>
+            <Box
+              sx={{
+                width: 58,
+                height: 58,
+                mx: "auto",
+                mb: 1.5,
+                display: "grid",
+                placeItems: "center",
+                borderRadius: 2,
+                color: "#1d4ed8",
+                bgcolor: "#eff6ff",
+                border: "1px solid #bfdbfe",
+              }}
+            >
+              <CloudUploadIcon />
+            </Box>
             <UploadBox onFile={handleFile} />
           </Box>
         </Box>
-      </Box>
 
-      <Box sx={{ width: '100%', mt: 0.75 }}>
-        <Box sx={{ background: '#fafafa', p: 2, borderRadius: 1 }}>
+        <Box sx={{ display: "grid", gap: 1.5, alignContent: "start" }}>
+          <Paper
+            variant="outlined"
+            sx={{
+              p: 2,
+              minHeight: 104,
+              borderColor: "#d9e4f2",
+              borderRadius: 2,
+              bgcolor: "#ffffff",
+              boxShadow: "0 6px 16px rgba(15, 23, 42, 0.04)",
+            }}
+          >
+            <Typography
+              sx={{
+                mb: 0.75,
+                color: "#5d6b82",
+                fontSize: 12,
+                fontWeight: 800,
+                textTransform: "uppercase",
+              }}
+            >
+              Uploaded File Information
+            </Typography>
             {file ? (
-                <Box>
-                <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
-                    Uploaded File Information
+              <>
+                <Typography sx={{ color: "#0f172a", fontSize: 24, lineHeight: 1.2, fontWeight: 900 }}>
+                  {file.name}
                 </Typography>
-
-                <Box
-                    sx={{
-                    border: '1px solid #e0e0e0',
-                    borderRadius: 1,
-                    p: 1.5,
-                    mb: 2,
-                    bgcolor: '#fff'
-                    }}
-                >
-                    <Typography sx={{ fontWeight: 600 }}>
-                    {file.name}
-                    </Typography>
-
-                    <Typography variant="body2" color="text.secondary">
-                    {(file.size / 1024).toFixed(0)} KB - {file.name.split('.').pop().toUpperCase()}
-                    {previewLines && ` - ${previewLines.length} rows detected`}
-                    </Typography>
-                </Box>
-
-                {!['csv', 'xlsx'].includes(
-                    file.name.split('.').pop().toLowerCase()
-                ) && (
-                    <Box
-                    sx={{
-                        border: '1px solid #f44336',
-                        bgcolor: '#ffebee',
-                        borderRadius: 1,
-                        p: 1.5
-                    }}
-                    >
-                    <Typography
-                        variant="subtitle2"
-                        sx={{ color: '#d32f2f', fontWeight: 600 }}
-                    >
-                        Unsupported File Type Error
-                    </Typography>
-
-                    <Typography variant="body2" color="error">
-                        {file.name} is not supported
-                    </Typography>
-
-                    <Typography variant="caption" color="text.secondary">
-                        Use this inline error when file extension is not CSV or XLSX.
-                    </Typography>
-                    </Box>
-                )}
-                </Box>
+                <Typography sx={{ mt: 0.75, color: "#52627a", fontSize: 13 }}>
+                  {(file.size / 1024).toFixed(0)} KB - {extension.toUpperCase()}
+                  {previewLines && ` - ${previewLines.length} rows detected`}
+                </Typography>
+              </>
             ) : (
-                <Typography variant="body2" color="text.secondary">
-                CSV mapping and preview for master data import
-                </Typography>
+              <Typography sx={{ color: muted, fontSize: 13 }}>
+                File details will appear after upload.
+              </Typography>
             )}
+          </Paper>
+
+          <Paper
+            variant="outlined"
+            sx={{
+              p: 2,
+              minHeight: 104,
+              borderColor: isUnsupported ? "#fda4af" : "#d9e4f2",
+              borderRadius: 2,
+              bgcolor: isUnsupported ? "#fff7f8" : "#ffffff",
+              boxShadow: "0 6px 16px rgba(15, 23, 42, 0.04)",
+            }}
+          >
+            <Typography
+              sx={{
+                mb: 0.75,
+                color: "#5d6b82",
+                fontSize: 12,
+                fontWeight: 800,
+                textTransform: "uppercase",
+              }}
+            >
+              Unsupported File Type Error
+            </Typography>
+            <Box
+              component="span"
+              sx={{
+                display: "inline-flex",
+                px: 1.1,
+                py: 0.65,
+                borderRadius: 999,
+                color: isUnsupported ? "#be123c" : muted,
+                bgcolor: isUnsupported ? "#ffe4e6" : "#eef2f7",
+                fontSize: 12,
+                fontWeight: 800,
+              }}
+            >
+              {isUnsupported ? `${file.name} is not supported` : "No file type error"}
+            </Box>
+            <Typography sx={{ mt: 1, color: "#52627a", fontSize: 13 }}>
+              Use this inline error when file extension is not CSV or XLSX.
+            </Typography>
+          </Paper>
         </Box>
-
-          {/* <Typography variant="h6" sx={{ mt: 0.75 }}>Master Data Upload</Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.25 }}>Download the template, map and validate before importing.</Typography>
-
-        <Box sx={{ mt: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Button variant="outlined" onClick={downloadTemplate}>Download template</Button>
-          <Button variant="contained" onClick={handleImport}>Validate & Import</Button>
-        </Box> */}
-       
       </Box>
-    </Paper>
+    </Box>
   );
 }

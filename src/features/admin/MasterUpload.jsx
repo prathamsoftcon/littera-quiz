@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import {
   Box,
   Button,
-  Paper,
-  Divider,
 } from "@mui/material";
 
 import UploadTypeSelection from "./master-upload/UploadTypeSelection";
@@ -41,6 +39,9 @@ export default function MasterUpload() {
 
   // Upload Details Dialog
   const [detailsOpen, setDetailsOpen] =
+    useState(false);
+
+  const [historyOpen, setHistoryOpen] =
     useState(false);
 
   const [selectedHistory, setSelectedHistory] =
@@ -99,17 +100,37 @@ export default function MasterUpload() {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ p: 3 }}>
-        {/* Upload Type Selection */}
+    <Box
+      sx={{
+        width: "100%",
+        display: "grid",
+        gap: 2,
+        color: "#172033",
+      }}
+    >
+      <Section>
+        <ValidationSummary
+          summary={summary}
+          actions={
+            <Button
+              variant="outlined"
+              onClick={() => setHistoryOpen(true)}
+              sx={secondaryButtonSx}
+            >
+              Upload History
+            </Button>
+          }
+        />
+      </Section>
+
+      <Section>
         <UploadTypeSelection
           uploadType={uploadType}
           setUploadType={setUploadType}
         />
+      </Section>
 
-        <Divider sx={{ my: 3 }} />
-
-        {/* File Upload */}
+      <Section>
         <FileUpload
           file={file}
           setFile={setFile}
@@ -118,65 +139,42 @@ export default function MasterUpload() {
           rowCount={rowCount}
           setRowCount={setRowCount}
         />
+      </Section>
 
-        <Divider sx={{ my: 3 }} />
-
-        {/* Template & Required Fields */}
+      <Section>
         <TemplateRequiredFields
           uploadType={uploadType}
+          actions={
+            <>
+              <Button
+                variant="outlined"
+                onClick={handleValidate}
+                sx={secondaryButtonSx}
+              >
+                Validate File
+              </Button>
+
+              <Button
+                variant="contained"
+                onClick={() => setConfirmOpen(true)}
+                disabled={!summary.valid}
+                sx={primaryButtonSx}
+              >
+                Import Records
+              </Button>
+            </>
+          }
         />
+      </Section>
 
-        <Divider sx={{ my: 3 }} />
-
-        {/* Validation Summary */}
-        <ValidationSummary summary={summary} />
-
-        <Box
-          sx={{
-            mt: 3,
-            display: "flex",
-            gap: 2,
-            justifyContent: "flex-end",
-          }}
-        >
-          <Button
-            variant="outlined"
-            onClick={handleValidate}
-          >
-            Validate File
-          </Button>
-
-          <Button
-            variant="contained"
-            onClick={() => setConfirmOpen(true)}
-            disabled={!summary.valid}
-          >
-            Import Records
-          </Button>
-        </Box>
-
-        {/* Import Complete */}
-        {importComplete && (
-          <>
-            <Divider sx={{ my: 3 }} />
-
-            <ImportCompleteScreen
-              imported={summary.valid}
-              skipped={
-                summary.total - summary.valid
-              }
-            />
-          </>
-        )}
-
-        <Divider sx={{ my: 3 }} />
-
-        {/* Upload History */}
-        <UploadHistory
-          history={history}
-          onDetails={handleViewDetails}
-        />
-      </Paper>
+      <UploadHistory
+        hideTrigger
+        open={historyOpen}
+        onOpen={() => setHistoryOpen(true)}
+        onClose={() => setHistoryOpen(false)}
+        history={history}
+        onDetails={handleViewDetails}
+      />
 
       {/* Import Confirmation Dialog */}
       <ImportConfirmationDialog
@@ -194,6 +192,61 @@ export default function MasterUpload() {
         row={selectedHistory}
         onClose={() => setDetailsOpen(false)}
       />
+
+      <ImportCompleteScreen
+        open={importComplete}
+        onClose={() => setImportComplete(false)}
+        imported={summary.valid}
+        skipped={
+          summary.total - summary.valid
+        }
+      />
     </Box>
   );
 }
+
+function Section({ children }) {
+  return (
+    <Box
+      sx={{
+        p: { xs: 2, md: 2.25 },
+        border: "1px solid #d8e3f2",
+        borderRadius: 2,
+        bgcolor: "rgba(255, 255, 255, 0.96)",
+        boxShadow: "0 10px 28px rgba(15, 23, 42, 0.06)",
+      }}
+    >
+      {children}
+    </Box>
+  );
+}
+
+const secondaryButtonSx = {
+  minHeight: 40,
+  px: 2,
+  borderRadius: 1.25,
+  borderColor: "#cbd8ea",
+  color: "#132238",
+  bgcolor: "#ffffff",
+  fontWeight: 800,
+  textTransform: "none",
+  boxShadow: "0 1px 2px rgba(15, 23, 42, 0.04)",
+  "&:hover": {
+    borderColor: "#2563eb",
+    bgcolor: "#eff6ff",
+  },
+};
+
+const primaryButtonSx = {
+  minHeight: 40,
+  px: 2,
+  borderRadius: 1.25,
+  bgcolor: "#2563eb",
+  fontWeight: 800,
+  textTransform: "none",
+  boxShadow: "0 8px 18px rgba(37, 99, 235, 0.22)",
+  "&:hover": {
+    bgcolor: "#1d4ed8",
+    boxShadow: "0 10px 22px rgba(37, 99, 235, 0.28)",
+  },
+};
