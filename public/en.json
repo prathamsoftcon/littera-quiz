@@ -19,284 +19,344 @@
   "autoFilled": "Auto-filled",
   "schoolCodeNotFound": "School code not found",
   "enterStudentName": "Enter student name",
-  "enterTeacherName": "Enter teacher name"
-  ,"enterValidMobile": "Enter a valid 10-digit mobile number"
-  ,"enterProviderEmail": "Enter {provider} account email to continue"
-  ,"enterMobileToStart": "Enter your mobile number to start"
-  ,"mobileNumberLabel": "MOBILE NUMBER"
-  ,"mobilePlaceholder": "10-digit number"
-  ,"sending": "Sending..."
-  ,"login": "Login"
-  ,"orContinueWith": "or continue with"
-  ,"signInGoogle": "Sign in with Google"
-  ,"signInMicrosoft": "Sign in with Microsoft"
-  ,"verifyOtp": "Verify OTP"
-  ,"enterOtpInstruction": "Enter the 6-digit code for Verify & Continue."
-  ,"otpSentTo": "OTP sent to"
-  ,"otpBoxes": "OTP boxes"
-  ,"otpDigit": "OTP digit"
-  ,"verifyAndContinue": "Verify and Continue"
-  ,"resendOtp": "Resend OTP"
-  ,"accessConfirmation": "Access Confirmation"
-  ,"state": "State"
-  ,"pleaseSelectDistrict": "Please select a district"
-  ,"goToDashboard": "Go to Dashboard"
-  ,"signIn": "Sign In"
-  ,"otpVerification": "OTP Verification"
-  ,"roleRouting": "Role Routing"
-  ,"back": "Back"
-  ,"chooseRole": "Choose Role"
-  ,"selectOneRoleToContinue": "Select one role to continue"
-  ,"detectedRole": "Detected role"
-  ,"selected": "selected"
-  ,"profileComplete": "profile complete"
-  ,"continue": "Continue"
-  ,"studentRole": "Student"
-  ,"teacherRole": "Teacher"
-  ,"adminRole": "Admin"
-  ,"roleSelected": "{role} selected"
-  ,"roleSelectedWithProfile": "{role} selected - profile complete"
-  ,"adminAll": "All"
-  ,"adminPending": "Pending"
-  ,"adminUnderReview": "Under review"
-  ,"adminApproved": "Approved"
-  ,"adminRejected": "Rejected"
-  ,"adminTypeMcq": "MCQ"
-  ,"adminTypeFill": "Fill"
-  ,"adminTypeMatch": "Match"
-  ,"adminTypeMedia": "Media"
-  ,"adminEnterRejectionReason": "Please enter a rejection reason."
-  ,"adminSidebarApproval": "Approval Queue"
-  ,"adminSidebarUpload": "Master Upload"
-  ,"adminApprovalQueueTitle": "Approval Queue and Review Detail"
-  ,"adminReviewQuestion": "Review Question"
-  ,"closeReview": "Close review"
-  ,"adminSidebarAnnouncements": "Announcements"
-  ,"adminSidebarRewards": "Rewards Rules"
-  ,"adminSidebarAnalytics": "Analytics"
-  ,"adminDashboardMenu": "Dashboard Menu"
-  ,"adminEyebrow": "Operations, quality, and compliance"
-  ,"adminMasterUploadEyebrow": "Master data import"
-  ,"adminMasterUploadTitle": "Master Data Upload"
-  ,"adminControlCenter": "Admin Control Center"
-  ,"adminOpenApprovalQueue": "Open Full Approval Queue"
-  ,"adminGoMasterUpload": "Go to Master Upload"
-  ,"adminLivePlayers": "Live players"
-  ,"adminRealtimeCompetitionSessions": "Realtime competition sessions"
-  ,"adminSlotsActive": "Slots active"
-  ,"adminConcurrentQuizWindows": "Concurrent quiz windows"
-  ,"adminViolationsLogged": "Violations logged"
-  ,"adminCameraChecks": "Camera/tab/fullscreen checks"
-  ,"adminPendingApprovals": "Pending approvals"
-  ,"adminQuestionBankModeration": "Question bank moderation load"
-  ,"adminSearchPlaceholder": "Search by id, title, teacher or category"
-  ,"adminNoRows": "No rows match your filters."
-  ,"adminTeacherLabel": "Teacher"
-  ,"adminRejectionReason": "Rejection reason"
-  ,"adminRejectionPlaceholder": "Explain quality or policy issue for teacher feedback"
-  ,"adminReject": "Reject"
-  ,"adminApprove": "Approve"
-  ,"adminPickQuestion": "Pick a question to review."
-  ,"adminMasterUploadValidation": "School Master Upload Validation"
-  ,"adminTotalRows": "Total rows"
-  ,"adminValidRows": "Valid rows"
-  ,"adminDuplicates": "Duplicates"
-  ,"adminMissingFields": "Missing fields"
-  ,"adminParentCodeErrors": "Parent code errors"
-  ,"adminRunValidationPreview": "Run Validation Preview"
-  ,"adminConfirmImport": "Confirm Import"
-  ,"adminAnnouncementsBroadcasts": "Announcements and Broadcasts"
-  ,"adminAudienceAllStudents": "All Students"
-  ,"adminAudienceAllTeachers": "All Teachers"
-  ,"adminAudienceDistrictJaipur": "District - Jaipur"
-  ,"adminAudienceBlockAmber": "Block - Amber"
-  ,"adminAudienceRoleAdmin": "Role - Admin"
-  ,"adminAnnouncementPlaceholder": "Write notification or announcement"
-  ,"adminSendBroadcast": "Send Broadcast"
-  ,"adminRewardsRules": "Rewards and Rule Controls"
-  ,"adminPoints": "points"
-  ,"adminEnabled": "Enabled"
-  ,"adminDisabled": "Disabled"
-  ,"adminAnalyticsSnapshot": "Analytics Snapshot"
-  ,"adminWeeklyActiveUsers": "Weekly active users"
-  ,"adminQuizCompletionRate": "Quiz completion rate"
-  ,"adminTeacherParticipation": "Teacher participation"
-  ,"signOut": "Sign Out"
-  ,"teacherEyebrow": "Teacher contribution and tracking"
-  ,"teacherTitle": "Enroll Students, Submit Questions, Monitor Performance"
-  ,"teacherModulesTitle": "Teacher Modules"
-  ,"teacherSidebarClusters": "Clusters"
-  ,"teacherSidebarLeaderboard": "Leaderboard"
-  ,"teacherSidebarSubmission": "Question Submission"
-  ,"teacherSidebarPerformance": "Student Performance"
-  ,"teacherStatStudentsEnrolled": "Students enrolled"
-  ,"teacherStatQuestionsSubmitted": "Questions submitted"
-  ,"teacherStatApprovedQuestions": "Approved questions"
-  ,"teacherStatTeacherRank": "Teacher rank"
-  ,"teacherStatHelperActiveRoster": "Active roster"
-  ,"teacherStatHelperThisTerm": "This term"
-  ,"teacherStatHelperQualityPass": "Quality pass"
-  ,"teacherStatHelperBlockLevel": "Block level"
-  ,"teacherActionCreateQuestion": "Create Question"
-  ,"teacherActionViewLeaderboard": "View Leaderboard"
-  ,"teacherClusterTitle": "Clustered Student Groups"
-  ,"teacherClusterSubtitle": "Quick actions for targeted practice, messages, and exports."
-  ,"teacherClusterCreate": "Create Cluster"
-  ,"teacherFilterAllClasses": "All Classes"
-  ,"teacherFilterGrade4": "Grade 4"
-  ,"teacherFilterGrade5": "Grade 5"
-  ,"teacherFilterGrade6": "Grade 6"
-  ,"teacherFilterAllBands": "All Bands"
-  ,"teacherFilterTopPerformers": "Top performers"
-  ,"teacherFilterMidPerformers": "Mid performers"
-  ,"teacherFilterLowPerformers": "Low performers"
-  ,"teacherFilterAllActivity": "All Activity"
-  ,"teacherFilterActiveWeek": "Active this week"
-  ,"teacherFilterRecentDrop": "Recent drop"
-  ,"teacherFilterAllRegions": "All Regions"
-  ,"teacherFilterRegionJaipur": "Jaipur"
-  ,"teacherFilterRegionKota": "Kota"
-  ,"teacherFilterRegionUdaipur": "Udaipur"
-  ,"teacherClusterSuggested": "Suggested"
-  ,"teacherClusterMetricSize": "Size"
-  ,"teacherClusterMetricAvgScore": "Avg score"
-  ,"teacherClusterMetricEngagement": "Engagement"
-  ,"teacherClusterAssignQuiz": "Assign Quiz"
-  ,"teacherClusterMessage": "Message"
-  ,"teacherClusterExportCsv": "Export CSV"
-  ,"teacherClusterMarkReview": "Mark for review"
-  ,"teacherClusterNameLowAccuracy": "Low Accuracy Recovery"
-  ,"teacherClusterNoteLowAccuracy": "Suggested cluster based on recent accuracy dips."
-  ,"teacherClusterNameSpeedBoosters": "Speed Boosters"
-  ,"teacherClusterNoteSpeedBoosters": "Students with strong accuracy but slower speed."
-  ,"teacherClusterNameTopPerformers": "Top Performers"
-  ,"teacherClusterNoteTopPerformers": "High performers ready for tournament slots."
-  ,"teacherClusterNewName": "New Cluster"
-  ,"teacherClusterNewNote": "Custom cluster ready for edits."
-  ,"teacherLeaderboardTitle": "Teacher Leaderboard"
-  ,"teacherLeaderboardSubtitle": "Ranking by enrolled students, submitted questions, and approvals."
-  ,"teacherLeaderboardRank": "Rank"
-  ,"teacherLeaderboardTeacher": "Teacher"
-  ,"teacherLeaderboardStudents": "Students"
-  ,"teacherLeaderboardApproved": "Approved"
-  ,"teacherLeaderboardScore": "Score"
-  ,"teacherLeaderboardLevelSchool": "School"
-  ,"teacherLeaderboardLevelBlock": "Block"
-  ,"teacherLeaderboardLevelDistrict": "District"
-  ,"teacherLeaderboardLevelState": "State"
-  ,"teacherLeaderboardScoreFormula": "Score = students x2 + submitted x3 + approved x5"
-  ,"teacherLeaderboardYou": "You"
-  ,"teacherSubmissionTitle": "Question Submission"
-  ,"teacherSubmissionSubtitle": "Submit new questions for admin review."
-  ,"teacherSubmissionCategory": "Category"
-  ,"teacherSubmissionSubCategory": "Sub category"
-  ,"teacherSubmissionQuestionText": "Question text"
-  ,"teacherSubmissionMediaUrl": "Media URL"
-  ,"teacherSubmissionDifficulty": "Difficulty"
-  ,"teacherSubmissionAnswerData": "Answer data"
-  ,"teacherSubmissionSaveDraft": "Save Draft"
-  ,"teacherSubmissionSubmit": "Submit for Approval"
-  ,"teacherSubmissionCategoryPlaceholder": "e.g., Science"
-  ,"teacherSubmissionSubCategoryPlaceholder": "e.g., Photosynthesis"
-  ,"teacherSubmissionQuestionPlaceholder": "Type the question prompt"
-  ,"teacherSubmissionMediaPlaceholder": "Image, audio, or video link"
-  ,"teacherSubmissionAnswerPlaceholder": "Options, correct answer, or match pairs"
-  ,"teacherTypeMcq": "MCQ"
-  ,"teacherTypeFill": "Fill"
-  ,"teacherTypeMatch": "Match"
-  ,"teacherTypeMedia": "Media"
-  ,"teacherDifficultyEasy": "Easy"
-  ,"teacherDifficultyMedium": "Medium"
-  ,"teacherDifficultyHard": "Hard"
-  ,"teacherPerformanceTitle": "Student Performance"
-  ,"teacherPerformanceSubtitle": "Latest engagement and accuracy trends."
-  ,"teacherPerformanceNoteAccuracy": "Accuracy trend improving"
-  ,"teacherPerformanceNoteNeedsRetry": "9 students need retry support"
-  ,"teacherPerformanceNoteRankProgression": "Rank progression report ready"
-  ,"teacherMessageClusterCreated": "Cluster created. Update students and actions as needed."
-  ,"teacherMessageClusterExported": "Exported CSV for {name}."
-  ,"teacherMessageClusterAssigned": "Assigned a quiz to {name}."
-  ,"teacherMessageClusterMessaged": "Message sent to {name}."
-  ,"teacherMessageClusterReviewed": "Marked {name} for review."
-  ,"teacherMessageDraftNeedQuestion": "Add a question prompt before saving a draft."
-  ,"teacherMessageDraftSaved": "Draft saved locally."
-  ,"teacherMessageSubmitMissing": "Please fill category, sub category, and question text."
-  ,"teacherMessageSubmitSuccess": "Question submitted for approval."
-
-  ,"welcomeBack": "Welcome back, Pooja."
-  ,"enjoyingExperience": "Enjoying your live quiz experience."
-  ,"activeSlot": "Active slot"
-  ,"questionsPreloaded": "Questions preloaded"
-  ,"lowNetworkReady": "Low network ready"
-
-  ,"sidebar.overview": "Overview"
-  ,"sidebar.matchLobby": "Match Lobby"
-  ,"sidebar.gameBoard": "Game Board"
-  ,"sidebar.notifications": "Notifications"
-
-  ,"overview.title": "Quiz readiness at a glance"
-  ,"overview.join": "Join next quiz"
-
-  ,"lobby.title": "Match lobby"
-  ,"lobby.queueStatus": "Queue status"
-  ,"lobby.joinNow": "Join now"
-  ,"lobby.queuePosition": "Queue position"
-  ,"lobby.modeLabel": "Mode"
-  ,"lobby.confirmTitle": "Confirm Join"
-  ,"lobby.confirmCancel": "Cancel"
-  ,"lobby.confirmConfirm": "Confirm"
-  ,"lobby.playersWaiting": "players waiting"
-  ,"lobby.preloadedLabel": "Preloaded:"
-  ,"lobby.itemsPreloaded": "Items preloaded: {count}"
-  ,"lobby.lowNetworkLabel": "Low-network mode:"
-  ,"lobby.enabled": "Enabled"
-  ,"lobby.disabled": "Disabled"
-  ,"lobby.cachingEnabled": "Caching & retry enabled"
-  ,"lobby.standardMode": "Standard mode"
-  ,"lobby.bonusLabel": "Bonus:"
-  ,"lobby.current": "Current"
-  ,"lobby.note.preloaded": "Questions preloaded"
-  ,"lobby.note.network": "Network recovery ready"
-  ,"lobby.note.speed": "Speed bonus next round"
-
-  ,"notifications.item.timeSlot.title": "Time slot updated"
-  ,"notifications.item.timeSlot.detail": "Your next quiz starts at 10:30 AM instead of 10:00 AM."
-  ,"notifications.item.reward.title": "Reward unlocked"
-  ,"notifications.item.reward.detail": "Silver badge awarded for consistency this week."
-
-  ,"board.title": "Game board"
-  ,"board.dice": "Dice roll"
-  ,"board.roll": "Roll"
-  ,"board.objective": "Objective"
-
-  ,"notifications.title": "Student highlights"
-  ,"notifications.viewLeaderboard": "View leaderboard"
-  ,"board.variant.group": "Team Relay match"
-  ,"board.variant.tournament": "Tournament bracket"
-  ,"board.variant.1v1": "Snakes & Ladders style match"
-  ,"board.group.title": "Group match"
-  ,"board.group.desc": "Collaborate with teammates on sets of questions. Team points and shared bonuses apply."
-  ,"board.tournament.title": "Tournament"
-  ,"board.tournament.desc": "Bracket play with timed rounds. Win rounds to advance and earn higher multipliers."
-  ,"board.1v1.title": "1v1 Duel"
-  ,"board.1v1.desc": "Head-to-head rounds. Fastest correct answers gain more board movement."
-  ,"board.preloaded": "Preloaded questions: {count}"
-  ,"board.lowNetworkEnabled": "Low-network: enabled"
-  ,"board.lowNetworkDisabled": "Low-network: disabled"
-  ,"board.speedBonus": "Speed bonus: {speedBonus}"
-  ,"board.objective.tournament": "Compete in timed rounds to climb the bracket. Speed bonus: {speedBonus}. Faster answers give tie-break advantages."
-  ,"board.objective.group": "Work with your team to complete question sets. Team progress converts into shared board movement; {lowNetwork} mode adjusts question delivery."
-  ,"board.objective.1v1": "Answer questions to move ahead on the board. Each correct answer moves you forward; speed bonus: {speedBonus} increases movement on quick responses."
-
-  ,"notifications.highlightTitle": "Fastest learner in district"
-  ,"notifications.highlightDesc": "Your accuracy is above 90% in the last 3 quizzes. Keep the streak going to convert bonus points into a Gold badge."
-  ,"notifications.avgSpeedLabel": "Avg speed"
-  ,"notifications.timeSavedLabel": "Time saved"
-
-  ,"metric.blockRank": "Block rank"
-  ,"metric.accuracy": "Accuracy"
-  ,"metric.quizStreak": "Quiz streak"
-
-  ,"hide": "Hide"
-  ,"show": "Show"
+  "enterTeacherName": "Enter teacher name",
+  "enterValidMobile": "Enter a valid 10-digit mobile number",
+  "enterProviderEmail": "Enter {provider} account email to continue",
+  "enterMobileToStart": "Enter your mobile number to start",
+  "mobileNumberLabel": "MOBILE NUMBER",
+  "mobilePlaceholder": "10-digit number",
+  "sending": "Sending...",
+  "login": "Login",
+  "orContinueWith": "or continue with",
+  "signInGoogle": "Sign in with Google",
+  "signInMicrosoft": "Sign in with Microsoft",
+  "verifyOtp": "Verify OTP",
+  "enterOtpInstruction": "Enter the 6-digit code for Verify & Continue.",
+  "otpSentTo": "OTP sent to",
+  "otpBoxes": "OTP boxes",
+  "otpDigit": "OTP digit",
+  "verifyAndContinue": "Verify and Continue",
+  "resendOtp": "Resend OTP",
+  "accessConfirmation": "Access Confirmation",
+  "state": "State",
+  "pleaseSelectDistrict": "Please select a district",
+  "goToDashboard": "Go to Dashboard",
+  "signIn": "Sign In",
+  "otpVerification": "OTP Verification",
+  "roleRouting": "Role Routing",
+  "back": "Back",
+  "chooseRole": "Choose Role",
+  "selectOneRoleToContinue": "Select one role to continue",
+  "detectedRole": "Detected role",
+  "selected": "selected",
+  "profileComplete": "profile complete",
+  "continue": "Continue",
+  "studentRole": "Student",
+  "teacherRole": "Teacher",
+  "adminRole": "Admin",
+  "roleSelected": "{role} selected",
+  "roleSelectedWithProfile": "{role} selected - profile complete",
+  "adminAll": "All",
+  "adminPending": "Pending",
+  "adminUnderReview": "Under review",
+  "adminApproved": "Approved",
+  "adminRejected": "Rejected",
+  "adminTypeMcq": "MCQ",
+  "adminTypeFill": "Fill",
+  "adminTypeMatch": "Match",
+  "adminTypeMedia": "Media",
+  "adminEnterRejectionReason": "Please enter a rejection reason.",
+  "adminSidebarApproval": "Approval Queue",
+  "adminSidebarUpload": "Master Upload",
+  "adminApprovalQueueTitle": "Approval Queue and Review Detail",
+  "adminReviewQuestion": "Review Question",
+  "closeReview": "Close review",
+  "adminSidebarAnnouncements": "Announcements",
+  "adminSidebarRewards": "Rewards Rules",
+  "adminSidebarAnalytics": "Analytics",
+  "adminDashboardMenu": "Dashboard Menu",
+  "adminEyebrow": "Operations, quality, and compliance",
+  "adminMasterUploadEyebrow": "Master data import",
+  "adminMasterUploadTitle": "Master Data Upload",
+  "adminControlCenter": "Admin Control Center",
+  "adminOpenApprovalQueue": "Open Full Approval Queue",
+  "adminGoMasterUpload": "Go to Master Upload",
+  "adminLivePlayers": "Live players",
+  "adminRealtimeCompetitionSessions": "Realtime competition sessions",
+  "adminSlotsActive": "Slots active",
+  "adminConcurrentQuizWindows": "Concurrent quiz windows",
+  "adminViolationsLogged": "Violations logged",
+  "adminCameraChecks": "Camera/tab/fullscreen checks",
+  "adminPendingApprovals": "Pending approvals",
+  "adminQuestionBankModeration": "Question bank moderation load",
+  "adminSearchPlaceholder": "Search by id, title, teacher or category",
+  "adminNoRows": "No rows match your filters.",
+  "adminTeacherLabel": "Teacher",
+  "adminRejectionReason": "Rejection reason",
+  "adminRejectionPlaceholder": "Explain quality or policy issue for teacher feedback",
+  "adminReject": "Reject",
+  "adminApprove": "Approve",
+  "adminPickQuestion": "Pick a question to review.",
+  "adminMasterUploadValidation": "School Master Upload Validation",
+  "adminTotalRows": "Total rows",
+  "adminValidRows": "Valid rows",
+  "adminDuplicates": "Duplicates",
+  "adminMissingFields": "Missing fields",
+  "adminParentCodeErrors": "Parent code errors",
+  "adminRunValidationPreview": "Run Validation Preview",
+  "adminConfirmImport": "Confirm Import",
+  "adminAnnouncementsBroadcasts": "Announcements and Broadcasts",
+  "adminAudienceAllStudents": "All Students",
+  "adminAudienceAllTeachers": "All Teachers",
+  "adminAudienceDistrictJaipur": "District - Jaipur",
+  "adminAudienceBlockAmber": "Block - Amber",
+  "adminAudienceRoleAdmin": "Role - Admin",
+  "adminAnnouncementPlaceholder": "Write notification or announcement",
+  "adminSendBroadcast": "Send Broadcast",
+  "adminRewardsRules": "Rewards and Rule Controls",
+  "adminPoints": "points",
+  "adminEnabled": "Enabled",
+  "adminDisabled": "Disabled",
+  "adminAnalyticsSnapshot": "Analytics Snapshot",
+  "adminWeeklyActiveUsers": "Weekly active users",
+  "adminQuizCompletionRate": "Quiz completion rate",
+  "adminTeacherParticipation": "Teacher participation",
+  "signOut": "Sign Out",
+  "teacherEyebrow": "Teacher contribution and tracking",
+  "teacherTitle": "Enroll Students, Submit Questions, Monitor Performance",
+  "teacherModulesTitle": "Teacher Modules",
+  "teacherSidebarClusters": "Clusters",
+  "teacherSidebarLeaderboard": "Leaderboard",
+  "teacherSidebarSubmission": "Question Submission",
+  "teacherSidebarPerformance": "Student Performance",
+  "teacherStatStudentsEnrolled": "Students enrolled",
+  "teacherStatQuestionsSubmitted": "Questions submitted",
+  "teacherStatApprovedQuestions": "Approved questions",
+  "teacherStatTeacherRank": "Teacher rank",
+  "teacherStatHelperActiveRoster": "Active roster",
+  "teacherStatHelperThisTerm": "This term",
+  "teacherStatHelperQualityPass": "Quality pass",
+  "teacherStatHelperBlockLevel": "Block level",
+  "teacherActionCreateQuestion": "Create Question",
+  "teacherActionViewLeaderboard": "View Leaderboard",
+  "teacherClusterTitle": "Clustered Student Groups",
+  "teacherClusterSubtitle": "Quick actions for targeted practice, messages, and exports.",
+  "teacherClusterCreate": "Create Cluster",
+  "teacherFilterAllClasses": "All Classes",
+  "teacherFilterGrade4": "Grade 4",
+  "teacherFilterGrade5": "Grade 5",
+  "teacherFilterGrade6": "Grade 6",
+  "teacherFilterAllBands": "All Bands",
+  "teacherFilterTopPerformers": "Top performers",
+  "teacherFilterMidPerformers": "Mid performers",
+  "teacherFilterLowPerformers": "Low performers",
+  "teacherFilterAllActivity": "All Activity",
+  "teacherFilterActiveWeek": "Active this week",
+  "teacherFilterRecentDrop": "Recent drop",
+  "teacherFilterAllRegions": "All Regions",
+  "teacherFilterRegionJaipur": "Jaipur",
+  "teacherFilterRegionKota": "Kota",
+  "teacherFilterRegionUdaipur": "Udaipur",
+  "teacherClusterSuggested": "Suggested",
+  "teacherClusterMetricSize": "Size",
+  "teacherClusterMetricAvgScore": "Avg score",
+  "teacherClusterMetricEngagement": "Engagement",
+  "teacherClusterAssignQuiz": "Assign Quiz",
+  "teacherClusterMessage": "Message",
+  "teacherClusterExportCsv": "Export CSV",
+  "teacherClusterMarkReview": "Mark for review",
+  "teacherClusterNameLowAccuracy": "Low Accuracy Recovery",
+  "teacherClusterNoteLowAccuracy": "Suggested cluster based on recent accuracy dips.",
+  "teacherClusterNameSpeedBoosters": "Speed Boosters",
+  "teacherClusterNoteSpeedBoosters": "Students with strong accuracy but slower speed.",
+  "teacherClusterNameTopPerformers": "Top Performers",
+  "teacherClusterNoteTopPerformers": "High performers ready for tournament slots.",
+  "teacherClusterNewName": "New Cluster",
+  "teacherClusterNewNote": "Custom cluster ready for edits.",
+  "teacherLeaderboardTitle": "Teacher Leaderboard",
+  "teacherLeaderboardSubtitle": "Ranking by enrolled students, submitted questions, and approvals.",
+  "teacherLeaderboardRank": "Rank",
+  "teacherLeaderboardTeacher": "Teacher",
+  "teacherLeaderboardStudents": "Students",
+  "teacherLeaderboardApproved": "Approved",
+  "teacherLeaderboardScore": "Score",
+  "teacherLeaderboardLevelSchool": "School",
+  "teacherLeaderboardLevelBlock": "Block",
+  "teacherLeaderboardLevelDistrict": "District",
+  "teacherLeaderboardLevelState": "State",
+  "teacherLeaderboardScoreFormula": "Score = students x2 + submitted x3 + approved x5",
+  "teacherLeaderboardYou": "You",
+  "teacherSubmissionTitle": "Question Submission",
+  "teacherSubmissionSubtitle": "Submit new questions for admin review.",
+  "teacherSubmissionCategory": "Category",
+  "teacherSubmissionSubCategory": "Sub category",
+  "teacherSubmissionQuestionText": "Question text",
+  "teacherSubmissionMediaUrl": "Media URL",
+  "teacherSubmissionDifficulty": "Difficulty",
+  "teacherSubmissionAnswerData": "Answer data",
+  "teacherSubmissionSaveDraft": "Save Draft",
+  "teacherSubmissionSubmit": "Submit for Approval",
+  "teacherSubmissionCategoryPlaceholder": "e.g., Science",
+  "teacherSubmissionSubCategoryPlaceholder": "e.g., Photosynthesis",
+  "teacherSubmissionQuestionPlaceholder": "Type the question prompt",
+  "teacherSubmissionMediaPlaceholder": "Image, audio, or video link",
+  "teacherSubmissionAnswerPlaceholder": "Options, correct answer, or match pairs",
+  "teacherTypeMcq": "MCQ",
+  "teacherTypeFill": "Fill",
+  "teacherTypeMatch": "Match",
+  "teacherTypeMedia": "Media",
+  "teacherDifficultyEasy": "Easy",
+  "teacherDifficultyMedium": "Medium",
+  "teacherDifficultyHard": "Hard",
+  "teacherPerformanceTitle": "Student Performance",
+  "teacherPerformanceSubtitle": "Latest engagement and accuracy trends.",
+  "teacherPerformanceNoteAccuracy": "Accuracy trend improving",
+  "teacherPerformanceNoteNeedsRetry": "9 students need retry support",
+  "teacherPerformanceNoteRankProgression": "Rank progression report ready",
+  "teacherMessageClusterCreated": "Cluster created. Update students and actions as needed.",
+  "teacherMessageClusterExported": "Exported CSV for {name}.",
+  "teacherMessageClusterAssigned": "Assigned a quiz to {name}.",
+  "teacherMessageClusterMessaged": "Message sent to {name}.",
+  "teacherMessageClusterReviewed": "Marked {name} for review.",
+  "teacherMessageDraftNeedQuestion": "Add a question prompt before saving a draft.",
+  "teacherMessageDraftSaved": "Draft saved locally.",
+  "teacherMessageSubmitMissing": "Please fill category, sub category, and question text.",
+  "teacherMessageSubmitSuccess": "Question submitted for approval.",
+  "welcomeBack": "Welcome back, Pooja.",
+  "enjoyingExperience": "Enjoying your live quiz experience.",
+  "activeSlot": "Active slot",
+  "questionsPreloaded": "Questions preloaded",
+  "lowNetworkReady": "Low network ready",
+  "sidebar.overview": "Overview",
+  "sidebar.matchLobby": "Match Lobby",
+  "sidebar.gameBoard": "Game Board",
+  "sidebar.notifications": "Notifications",
+  "overview.title": "Quiz readiness at a glance",
+  "overview.join": "Join next quiz",
+  "lobby.title": "Match lobby",
+  "lobby.queueStatus": "Queue status",
+  "lobby.joinNow": "Join now",
+  "lobby.queuePosition": "Queue position",
+  "lobby.modeLabel": "Mode",
+  "lobby.confirmTitle": "Confirm Join",
+  "lobby.confirmCancel": "Cancel",
+  "lobby.confirmConfirm": "Confirm",
+  "lobby.playersWaiting": "players waiting",
+  "lobby.preloadedLabel": "Preloaded:",
+  "lobby.itemsPreloaded": "Items preloaded: {count}",
+  "lobby.lowNetworkLabel": "Low-network mode:",
+  "lobby.enabled": "Enabled",
+  "lobby.disabled": "Disabled",
+  "lobby.cachingEnabled": "Caching & retry enabled",
+  "lobby.standardMode": "Standard mode",
+  "lobby.bonusLabel": "Bonus:",
+  "lobby.current": "Current",
+  "lobby.note.preloaded": "Questions preloaded",
+  "lobby.note.network": "Network recovery ready",
+  "lobby.note.speed": "Speed bonus next round",
+  "notifications.item.timeSlot.title": "Time slot updated",
+  "notifications.item.timeSlot.detail": "Your next quiz starts at 10:30 AM instead of 10:00 AM.",
+  "notifications.item.reward.title": "Reward unlocked",
+  "notifications.item.reward.detail": "Silver badge awarded for consistency this week.",
+  "board.title": "Game board",
+  "board.dice": "Dice roll",
+  "board.roll": "Roll",
+  "board.objective": "Objective",
+  "notifications.title": "Student highlights",
+  "notifications.viewLeaderboard": "View leaderboard",
+  "board.variant.group": "Team Relay match",
+  "board.variant.tournament": "Tournament bracket",
+  "board.variant.1v1": "Snakes & Ladders style match",
+  "board.group.title": "Group match",
+  "board.group.desc": "Collaborate with teammates on sets of questions. Team points and shared bonuses apply.",
+  "board.tournament.title": "Tournament",
+  "board.tournament.desc": "Bracket play with timed rounds. Win rounds to advance and earn higher multipliers.",
+  "board.1v1.title": "1v1 Duel",
+  "board.1v1.desc": "Head-to-head rounds. Fastest correct answers gain more board movement.",
+  "board.preloaded": "Preloaded questions: {count}",
+  "board.lowNetworkEnabled": "Low-network: enabled",
+  "board.lowNetworkDisabled": "Low-network: disabled",
+  "board.speedBonus": "Speed bonus: {speedBonus}",
+  "board.objective.tournament": "Compete in timed rounds to climb the bracket. Speed bonus: {speedBonus}. Faster answers give tie-break advantages.",
+  "board.objective.group": "Work with your team to complete question sets. Team progress converts into shared board movement; {lowNetwork} mode adjusts question delivery.",
+  "board.objective.1v1": "Answer questions to move ahead on the board. Each correct answer moves you forward; speed bonus: {speedBonus} increases movement on quick responses.",
+  "notifications.highlightTitle": "Fastest learner in district",
+  "notifications.highlightDesc": "Your accuracy is above 90% in the last 3 quizzes. Keep the streak going to convert bonus points into a Gold badge.",
+  "notifications.avgSpeedLabel": "Avg speed",
+  "notifications.timeSavedLabel": "Time saved",
+  "metric.blockRank": "Block rank",
+  "metric.accuracy": "Accuracy",
+  "metric.quizStreak": "Quiz streak",
+  "masterUploadHistory": "Upload History",
+  "masterUploadValidateFile": "Validate File",
+  "masterUploadImportRecords": "Import Records",
+  "masterUploadUploadFileFirst": "Please upload a file first.",
+  "masterUploadTotalRecords": "Total Records",
+  "masterUploadRowsReadFromFile": "Rows read from file",
+  "masterUploadValidRecords": "Valid Records",
+  "masterUploadReadyForImport": "Ready for import",
+  "masterUploadMissingFields": "Missing Fields",
+  "masterUploadRequiredValuesBlank": "Required values blank",
+  "masterUploadValidationPreviewSummary": "Validation Preview Summary",
+  "masterUploadValidationPreviewHelp": "Summary cards required by the task sheet.",
+  "masterUploadTypeSelection": "Upload Type Selection",
+  "masterUploadTypeSelectionHelp": "Selected upload type is highlighted and required fields update dynamically.",
+  "masterUploadActive": "Active",
+  "masterUploadTypeState": "State",
+  "masterUploadTypeDistrict": "District",
+  "masterUploadTypeBlock": "Block",
+  "masterUploadTypeCRC": "CRC",
+  "masterUploadTypeVillage": "Village",
+  "masterUploadTypeSchool": "School",
+  "masterUploadFileUpload": "File Upload",
+  "masterUploadFileUploadHelp": "CSV/XLSX drag-and-drop area, browse button, unsupported file error, and file metadata preview.",
+  "masterUploadCsvXlsxOnly": "CSV / XLSX only",
+  "masterUploadCsvXlsx": "CSV / XLSX",
+  "masterUploadChooseFile": "Choose file",
+  "masterUploadDragFileHere": "Drag file here or choose from device",
+  "masterUploadUnsupportedFileNamed": "{file} is not supported",
+  "masterUploadFileInformation": "Uploaded File Information",
+  "masterUploadRowsDetected": "{count} rows detected",
+  "masterUploadFileDetailsEmpty": "File details will appear after upload.",
+  "masterUploadUnsupportedFileTypeError": "Unsupported File Type Error",
+  "masterUploadNoFileTypeError": "No file type error",
+  "masterUploadUnsupportedFileHelp": "Use this inline error when file extension is not CSV or XLSX.",
+  "masterUploadDownloadTemplate": "Download Template",
+  "masterUploadConfirmImportTitle": "Confirm {type} Import",
+  "masterUploadConfirmImportMessage": "Import {count} valid {type} records from {file}? Skipped records will remain in the error report.",
+  "masterUploadSelectedFile": "selected file",
+  "masterUploadCancel": "Cancel",
+  "masterUploadImportComplete": "Import Complete",
+  "masterUploadImportCompleteMessage": "{imported} records imported. {skipped} records skipped.",
+  "masterUploadImportedRecords": "Imported Records",
+  "masterUploadSkippedRecords": "Skipped Records",
+  "masterUploadViewMasterData": "View Master Data",
+  "masterUploadDetails": "Details",
+  "masterUploadUploadDetails": "Upload Details",
+  "masterUploadType": "Type",
+  "masterUploadFile": "File",
+  "masterUploadStatus": "Status",
+  "masterUploadImported": "Imported",
+  "masterUploadSkipped": "Skipped",
+  "masterUploadRecordsCount": "{count} records",
+  "masterUploadDownloadReport": "Download Report",
+  "masterUploadClose": "Close",
+  "masterUploadDate": "Date",
+  "masterUploadUploadType": "Upload Type",
+  "masterUploadOpen": "Open",
+  "masterUploadHistoryHelp": "Open the upload history table in a popup.",
+  "masterUploadCloseHistory": "Close upload history",
+  "masterUploadStatusComplete": "Complete",
+  "masterUploadDateFilter": "Date filter",
+  "masterUploadStatusFilter": "Status filter",
+  "masterUploadTypeFilter": "Type filter",
+  "masterUploadAllStatuses": "All statuses",
+  "masterUploadAllTypes": "All types",
+  "masterUploadClearFilters": "Clear filters",
+  "masterUploadNoHistoryRows": "No upload history matches your filters.",
+  "hide": "Hide",
+  "show": "Show",
+  "masterUploadAll": "All",
+  "masterUploadStatusPending": "Pending",
+  "masterUploadStatusReject": "Reject"
 }

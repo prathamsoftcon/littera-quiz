@@ -3,6 +3,7 @@ import {
   Box,
   Button,
 } from "@mui/material";
+import { useTranslation } from "../../../context/TranslationContext";
 
 const requiredFields = {
   State: ["state_code", "state_name"],
@@ -48,6 +49,7 @@ export default function TemplateRequiredFields({
   uploadType,
   actions,
 }) {
+  const { t } = useTranslation();
   const downloadTemplate = () => {
     const csv =
       requiredFields[uploadType].join(",") + "\n";
@@ -87,6 +89,7 @@ export default function TemplateRequiredFields({
           sx={{
             minHeight: 40,
             px: 2,
+            width: { xs: "100%", sm: "auto" },
             borderRadius: 1.25,
             borderColor: "#cbd8ea",
             color: "#132238",
@@ -101,7 +104,7 @@ export default function TemplateRequiredFields({
             },
           }}
         >
-          Download Template
+          {t("masterUploadDownloadTemplate")}
         </Button>
 
         <Box
@@ -109,6 +112,7 @@ export default function TemplateRequiredFields({
             display: "flex",
             flexWrap: "wrap",
             gap: 1.25,
+            width: { xs: "100%", sm: "auto" },
             justifyContent: { xs: "stretch", sm: "flex-end" },
             "& > button": {
               minWidth: { xs: "100%", sm: "auto" },

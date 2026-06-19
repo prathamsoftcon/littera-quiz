@@ -6,30 +6,32 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
+import { useTranslation } from "../../../context/TranslationContext";
 
 export default function ValidationSummary({
   summary,
   actions,
 }) {
+  const { t } = useTranslation();
   const cards = [
     {
-      label: "Total Records",
+      label: t("masterUploadTotalRecords"),
       value: summary.total,
-      help: "Rows read from file",
+      help: t("masterUploadRowsReadFromFile"),
       bgcolor: "#f4f8ff",
       accent: "#2563eb",
     },
     {
-      label: "Valid Records",
+      label: t("masterUploadValidRecords"),
       value: summary.valid,
-      help: "Ready for import",
+      help: t("masterUploadReadyForImport"),
       bgcolor: "#eff6ff",
       accent: "#2563eb",
     },
     {
-      label: "Missing Fields",
+      label: t("masterUploadMissingFields"),
       value: summary.missing,
-      help: "Required values blank",
+      help: t("masterUploadRequiredValuesBlank"),
       bgcolor: "#fff7f8",
       accent: "#be123c",
     },
@@ -51,14 +53,20 @@ export default function ValidationSummary({
       >
         <Box>
           <Typography variant="h6" sx={{ color: "#0f172a", fontSize: 18, fontWeight: 900 }}>
-            Validation Preview Summary
+            {t("masterUploadValidationPreviewSummary")}
           </Typography>
           <Typography sx={{ mt: 0.25, color: "#52627a", fontSize: 13.5 }}>
-            Summary cards required by the task sheet.
+            {t("masterUploadValidationPreviewHelp")}
           </Typography>
         </Box>
 
-        <Box sx={{ display: "flex", justifyContent: { xs: "stretch", sm: "flex-end" } }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: { xs: "stretch", sm: "flex-end" },
+            width: { xs: "100%", sm: "auto" },
+          }}
+        >
           {actions}
         </Box>
       </Box>

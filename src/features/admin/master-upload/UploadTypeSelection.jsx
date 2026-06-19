@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
+import { useTranslation } from "../../../context/TranslationContext";
 
 const uploadTypes = [
   "State",
@@ -14,6 +15,9 @@ export default function UploadTypeSelection({
   uploadType,
   setUploadType,
 }) {
+  const { t } = useTranslation();
+  const typeLabel = (type) => t(`masterUploadType${type}`);
+
   return (
     <Box>
       <Box
@@ -30,10 +34,10 @@ export default function UploadTypeSelection({
       >
         <Box>
           <Typography variant="h6" sx={{ color: "#0f172a", fontSize: 18, fontWeight: 900 }}>
-            Upload Type Selection
+            {t("masterUploadTypeSelection")}
           </Typography>
           <Typography sx={{ mt: 0.25, color: "#52627a", fontSize: 13.5 }}>
-            Selected upload type is highlighted and required fields update dynamically.
+            {t("masterUploadTypeSelectionHelp")}
           </Typography>
         </Box>
 
@@ -51,7 +55,7 @@ export default function UploadTypeSelection({
             whiteSpace: "nowrap",
           }}
         >
-          Active: {uploadType}
+          {t("masterUploadActive")}: {typeLabel(uploadType)}
         </Box>
       </Box>
 
@@ -94,7 +98,7 @@ export default function UploadTypeSelection({
               },
             }}
           >
-            {type}
+            {typeLabel(type)}
           </Button>
         ))}
       </Box>

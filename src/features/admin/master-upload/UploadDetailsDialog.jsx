@@ -6,20 +6,28 @@ import {
   DialogActions,
   Typography,
   Button,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import DraggableDialogPaper from "./DraggableDialogPaper";
+import { useTranslation } from "../../../context/TranslationContext";
 
 export default function UploadDetailsDialog({
   open,
   row,
   onClose,
 }) {
+  const { t } = useTranslation();
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   if (!row) return null;
 
   return (
     <Dialog
       open={open}
       onClose={onClose}
+      fullScreen={fullScreen}
       PaperComponent={DraggableDialogPaper}
       PaperProps={{
         sx: {
@@ -34,18 +42,18 @@ export default function UploadDetailsDialog({
         data-dialog-drag-handle="true"
         sx={{ pb: 0.5, fontSize: 18, fontWeight: 800, cursor: "move" }}
       >
-        Upload Details
+        {t("masterUploadUploadDetails")}
       </DialogTitle>
 
       <DialogContent sx={{ display: "grid", gap: 1 }}>
         {[
-          ["Type", row.type],
-          ["File", row.file],
-          ["Status", row.status],
-          ["Imported", `${row.imported} records`],
-          ["Skipped", `${row.skipped} records`],
+          [t("masterUploadType"), t(`masterUploadType${row.type}`)],
+          [t("masterUploadFile"), row.file],
+          [t("masterUploadStatus"), t(`masterUploadStatus${row.status}`)],
+          [t("masterUploadImported"), t("masterUploadRecordsCount").replace("{count}", row.imported)],
+          [t("masterUploadSkipped"), t("masterUploadRecordsCount").replace("{count}", row.skipped)],
         ].map(([label, value]) => (
-          <Typography key={label} sx={{ color: "#667085", fontSize: 14 }}>
+          <Typography key={label} sx={{ color: "#667085", fontSize: 14, wordBreak: "break-word" }}>
             <Typography component="span" sx={{ color: "#172033", fontWeight: 800 }}>
               {label}:
             </Typography>{" "}
@@ -54,9 +62,17 @@ export default function UploadDetailsDialog({
         ))}
       </DialogContent>
 
-      <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
+      <DialogActions
+        sx={{
+          px: { xs: 2, sm: 3 },
+          pb: 2,
+          gap: 1,
+          flexDirection: { xs: "column-reverse", sm: "row" },
+          "& > button": { width: { xs: "100%", sm: "auto" }, m: "0 !important" },
+        }}
+      >
         <Button variant="outlined" sx={secondaryButtonSx}>
-          Download Report
+          {t("masterUploadDownloadReport")}
         </Button>
 
         <Button
@@ -64,7 +80,7 @@ export default function UploadDetailsDialog({
           variant="contained"
           sx={primaryButtonSx}
         >
-          Close
+          {t("masterUploadClose")}
         </Button>
       </DialogActions>
     </Dialog>

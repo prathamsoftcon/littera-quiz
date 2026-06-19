@@ -4,9 +4,12 @@ import {
   Typography,
   Button,
   Dialog,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import DraggableDialogPaper from "./DraggableDialogPaper";
+import { useTranslation } from "../../../context/TranslationContext";
 
 export default function ImportCompleteScreen({
   open,
@@ -14,6 +17,10 @@ export default function ImportCompleteScreen({
   imported = 1188,
   skipped = 58,
 }) {
+  const { t } = useTranslation();
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   useEffect(() => {
     if (!open) return undefined;
 
@@ -28,6 +35,7 @@ export default function ImportCompleteScreen({
     <Dialog
       open={open}
       onClose={onClose}
+      fullScreen={fullScreen}
       PaperComponent={DraggableDialogPaper}
       PaperProps={{
         sx: {
@@ -43,7 +51,7 @@ export default function ImportCompleteScreen({
         data-dialog-drag-handle="true"
         sx={{
           display: "grid",
-          gridTemplateColumns: { xs: "1fr", md: "90px minmax(0, 1fr) auto" },
+          gridTemplateColumns: { xs: "1fr", sm: "90px minmax(0, 1fr)", md: "90px minmax(0, 1fr) auto" },
           gap: 2,
           alignItems: "center",
           p: 2,
@@ -67,17 +75,19 @@ export default function ImportCompleteScreen({
 
         <Box>
           <Typography variant="h6" sx={{ fontSize: 16, fontWeight: 800 }}>
-            Import Complete
+            {t("masterUploadImportComplete")}
           </Typography>
           <Typography sx={{ color: "#667085", fontSize: 13 }}>
-            {imported} records imported. {skipped} records skipped.
+            {t("masterUploadImportCompleteMessage")
+              .replace("{imported}", imported)
+              .replace("{skipped}", skipped)}
           </Typography>
           <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mt: 1.25 }}>
             <Box component="span" sx={chipSx}>
-              Imported Records: {imported}
+              {t("masterUploadImportedRecords")}: {imported}
             </Box>
             <Box component="span" sx={chipSx}>
-              Skipped Records: {skipped}
+              {t("masterUploadSkippedRecords")}: {skipped}
             </Box>
           </Box>
         </Box>
@@ -91,12 +101,13 @@ export default function ImportCompleteScreen({
             bgcolor: "#2563eb",
             fontWeight: 800,
             textTransform: "none",
-            whiteSpace: "nowrap",
+            whiteSpace: { xs: "normal", sm: "nowrap" },
+            width: { xs: "100%", md: "auto" },
             boxShadow: "0 8px 18px rgba(37, 99, 235, 0.22)",
             "&:hover": { bgcolor: "#1d4ed8" },
           }}
         >
-          View Master Data
+          {t("masterUploadViewMasterData")}
         </Button>
       </Box>
 

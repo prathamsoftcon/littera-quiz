@@ -12,8 +12,10 @@ import ImportConfirmationDialog from "./master-upload/ImportConfirmationDialog";
 import ImportCompleteScreen from "./master-upload/ImportCompleteScreen";
 import UploadHistory from "./master-upload/UploadHistory";
 import UploadDetailsDialog from "./master-upload/UploadDetailsDialog";
+import { useTranslation } from "../../context/TranslationContext";
 
 export default function MasterUpload() {
+  const { t } = useTranslation();
   // Upload Type
   const [uploadType, setUploadType] = useState("School");
 
@@ -63,7 +65,7 @@ export default function MasterUpload() {
   // Validate File
   const handleValidate = () => {
     if (!file) {
-      alert("Please upload a file first.");
+      alert(t("masterUploadUploadFileFirst"));
       return;
     }
 
@@ -117,7 +119,7 @@ export default function MasterUpload() {
               onClick={() => setHistoryOpen(true)}
               sx={secondaryButtonSx}
             >
-              Upload History
+              {t("masterUploadHistory")}
             </Button>
           }
         />
@@ -151,7 +153,7 @@ export default function MasterUpload() {
                 onClick={handleValidate}
                 sx={secondaryButtonSx}
               >
-                Validate File
+                {t("masterUploadValidateFile")}
               </Button>
 
               <Button
@@ -160,7 +162,7 @@ export default function MasterUpload() {
                 disabled={!summary.valid}
                 sx={primaryButtonSx}
               >
-                Import Records
+                {t("masterUploadImportRecords")}
               </Button>
             </>
           }
@@ -224,6 +226,7 @@ function Section({ children }) {
 const secondaryButtonSx = {
   minHeight: 40,
   px: 2,
+  width: { xs: "100%", sm: "auto" },
   borderRadius: 1.25,
   borderColor: "#cbd8ea",
   color: "#132238",
@@ -240,6 +243,7 @@ const secondaryButtonSx = {
 const primaryButtonSx = {
   minHeight: 40,
   px: 2,
+  width: { xs: "100%", sm: "auto" },
   borderRadius: 1.25,
   bgcolor: "#2563eb",
   fontWeight: 800,

@@ -19,284 +19,344 @@
   "autoFilled": "स्वतः भरा गया",
   "schoolCodeNotFound": "स्कूल कोड नहीं मिला",
   "enterStudentName": "छात्र का नाम दर्ज करें",
-  "enterTeacherName": "शिक्षक का नाम दर्ज करें"
-  ,"enterValidMobile": "मान्य 10 अंकों का मोबाइल नंबर दर्ज करें"
-  ,"enterProviderEmail": "जारी रखने के लिए {provider} खाते का ईमेल दर्ज करें"
-  ,"enterMobileToStart": "शुरू करने के लिए अपना मोबाइल नंबर दर्ज करें"
-  ,"mobileNumberLabel": "मोबाइल नंबर"
-  ,"mobilePlaceholder": "10 अंकों का नंबर"
-  ,"sending": "भेजा जा रहा है..."
-  ,"login": "लॉगिन"
-  ,"orContinueWith": "या इसके साथ जारी रखें"
-  ,"signInGoogle": "Google से साइन इन करें"
-  ,"signInMicrosoft": "Microsoft से साइन इन करें"
-  ,"verifyOtp": "ओटीपी सत्यापित करें"
-  ,"enterOtpInstruction": "सत्यापित करें और जारी रखें के लिए 6 अंकों का कोड दर्ज करें।"
-  ,"otpSentTo": "ओटीपी भेजा गया"
-  ,"otpBoxes": "ओटीपी बॉक्स"
-  ,"otpDigit": "ओटीपी अंक"
-  ,"verifyAndContinue": "सत्यापित करें और जारी रखें"
-  ,"resendOtp": "ओटीपी फिर भेजें"
-  ,"accessConfirmation": "एक्सेस पुष्टि"
-  ,"state": "राज्य"
-  ,"pleaseSelectDistrict": "कृपया जिला चुनें"
-  ,"goToDashboard": "डैशबोर्ड पर जाएं"
-  ,"signIn": "साइन इन"
-  ,"otpVerification": "ओटीपी सत्यापन"
-  ,"roleRouting": "भूमिका रूटिंग"
-  ,"back": "वापस"
-  ,"chooseRole": "भूमिका चुनें"
-  ,"selectOneRoleToContinue": "जारी रखने के लिए एक भूमिका चुनें"
-  ,"detectedRole": "पहचानी गई भूमिका"
-  ,"selected": "चयनित"
-  ,"profileComplete": "प्रोफाइल पूर्ण"
-  ,"continue": "जारी रखें"
-  ,"studentRole": "छात्र"
-  ,"teacherRole": "शिक्षक"
-  ,"adminRole": "एडमिन"
-  ,"roleSelected": "{role} चयनित"
-  ,"roleSelectedWithProfile": "{role} चयनित - प्रोफाइल पूर्ण"
-  ,"adminAll": "सभी"
-  ,"adminPending": "लंबित"
-  ,"adminUnderReview": "समीक्षा में"
-  ,"adminApproved": "स्वीकृत"
-  ,"adminRejected": "अस्वीकृत"
-  ,"adminTypeMcq": "एमसीक्यू"
-  ,"adminTypeFill": "रिक्त स्थान"
-  ,"adminTypeMatch": "मिलान"
-  ,"adminTypeMedia": "मीडिया"
-  ,"adminEnterRejectionReason": "कृपया अस्वीकृति का कारण दर्ज करें।"
-  ,"adminSidebarApproval": "स्वीकृति कतार"
-  ,"adminSidebarUpload": "मास्टर अपलोड"
-  ,"adminApprovalQueueTitle": "स्वीकृति कतार और समीक्षा विवरण"
-  ,"adminReviewQuestion": "प्रश्न की समीक्षा"
-  ,"closeReview": "समीक्षा बंद करें"
-  ,"adminSidebarAnnouncements": "घोषणाएं"
-  ,"adminSidebarRewards": "रिवॉर्ड नियम"
-  ,"adminSidebarAnalytics": "विश्लेषण"
-  ,"adminDashboardMenu": "डैशबोर्ड मेनू"
-  ,"adminEyebrow": "संचालन, गुणवत्ता और अनुपालन"
-  ,"adminMasterUploadEyebrow": "मास्टर डेटा इम्पोर्ट"
-  ,"adminMasterUploadTitle": "मास्टर डेटा अपलोड"
-  ,"adminControlCenter": "एडमिन कंट्रोल सेंटर"
-  ,"adminOpenApprovalQueue": "पूर्ण स्वीकृति कतार खोलें"
-  ,"adminGoMasterUpload": "मास्टर अपलोड पर जाएं"
-  ,"adminLivePlayers": "सक्रिय खिलाड़ी"
-  ,"adminRealtimeCompetitionSessions": "रीयलटाइम प्रतियोगिता सत्र"
-  ,"adminSlotsActive": "सक्रिय स्लॉट"
-  ,"adminConcurrentQuizWindows": "समकालिक क्विज विंडो"
-  ,"adminViolationsLogged": "लॉग की गई उल्लंघन"
-  ,"adminCameraChecks": "कैमरा/टैब/फुलस्क्रीन जांच"
-  ,"adminPendingApprovals": "लंबित स्वीकृतियां"
-  ,"adminQuestionBankModeration": "प्रश्न बैंक मॉडरेशन लोड"
-  ,"adminSearchPlaceholder": "आईडी, शीर्षक, शिक्षक या श्रेणी से खोजें"
-  ,"adminNoRows": "आपके फिल्टर से कोई रिकॉर्ड नहीं मिला।"
-  ,"adminTeacherLabel": "शिक्षक"
-  ,"adminRejectionReason": "अस्वीकृति का कारण"
-  ,"adminRejectionPlaceholder": "शिक्षक फीडबैक हेतु गुणवत्ता या नीति संबंधी कारण लिखें"
-  ,"adminReject": "अस्वीकृत करें"
-  ,"adminApprove": "स्वीकृत करें"
-  ,"adminPickQuestion": "समीक्षा के लिए प्रश्न चुनें।"
-  ,"adminMasterUploadValidation": "स्कूल मास्टर अपलोड सत्यापन"
-  ,"adminTotalRows": "कुल रिकॉर्ड"
-  ,"adminValidRows": "वैध रिकॉर्ड"
-  ,"adminDuplicates": "डुप्लिकेट"
-  ,"adminMissingFields": "गायब फ़ील्ड"
-  ,"adminParentCodeErrors": "पैरेंट कोड त्रुटियां"
-  ,"adminRunValidationPreview": "सत्यापन पूर्वावलोकन चलाएं"
-  ,"adminConfirmImport": "इम्पोर्ट पुष्टि करें"
-  ,"adminAnnouncementsBroadcasts": "घोषणाएं और प्रसारण"
-  ,"adminAudienceAllStudents": "सभी छात्र"
-  ,"adminAudienceAllTeachers": "सभी शिक्षक"
-  ,"adminAudienceDistrictJaipur": "जिला - जयपुर"
-  ,"adminAudienceBlockAmber": "ब्लॉक - आमेर"
-  ,"adminAudienceRoleAdmin": "भूमिका - एडमिन"
-  ,"adminAnnouncementPlaceholder": "घोषणा या सूचना लिखें"
-  ,"adminSendBroadcast": "प्रसारण भेजें"
-  ,"adminRewardsRules": "रिवॉर्ड और नियम नियंत्रण"
-  ,"adminPoints": "अंक"
-  ,"adminEnabled": "सक्रिय"
-  ,"adminDisabled": "निष्क्रिय"
-  ,"adminAnalyticsSnapshot": "विश्लेषण स्नैपशॉट"
-  ,"adminWeeklyActiveUsers": "साप्ताहिक सक्रिय उपयोगकर्ता"
-  ,"adminQuizCompletionRate": "क्विज पूर्णता दर"
-  ,"adminTeacherParticipation": "शिक्षक सहभागिता"
-  ,"signOut": "साइन आउट"
-  ,"teacherEyebrow": "शिक्षक योगदान और ट्रैकिंग"
-  ,"teacherTitle": "छात्रों को जोड़ें, प्रश्न सबमिट करें, प्रदर्शन देखें"
-  ,"teacherModulesTitle": "टीचर मॉड्यूल"
-  ,"teacherSidebarClusters": "क्लस्टर"
-  ,"teacherSidebarLeaderboard": "लीडरबोर्ड"
-  ,"teacherSidebarSubmission": "प्रश्न सबमिशन"
-  ,"teacherSidebarPerformance": "छात्र प्रदर्शन"
-  ,"teacherStatStudentsEnrolled": "नामांकित छात्र"
-  ,"teacherStatQuestionsSubmitted": "सबमिट किए गए प्रश्न"
-  ,"teacherStatApprovedQuestions": "स्वीकृत प्रश्न"
-  ,"teacherStatTeacherRank": "शिक्षक रैंक"
-  ,"teacherStatHelperActiveRoster": "सक्रिय सूची"
-  ,"teacherStatHelperThisTerm": "इस टर्म में"
-  ,"teacherStatHelperQualityPass": "गुणवत्ता पास"
-  ,"teacherStatHelperBlockLevel": "ब्लॉक स्तर"
-  ,"teacherActionCreateQuestion": "प्रश्न बनाएं"
-  ,"teacherActionViewLeaderboard": "लीडरबोर्ड देखें"
-  ,"teacherClusterTitle": "क्लस्टर किए गए छात्र समूह"
-  ,"teacherClusterSubtitle": "लक्षित अभ्यास, संदेश और एक्सपोर्ट के लिए त्वरित कार्रवाइयां।"
-  ,"teacherClusterCreate": "क्लस्टर बनाएं"
-  ,"teacherFilterAllClasses": "सभी कक्षाएं"
-  ,"teacherFilterGrade4": "कक्षा 4"
-  ,"teacherFilterGrade5": "कक्षा 5"
-  ,"teacherFilterGrade6": "कक्षा 6"
-  ,"teacherFilterAllBands": "सभी बैंड"
-  ,"teacherFilterTopPerformers": "शीर्ष प्रदर्शनकर्ता"
-  ,"teacherFilterMidPerformers": "मध्यम प्रदर्शनकर्ता"
-  ,"teacherFilterLowPerformers": "कम प्रदर्शनकर्ता"
-  ,"teacherFilterAllActivity": "सभी गतिविधि"
-  ,"teacherFilterActiveWeek": "इस सप्ताह सक्रिय"
-  ,"teacherFilterRecentDrop": "हालिया गिरावट"
-  ,"teacherFilterAllRegions": "सभी क्षेत्र"
-  ,"teacherFilterRegionJaipur": "जयपुर"
-  ,"teacherFilterRegionKota": "कोटा"
-  ,"teacherFilterRegionUdaipur": "उदयपुर"
-  ,"teacherClusterSuggested": "सुझाव"
-  ,"teacherClusterMetricSize": "आकार"
-  ,"teacherClusterMetricAvgScore": "औसत स्कोर"
-  ,"teacherClusterMetricEngagement": "एंगेजमेंट"
-  ,"teacherClusterAssignQuiz": "क्विज असाइन करें"
-  ,"teacherClusterMessage": "संदेश भेजें"
-  ,"teacherClusterExportCsv": "CSV एक्सपोर्ट"
-  ,"teacherClusterMarkReview": "समीक्षा हेतु चिन्हित करें"
-  ,"teacherClusterNameLowAccuracy": "कम सटीकता सुधार"
-  ,"teacherClusterNoteLowAccuracy": "हालिया सटीकता गिरावट के आधार पर सुझावित क्लस्टर।"
-  ,"teacherClusterNameSpeedBoosters": "स्पीड बूस्टर्स"
-  ,"teacherClusterNoteSpeedBoosters": "उच्च सटीकता लेकिन धीमी गति वाले छात्र।"
-  ,"teacherClusterNameTopPerformers": "शीर्ष प्रदर्शनकर्ता"
-  ,"teacherClusterNoteTopPerformers": "टूर्नामेंट स्लॉट के लिए तैयार छात्र।"
-  ,"teacherClusterNewName": "नया क्लस्टर"
-  ,"teacherClusterNewNote": "कस्टम क्लस्टर संपादन के लिए तैयार।"
-  ,"teacherLeaderboardTitle": "टीचर लीडरबोर्ड"
-  ,"teacherLeaderboardSubtitle": "नामांकित छात्रों, सबमिट किए प्रश्न और स्वीकृतियों पर रैंकिंग।"
-  ,"teacherLeaderboardRank": "रैंक"
-  ,"teacherLeaderboardTeacher": "शिक्षक"
-  ,"teacherLeaderboardStudents": "छात्र"
-  ,"teacherLeaderboardApproved": "स्वीकृत"
-  ,"teacherLeaderboardScore": "स्कोर"
-  ,"teacherLeaderboardLevelSchool": "स्कूल"
-  ,"teacherLeaderboardLevelBlock": "ब्लॉक"
-  ,"teacherLeaderboardLevelDistrict": "जिला"
-  ,"teacherLeaderboardLevelState": "राज्य"
-  ,"teacherLeaderboardScoreFormula": "स्कोर = छात्र x2 + सबमिट x3 + स्वीकृत x5"
-  ,"teacherLeaderboardYou": "आप"
-  ,"teacherSubmissionTitle": "प्रश्न सबमिशन"
-  ,"teacherSubmissionSubtitle": "एडमिन समीक्षा के लिए नए प्रश्न सबमिट करें।"
-  ,"teacherSubmissionCategory": "श्रेणी"
-  ,"teacherSubmissionSubCategory": "उप-श्रेणी"
-  ,"teacherSubmissionQuestionText": "प्रश्न टेक्स्ट"
-  ,"teacherSubmissionMediaUrl": "मीडिया URL"
-  ,"teacherSubmissionDifficulty": "कठिनाई"
-  ,"teacherSubmissionAnswerData": "उत्तर डेटा"
-  ,"teacherSubmissionSaveDraft": "ड्राफ्ट सेव करें"
-  ,"teacherSubmissionSubmit": "स्वीकृति हेतु सबमिट"
-  ,"teacherSubmissionCategoryPlaceholder": "जैसे, विज्ञान"
-  ,"teacherSubmissionSubCategoryPlaceholder": "जैसे, प्रकाश संश्लेषण"
-  ,"teacherSubmissionQuestionPlaceholder": "प्रश्न लिखें"
-  ,"teacherSubmissionMediaPlaceholder": "छवि, ऑडियो या वीडियो लिंक"
-  ,"teacherSubmissionAnswerPlaceholder": "विकल्प, सही उत्तर या मैच पेयर"
-  ,"teacherTypeMcq": "एमसीक्यू"
-  ,"teacherTypeFill": "रिक्त स्थान"
-  ,"teacherTypeMatch": "मिलान"
-  ,"teacherTypeMedia": "मीडिया"
-  ,"teacherDifficultyEasy": "आसान"
-  ,"teacherDifficultyMedium": "मध्यम"
-  ,"teacherDifficultyHard": "कठिन"
-  ,"teacherPerformanceTitle": "छात्र प्रदर्शन"
-  ,"teacherPerformanceSubtitle": "हालिया एंगेजमेंट और सटीकता ट्रेंड।"
-  ,"teacherPerformanceNoteAccuracy": "सटीकता ट्रेंड बेहतर हो रहा है"
-  ,"teacherPerformanceNoteNeedsRetry": "9 छात्रों को रीट्राई सपोर्ट चाहिए"
-  ,"teacherPerformanceNoteRankProgression": "रैंक प्रोग्रेशन रिपोर्ट तैयार"
-  ,"teacherMessageClusterCreated": "क्लस्टर बनाया गया। आवश्यक अपडेट करें।"
-  ,"teacherMessageClusterExported": "{name} के लिए CSV एक्सपोर्ट हुआ।"
-  ,"teacherMessageClusterAssigned": "{name} को क्विज असाइन किया गया।"
-  ,"teacherMessageClusterMessaged": "{name} को संदेश भेजा गया।"
-  ,"teacherMessageClusterReviewed": "{name} को समीक्षा हेतु चिन्हित किया गया।"
-  ,"teacherMessageDraftNeedQuestion": "ड्राफ्ट सेव करने से पहले प्रश्न लिखें।"
-  ,"teacherMessageDraftSaved": "ड्राफ्ट लोकली सेव हो गया।"
-  ,"teacherMessageSubmitMissing": "श्रेणी, उप-श्रेणी और प्रश्न टेक्स्ट भरें।"
-  ,"teacherMessageSubmitSuccess": "प्रश्न स्वीकृति हेतु सबमिट हो गया।"
-
-  ,"welcomeBack": "वापस स्वागत है, पूजा"
-  ,"enjoyingExperience": "अपने लाइव क्विज का अनुभव कर रही हैं।"
-  ,"activeSlot": "सक्रिय स्लॉट"
-  ,"questionsPreloaded": "प्रश्न प्रीलोडेड"
-  ,"lowNetworkReady": "लो नेटवर्क तैयार"
-
-  ,"sidebar.overview": "ओवरव्यू"
-  ,"sidebar.matchLobby": "मैच लॉबी"
-  ,"sidebar.gameBoard": "गेम बोर्ड"
-  ,"sidebar.notifications": "नोटिफिकेशन्स"
-
-  ,"overview.title": "क्विज रेडिनेस एक नजर में"
-  ,"overview.join": "अगला क्विज जॉइन करें"
-
-  ,"lobby.title": "मैच लॉबी"
-  ,"lobby.queueStatus": "क्यू स्थिति"
-  ,"lobby.joinNow": "अब जॉइन करें"
-  ,"lobby.queuePosition": "क्यू पोजिशन"
-  ,"lobby.modeLabel": "मोड"
-  ,"lobby.confirmTitle": "जॉइन की पुष्टि"
-  ,"lobby.confirmCancel": "रद्द करें"
-  ,"lobby.confirmConfirm": "पुष्टि करें"
-  ,"lobby.playersWaiting": "खिलाड़ी प्रतीक्षारत"
-  ,"lobby.preloadedLabel": "प्रीलोडेड:"
-  ,"lobby.itemsPreloaded": "प्रीलोड किए गए प्रश्न: {count}"
-  ,"lobby.lowNetworkLabel": "लो-नेटवर्क मोड:"
-  ,"lobby.enabled": "सक्रिय"
-  ,"lobby.disabled": "निष्क्रिय"
-  ,"lobby.cachingEnabled": "कैशिंग और रीट्राई सक्रिय"
-  ,"lobby.standardMode": "मानक मोड"
-  ,"lobby.bonusLabel": "बोनस:"
-  ,"lobby.current": "वर्तमान"
-  ,"lobby.note.preloaded": "प्रश्न प्रीलोडेड"
-  ,"lobby.note.network": "नेटवर्क रिकवरी तैयार"
-  ,"lobby.note.speed": "अगले राउंड में स्पीड बोनस"
-
-  ,"notifications.item.timeSlot.title": "समय स्लॉट अपडेट हुआ"
-  ,"notifications.item.timeSlot.detail": "आपका अगला क्विज 10:30 AM पर शुरू होगा, 10:00 AM की जगह।"
-  ,"notifications.item.reward.title": "रिवॉर्ड अनलॉक हुआ"
-  ,"notifications.item.reward.detail": "इस सप्ताह निरंतरता के लिए सिल्वर बैज दिया गया।"
-
-  ,"board.title": "गेम बोर्ड"
-  ,"board.dice": "डाइस रोल"
-  ,"board.roll": "रोल"
-  ,"board.objective": "उद्देश्य"
-
-  ,"notifications.title": "छात्र हाइलाइट्स"
-  ,"notifications.viewLeaderboard": "लिडरबोर्ड देखें"
-  ,"board.variant.group": "टीम रिले मैच"
-  ,"board.variant.tournament": "टूर्नामेंट ब्रैकेट"
-  ,"board.variant.1v1": "स्नेक्स और लैडर्स स्टाइल मैच"
-  ,"board.group.title": "ग्रुप मैच"
-  ,"board.group.desc": "टीम के साथ प्रश्न सेट पर सहयोग करें। टीम पॉइंट्स और साझा बोनस लागू होते हैं।"
-  ,"board.tournament.title": "टूर्नामेंट"
-  ,"board.tournament.desc": "समयबद्ध राउंड के साथ ब्रैकेट प्ले। राउंड जीतें और उच्च मल्टीप्लायर कमाएँ।"
-  ,"board.1v1.title": "1v1 डुएल"
-  ,"board.1v1.desc": "हेड-टू-हेड राउंड। सबसे तेज सही उत्तर अधिक बोर्ड मूवमेंट पाते हैं।"
-  ,"board.preloaded": "प्रीलोडेड प्रश्न: {count}"
-  ,"board.lowNetworkEnabled": "लो-नेटवर्क: सक्रिय"
-  ,"board.lowNetworkDisabled": "लो-नेटवर्क: निष्क्रिय"
-  ,"board.speedBonus": "स्पीड बोनस: {speedBonus}"
-  ,"board.objective.tournament": "राउंड जीतकर ब्रैकेट में चढ़ें। स्पीड बोनस: {speedBonus}. तेज उत्तर tie-break में मदद करते हैं।"
-  ,"board.objective.group": "टीम के साथ प्रश्न सेट पूरा करें। टीम प्रगति साझा बोर्ड मूवमेंट में बदलती है; {lowNetwork} मोड प्रश्न डिलीवरी को समायोजित करता है।"
-  ,"board.objective.1v1": "बोर्ड पर आगे बढ़ने के लिए प्रश्नों के उत्तर दें। प्रत्येक सही उत्तर आपको आगे बढ़ाता है; स्पीड बोनस: {speedBonus} तेज प्रतिक्रियाओं पर मूवमेंट बढ़ाता है।"
-
-  ,"notifications.highlightTitle": "जिले में सर्वाधिक तेज़ लर्नर"
-  ,"notifications.highlightDesc": "पिछले 3 क्विज़ में आपकी सटीकता 90% से ऊपर है। बोनस अंक को गोल्ड बैज में बदलने के लिए स्ट्रीक जारी रखें।"
-  ,"notifications.avgSpeedLabel": "औसत स्पीड"
-  ,"notifications.timeSavedLabel": "समय बचाया"
-
-  ,"metric.blockRank": "ब्लॉक रैंक"
-  ,"metric.accuracy": "सटीकता"
-  ,"metric.quizStreak": "क्विज स्ट्रीक"
-
-  ,"hide": "छिपाएं"
-  ,"show": "दिखाएँ"
+  "enterTeacherName": "शिक्षक का नाम दर्ज करें",
+  "enterValidMobile": "मान्य 10 अंकों का मोबाइल नंबर दर्ज करें",
+  "enterProviderEmail": "जारी रखने के लिए {provider} खाते का ईमेल दर्ज करें",
+  "enterMobileToStart": "शुरू करने के लिए अपना मोबाइल नंबर दर्ज करें",
+  "mobileNumberLabel": "मोबाइल नंबर",
+  "mobilePlaceholder": "10 अंकों का नंबर",
+  "sending": "भेजा जा रहा है...",
+  "login": "लॉगिन",
+  "orContinueWith": "या इसके साथ जारी रखें",
+  "signInGoogle": "Google से साइन इन करें",
+  "signInMicrosoft": "Microsoft से साइन इन करें",
+  "verifyOtp": "ओटीपी सत्यापित करें",
+  "enterOtpInstruction": "सत्यापित करें और जारी रखें के लिए 6 अंकों का कोड दर्ज करें।",
+  "otpSentTo": "ओटीपी भेजा गया",
+  "otpBoxes": "ओटीपी बॉक्स",
+  "otpDigit": "ओटीपी अंक",
+  "verifyAndContinue": "सत्यापित करें और जारी रखें",
+  "resendOtp": "ओटीपी फिर भेजें",
+  "accessConfirmation": "एक्सेस पुष्टि",
+  "state": "राज्य",
+  "pleaseSelectDistrict": "कृपया जिला चुनें",
+  "goToDashboard": "डैशबोर्ड पर जाएं",
+  "signIn": "साइन इन",
+  "otpVerification": "ओटीपी सत्यापन",
+  "roleRouting": "भूमिका रूटिंग",
+  "back": "वापस",
+  "chooseRole": "भूमिका चुनें",
+  "selectOneRoleToContinue": "जारी रखने के लिए एक भूमिका चुनें",
+  "detectedRole": "पहचानी गई भूमिका",
+  "selected": "चयनित",
+  "profileComplete": "प्रोफाइल पूर्ण",
+  "continue": "जारी रखें",
+  "studentRole": "छात्र",
+  "teacherRole": "शिक्षक",
+  "adminRole": "एडमिन",
+  "roleSelected": "{role} चयनित",
+  "roleSelectedWithProfile": "{role} चयनित - प्रोफाइल पूर्ण",
+  "adminAll": "सभी",
+  "adminPending": "लंबित",
+  "adminUnderReview": "समीक्षा में",
+  "adminApproved": "स्वीकृत",
+  "adminRejected": "अस्वीकृत",
+  "adminTypeMcq": "एमसीक्यू",
+  "adminTypeFill": "रिक्त स्थान",
+  "adminTypeMatch": "मिलान",
+  "adminTypeMedia": "मीडिया",
+  "adminEnterRejectionReason": "कृपया अस्वीकृति का कारण दर्ज करें।",
+  "adminSidebarApproval": "स्वीकृति कतार",
+  "adminSidebarUpload": "मास्टर अपलोड",
+  "adminApprovalQueueTitle": "स्वीकृति कतार और समीक्षा विवरण",
+  "adminReviewQuestion": "प्रश्न की समीक्षा",
+  "closeReview": "समीक्षा बंद करें",
+  "adminSidebarAnnouncements": "घोषणाएं",
+  "adminSidebarRewards": "रिवॉर्ड नियम",
+  "adminSidebarAnalytics": "विश्लेषण",
+  "adminDashboardMenu": "डैशबोर्ड मेनू",
+  "adminEyebrow": "संचालन, गुणवत्ता और अनुपालन",
+  "adminMasterUploadEyebrow": "मास्टर डेटा इम्पोर्ट",
+  "adminMasterUploadTitle": "मास्टर डेटा अपलोड",
+  "adminControlCenter": "एडमिन कंट्रोल सेंटर",
+  "adminOpenApprovalQueue": "पूर्ण स्वीकृति कतार खोलें",
+  "adminGoMasterUpload": "मास्टर अपलोड पर जाएं",
+  "adminLivePlayers": "सक्रिय खिलाड़ी",
+  "adminRealtimeCompetitionSessions": "रीयलटाइम प्रतियोगिता सत्र",
+  "adminSlotsActive": "सक्रिय स्लॉट",
+  "adminConcurrentQuizWindows": "समकालिक क्विज विंडो",
+  "adminViolationsLogged": "लॉग की गई उल्लंघन",
+  "adminCameraChecks": "कैमरा/टैब/फुलस्क्रीन जांच",
+  "adminPendingApprovals": "लंबित स्वीकृतियां",
+  "adminQuestionBankModeration": "प्रश्न बैंक मॉडरेशन लोड",
+  "adminSearchPlaceholder": "आईडी, शीर्षक, शिक्षक या श्रेणी से खोजें",
+  "adminNoRows": "आपके फिल्टर से कोई रिकॉर्ड नहीं मिला।",
+  "adminTeacherLabel": "शिक्षक",
+  "adminRejectionReason": "अस्वीकृति का कारण",
+  "adminRejectionPlaceholder": "शिक्षक फीडबैक हेतु गुणवत्ता या नीति संबंधी कारण लिखें",
+  "adminReject": "अस्वीकृत करें",
+  "adminApprove": "स्वीकृत करें",
+  "adminPickQuestion": "समीक्षा के लिए प्रश्न चुनें।",
+  "adminMasterUploadValidation": "स्कूल मास्टर अपलोड सत्यापन",
+  "adminTotalRows": "कुल रिकॉर्ड",
+  "adminValidRows": "वैध रिकॉर्ड",
+  "adminDuplicates": "डुप्लिकेट",
+  "adminMissingFields": "गायब फ़ील्ड",
+  "adminParentCodeErrors": "पैरेंट कोड त्रुटियां",
+  "adminRunValidationPreview": "सत्यापन पूर्वावलोकन चलाएं",
+  "adminConfirmImport": "इम्पोर्ट पुष्टि करें",
+  "adminAnnouncementsBroadcasts": "घोषणाएं और प्रसारण",
+  "adminAudienceAllStudents": "सभी छात्र",
+  "adminAudienceAllTeachers": "सभी शिक्षक",
+  "adminAudienceDistrictJaipur": "जिला - जयपुर",
+  "adminAudienceBlockAmber": "ब्लॉक - आमेर",
+  "adminAudienceRoleAdmin": "भूमिका - एडमिन",
+  "adminAnnouncementPlaceholder": "घोषणा या सूचना लिखें",
+  "adminSendBroadcast": "प्रसारण भेजें",
+  "adminRewardsRules": "रिवॉर्ड और नियम नियंत्रण",
+  "adminPoints": "अंक",
+  "adminEnabled": "सक्रिय",
+  "adminDisabled": "निष्क्रिय",
+  "adminAnalyticsSnapshot": "विश्लेषण स्नैपशॉट",
+  "adminWeeklyActiveUsers": "साप्ताहिक सक्रिय उपयोगकर्ता",
+  "adminQuizCompletionRate": "क्विज पूर्णता दर",
+  "adminTeacherParticipation": "शिक्षक सहभागिता",
+  "signOut": "साइन आउट",
+  "teacherEyebrow": "शिक्षक योगदान और ट्रैकिंग",
+  "teacherTitle": "छात्रों को जोड़ें, प्रश्न सबमिट करें, प्रदर्शन देखें",
+  "teacherModulesTitle": "टीचर मॉड्यूल",
+  "teacherSidebarClusters": "क्लस्टर",
+  "teacherSidebarLeaderboard": "लीडरबोर्ड",
+  "teacherSidebarSubmission": "प्रश्न सबमिशन",
+  "teacherSidebarPerformance": "छात्र प्रदर्शन",
+  "teacherStatStudentsEnrolled": "नामांकित छात्र",
+  "teacherStatQuestionsSubmitted": "सबमिट किए गए प्रश्न",
+  "teacherStatApprovedQuestions": "स्वीकृत प्रश्न",
+  "teacherStatTeacherRank": "शिक्षक रैंक",
+  "teacherStatHelperActiveRoster": "सक्रिय सूची",
+  "teacherStatHelperThisTerm": "इस टर्म में",
+  "teacherStatHelperQualityPass": "गुणवत्ता पास",
+  "teacherStatHelperBlockLevel": "ब्लॉक स्तर",
+  "teacherActionCreateQuestion": "प्रश्न बनाएं",
+  "teacherActionViewLeaderboard": "लीडरबोर्ड देखें",
+  "teacherClusterTitle": "क्लस्टर किए गए छात्र समूह",
+  "teacherClusterSubtitle": "लक्षित अभ्यास, संदेश और एक्सपोर्ट के लिए त्वरित कार्रवाइयां।",
+  "teacherClusterCreate": "क्लस्टर बनाएं",
+  "teacherFilterAllClasses": "सभी कक्षाएं",
+  "teacherFilterGrade4": "कक्षा 4",
+  "teacherFilterGrade5": "कक्षा 5",
+  "teacherFilterGrade6": "कक्षा 6",
+  "teacherFilterAllBands": "सभी बैंड",
+  "teacherFilterTopPerformers": "शीर्ष प्रदर्शनकर्ता",
+  "teacherFilterMidPerformers": "मध्यम प्रदर्शनकर्ता",
+  "teacherFilterLowPerformers": "कम प्रदर्शनकर्ता",
+  "teacherFilterAllActivity": "सभी गतिविधि",
+  "teacherFilterActiveWeek": "इस सप्ताह सक्रिय",
+  "teacherFilterRecentDrop": "हालिया गिरावट",
+  "teacherFilterAllRegions": "सभी क्षेत्र",
+  "teacherFilterRegionJaipur": "जयपुर",
+  "teacherFilterRegionKota": "कोटा",
+  "teacherFilterRegionUdaipur": "उदयपुर",
+  "teacherClusterSuggested": "सुझाव",
+  "teacherClusterMetricSize": "आकार",
+  "teacherClusterMetricAvgScore": "औसत स्कोर",
+  "teacherClusterMetricEngagement": "एंगेजमेंट",
+  "teacherClusterAssignQuiz": "क्विज असाइन करें",
+  "teacherClusterMessage": "संदेश भेजें",
+  "teacherClusterExportCsv": "CSV एक्सपोर्ट",
+  "teacherClusterMarkReview": "समीक्षा हेतु चिन्हित करें",
+  "teacherClusterNameLowAccuracy": "कम सटीकता सुधार",
+  "teacherClusterNoteLowAccuracy": "हालिया सटीकता गिरावट के आधार पर सुझावित क्लस्टर।",
+  "teacherClusterNameSpeedBoosters": "स्पीड बूस्टर्स",
+  "teacherClusterNoteSpeedBoosters": "उच्च सटीकता लेकिन धीमी गति वाले छात्र।",
+  "teacherClusterNameTopPerformers": "शीर्ष प्रदर्शनकर्ता",
+  "teacherClusterNoteTopPerformers": "टूर्नामेंट स्लॉट के लिए तैयार छात्र।",
+  "teacherClusterNewName": "नया क्लस्टर",
+  "teacherClusterNewNote": "कस्टम क्लस्टर संपादन के लिए तैयार।",
+  "teacherLeaderboardTitle": "टीचर लीडरबोर्ड",
+  "teacherLeaderboardSubtitle": "नामांकित छात्रों, सबमिट किए प्रश्न और स्वीकृतियों पर रैंकिंग।",
+  "teacherLeaderboardRank": "रैंक",
+  "teacherLeaderboardTeacher": "शिक्षक",
+  "teacherLeaderboardStudents": "छात्र",
+  "teacherLeaderboardApproved": "स्वीकृत",
+  "teacherLeaderboardScore": "स्कोर",
+  "teacherLeaderboardLevelSchool": "स्कूल",
+  "teacherLeaderboardLevelBlock": "ब्लॉक",
+  "teacherLeaderboardLevelDistrict": "जिला",
+  "teacherLeaderboardLevelState": "राज्य",
+  "teacherLeaderboardScoreFormula": "स्कोर = छात्र x2 + सबमिट x3 + स्वीकृत x5",
+  "teacherLeaderboardYou": "आप",
+  "teacherSubmissionTitle": "प्रश्न सबमिशन",
+  "teacherSubmissionSubtitle": "एडमिन समीक्षा के लिए नए प्रश्न सबमिट करें।",
+  "teacherSubmissionCategory": "श्रेणी",
+  "teacherSubmissionSubCategory": "उप-श्रेणी",
+  "teacherSubmissionQuestionText": "प्रश्न टेक्स्ट",
+  "teacherSubmissionMediaUrl": "मीडिया URL",
+  "teacherSubmissionDifficulty": "कठिनाई",
+  "teacherSubmissionAnswerData": "उत्तर डेटा",
+  "teacherSubmissionSaveDraft": "ड्राफ्ट सेव करें",
+  "teacherSubmissionSubmit": "स्वीकृति हेतु सबमिट",
+  "teacherSubmissionCategoryPlaceholder": "जैसे, विज्ञान",
+  "teacherSubmissionSubCategoryPlaceholder": "जैसे, प्रकाश संश्लेषण",
+  "teacherSubmissionQuestionPlaceholder": "प्रश्न लिखें",
+  "teacherSubmissionMediaPlaceholder": "छवि, ऑडियो या वीडियो लिंक",
+  "teacherSubmissionAnswerPlaceholder": "विकल्प, सही उत्तर या मैच पेयर",
+  "teacherTypeMcq": "एमसीक्यू",
+  "teacherTypeFill": "रिक्त स्थान",
+  "teacherTypeMatch": "मिलान",
+  "teacherTypeMedia": "मीडिया",
+  "teacherDifficultyEasy": "आसान",
+  "teacherDifficultyMedium": "मध्यम",
+  "teacherDifficultyHard": "कठिन",
+  "teacherPerformanceTitle": "छात्र प्रदर्शन",
+  "teacherPerformanceSubtitle": "हालिया एंगेजमेंट और सटीकता ट्रेंड।",
+  "teacherPerformanceNoteAccuracy": "सटीकता ट्रेंड बेहतर हो रहा है",
+  "teacherPerformanceNoteNeedsRetry": "9 छात्रों को रीट्राई सपोर्ट चाहिए",
+  "teacherPerformanceNoteRankProgression": "रैंक प्रोग्रेशन रिपोर्ट तैयार",
+  "teacherMessageClusterCreated": "क्लस्टर बनाया गया। आवश्यक अपडेट करें।",
+  "teacherMessageClusterExported": "{name} के लिए CSV एक्सपोर्ट हुआ।",
+  "teacherMessageClusterAssigned": "{name} को क्विज असाइन किया गया।",
+  "teacherMessageClusterMessaged": "{name} को संदेश भेजा गया।",
+  "teacherMessageClusterReviewed": "{name} को समीक्षा हेतु चिन्हित किया गया।",
+  "teacherMessageDraftNeedQuestion": "ड्राफ्ट सेव करने से पहले प्रश्न लिखें।",
+  "teacherMessageDraftSaved": "ड्राफ्ट लोकली सेव हो गया।",
+  "teacherMessageSubmitMissing": "श्रेणी, उप-श्रेणी और प्रश्न टेक्स्ट भरें।",
+  "teacherMessageSubmitSuccess": "प्रश्न स्वीकृति हेतु सबमिट हो गया।",
+  "welcomeBack": "वापस स्वागत है, पूजा",
+  "enjoyingExperience": "अपने लाइव क्विज का अनुभव कर रही हैं।",
+  "activeSlot": "सक्रिय स्लॉट",
+  "questionsPreloaded": "प्रश्न प्रीलोडेड",
+  "lowNetworkReady": "लो नेटवर्क तैयार",
+  "sidebar.overview": "ओवरव्यू",
+  "sidebar.matchLobby": "मैच लॉबी",
+  "sidebar.gameBoard": "गेम बोर्ड",
+  "sidebar.notifications": "नोटिफिकेशन्स",
+  "overview.title": "क्विज रेडिनेस एक नजर में",
+  "overview.join": "अगला क्विज जॉइन करें",
+  "lobby.title": "मैच लॉबी",
+  "lobby.queueStatus": "क्यू स्थिति",
+  "lobby.joinNow": "अब जॉइन करें",
+  "lobby.queuePosition": "क्यू पोजिशन",
+  "lobby.modeLabel": "मोड",
+  "lobby.confirmTitle": "जॉइन की पुष्टि",
+  "lobby.confirmCancel": "रद्द करें",
+  "lobby.confirmConfirm": "पुष्टि करें",
+  "lobby.playersWaiting": "खिलाड़ी प्रतीक्षारत",
+  "lobby.preloadedLabel": "प्रीलोडेड:",
+  "lobby.itemsPreloaded": "प्रीलोड किए गए प्रश्न: {count}",
+  "lobby.lowNetworkLabel": "लो-नेटवर्क मोड:",
+  "lobby.enabled": "सक्रिय",
+  "lobby.disabled": "निष्क्रिय",
+  "lobby.cachingEnabled": "कैशिंग और रीट्राई सक्रिय",
+  "lobby.standardMode": "मानक मोड",
+  "lobby.bonusLabel": "बोनस:",
+  "lobby.current": "वर्तमान",
+  "lobby.note.preloaded": "प्रश्न प्रीलोडेड",
+  "lobby.note.network": "नेटवर्क रिकवरी तैयार",
+  "lobby.note.speed": "अगले राउंड में स्पीड बोनस",
+  "notifications.item.timeSlot.title": "समय स्लॉट अपडेट हुआ",
+  "notifications.item.timeSlot.detail": "आपका अगला क्विज 10:30 AM पर शुरू होगा, 10:00 AM की जगह।",
+  "notifications.item.reward.title": "रिवॉर्ड अनलॉक हुआ",
+  "notifications.item.reward.detail": "इस सप्ताह निरंतरता के लिए सिल्वर बैज दिया गया।",
+  "board.title": "गेम बोर्ड",
+  "board.dice": "डाइस रोल",
+  "board.roll": "रोल",
+  "board.objective": "उद्देश्य",
+  "notifications.title": "छात्र हाइलाइट्स",
+  "notifications.viewLeaderboard": "लिडरबोर्ड देखें",
+  "board.variant.group": "टीम रिले मैच",
+  "board.variant.tournament": "टूर्नामेंट ब्रैकेट",
+  "board.variant.1v1": "स्नेक्स और लैडर्स स्टाइल मैच",
+  "board.group.title": "ग्रुप मैच",
+  "board.group.desc": "टीम के साथ प्रश्न सेट पर सहयोग करें। टीम पॉइंट्स और साझा बोनस लागू होते हैं।",
+  "board.tournament.title": "टूर्नामेंट",
+  "board.tournament.desc": "समयबद्ध राउंड के साथ ब्रैकेट प्ले। राउंड जीतें और उच्च मल्टीप्लायर कमाएँ।",
+  "board.1v1.title": "1v1 डुएल",
+  "board.1v1.desc": "हेड-टू-हेड राउंड। सबसे तेज सही उत्तर अधिक बोर्ड मूवमेंट पाते हैं।",
+  "board.preloaded": "प्रीलोडेड प्रश्न: {count}",
+  "board.lowNetworkEnabled": "लो-नेटवर्क: सक्रिय",
+  "board.lowNetworkDisabled": "लो-नेटवर्क: निष्क्रिय",
+  "board.speedBonus": "स्पीड बोनस: {speedBonus}",
+  "board.objective.tournament": "राउंड जीतकर ब्रैकेट में चढ़ें। स्पीड बोनस: {speedBonus}. तेज उत्तर tie-break में मदद करते हैं।",
+  "board.objective.group": "टीम के साथ प्रश्न सेट पूरा करें। टीम प्रगति साझा बोर्ड मूवमेंट में बदलती है; {lowNetwork} मोड प्रश्न डिलीवरी को समायोजित करता है।",
+  "board.objective.1v1": "बोर्ड पर आगे बढ़ने के लिए प्रश्नों के उत्तर दें। प्रत्येक सही उत्तर आपको आगे बढ़ाता है; स्पीड बोनस: {speedBonus} तेज प्रतिक्रियाओं पर मूवमेंट बढ़ाता है।",
+  "notifications.highlightTitle": "जिले में सर्वाधिक तेज़ लर्नर",
+  "notifications.highlightDesc": "पिछले 3 क्विज़ में आपकी सटीकता 90% से ऊपर है। बोनस अंक को गोल्ड बैज में बदलने के लिए स्ट्रीक जारी रखें।",
+  "notifications.avgSpeedLabel": "औसत स्पीड",
+  "notifications.timeSavedLabel": "समय बचाया",
+  "metric.blockRank": "ब्लॉक रैंक",
+  "metric.accuracy": "सटीकता",
+  "metric.quizStreak": "क्विज स्ट्रीक",
+  "hide": "छिपाएं",
+  "show": "दिखाएँ",
+  "masterUploadHistory": "अपलोड इतिहास",
+  "masterUploadValidateFile": "फ़ाइल सत्यापित करें",
+  "masterUploadImportRecords": "रिकॉर्ड इम्पोर्ट करें",
+  "masterUploadUploadFileFirst": "कृपया पहले फ़ाइल अपलोड करें।",
+  "masterUploadTotalRecords": "कुल रिकॉर्ड",
+  "masterUploadRowsReadFromFile": "फ़ाइल से पढ़ी गई पंक्तियां",
+  "masterUploadValidRecords": "वैध रिकॉर्ड",
+  "masterUploadReadyForImport": "इम्पोर्ट के लिए तैयार",
+  "masterUploadMissingFields": "गायब फ़ील्ड",
+  "masterUploadRequiredValuesBlank": "आवश्यक मान खाली हैं",
+  "masterUploadValidationPreviewSummary": "सत्यापन पूर्वावलोकन सारांश",
+  "masterUploadValidationPreviewHelp": "कार्य पत्रक के लिए आवश्यक सारांश कार्ड।",
+  "masterUploadTypeSelection": "अपलोड प्रकार चयन",
+  "masterUploadTypeSelectionHelp": "चुना गया अपलोड प्रकार हाइलाइट होता है और आवश्यक फ़ील्ड अपने आप बदलते हैं।",
+  "masterUploadActive": "सक्रिय",
+  "masterUploadTypeState": "राज्य",
+  "masterUploadTypeDistrict": "जिला",
+  "masterUploadTypeBlock": "ब्लॉक",
+  "masterUploadTypeCRC": "सीआरसी",
+  "masterUploadTypeVillage": "गांव",
+  "masterUploadTypeSchool": "स्कूल",
+  "masterUploadFileUpload": "फ़ाइल अपलोड",
+  "masterUploadFileUploadHelp": "CSV/XLSX ड्रैग-एंड-ड्रॉप क्षेत्र, ब्राउज़ बटन, असमर्थित फ़ाइल त्रुटि और फ़ाइल मेटाडेटा पूर्वावलोकन।",
+  "masterUploadCsvXlsxOnly": "केवल CSV / XLSX",
+  "masterUploadCsvXlsx": "CSV / XLSX",
+  "masterUploadChooseFile": "फ़ाइल चुनें",
+  "masterUploadDragFileHere": "फ़ाइल यहां खींचें या डिवाइस से चुनें",
+  "masterUploadUnsupportedFileNamed": "{file} समर्थित नहीं है",
+  "masterUploadFileInformation": "अपलोड की गई फ़ाइल जानकारी",
+  "masterUploadRowsDetected": "{count} पंक्तियां मिलीं",
+  "masterUploadFileDetailsEmpty": "अपलोड के बाद फ़ाइल विवरण यहां दिखाई देगा।",
+  "masterUploadUnsupportedFileTypeError": "असमर्थित फ़ाइल प्रकार त्रुटि",
+  "masterUploadNoFileTypeError": "फ़ाइल प्रकार में कोई त्रुटि नहीं",
+  "masterUploadUnsupportedFileHelp": "जब फ़ाइल एक्सटेंशन CSV या XLSX न हो, तब यह इनलाइन त्रुटि दिखाएं।",
+  "masterUploadDownloadTemplate": "टेम्पलेट डाउनलोड करें",
+  "masterUploadConfirmImportTitle": "{type} इम्पोर्ट की पुष्टि करें",
+  "masterUploadConfirmImportMessage": "{file} से {count} वैध {type} रिकॉर्ड इम्पोर्ट करें? छोड़े गए रिकॉर्ड त्रुटि रिपोर्ट में रहेंगे।",
+  "masterUploadSelectedFile": "चुनी गई फ़ाइल",
+  "masterUploadCancel": "रद्द करें",
+  "masterUploadImportComplete": "इम्पोर्ट पूर्ण",
+  "masterUploadImportCompleteMessage": "{imported} रिकॉर्ड इम्पोर्ट हुए। {skipped} रिकॉर्ड छोड़े गए।",
+  "masterUploadImportedRecords": "इम्पोर्ट किए गए रिकॉर्ड",
+  "masterUploadSkippedRecords": "छोड़े गए रिकॉर्ड",
+  "masterUploadViewMasterData": "मास्टर डेटा देखें",
+  "masterUploadDetails": "विवरण",
+  "masterUploadUploadDetails": "अपलोड विवरण",
+  "masterUploadType": "प्रकार",
+  "masterUploadFile": "फ़ाइल",
+  "masterUploadStatus": "स्थिति",
+  "masterUploadImported": "इम्पोर्टेड",
+  "masterUploadSkipped": "छोड़े गए",
+  "masterUploadRecordsCount": "{count} रिकॉर्ड",
+  "masterUploadDownloadReport": "रिपोर्ट डाउनलोड करें",
+  "masterUploadClose": "बंद करें",
+  "masterUploadDate": "तारीख",
+  "masterUploadUploadType": "अपलोड प्रकार",
+  "masterUploadOpen": "खोलें",
+  "masterUploadHistoryHelp": "अपलोड इतिहास तालिका पॉपअप में खोलें।",
+  "masterUploadCloseHistory": "अपलोड इतिहास बंद करें",
+  "masterUploadStatusComplete": "पूर्ण",
+  "masterUploadDateFilter": "तारीख फ़िल्टर",
+  "masterUploadStatusFilter": "स्थिति फ़िल्टर",
+  "masterUploadTypeFilter": "प्रकार फ़िल्टर",
+  "masterUploadAllStatuses": "सभी स्थितियां",
+  "masterUploadAllTypes": "सभी प्रकार",
+  "masterUploadClearFilters": "फ़िल्टर साफ़ करें",
+  "masterUploadNoHistoryRows": "आपके फ़िल्टर से कोई अपलोड इतिहास नहीं मिला।",
+  "masterUploadAll": "सभी",
+  "masterUploadStatusPending": "लंबित",
+  "masterUploadStatusReject": "अस्वीकृत"
 }

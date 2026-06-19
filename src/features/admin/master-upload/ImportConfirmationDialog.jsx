@@ -6,8 +6,11 @@ import {
   DialogActions,
   Button,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import DraggableDialogPaper from "./DraggableDialogPaper";
+import { useTranslation } from "../../../context/TranslationContext";
 
 export default function ImportConfirmationDialog({
   open,
@@ -17,10 +20,17 @@ export default function ImportConfirmationDialog({
   file,
   summary,
 }) {
+  const { t } = useTranslation();
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const typeLabel = t(`masterUploadType${uploadType}`);
+  const selectedFile = file?.name || t("masterUploadSelectedFile");
+
   return (
     <Dialog
       open={open}
       onClose={onClose}
+      fullScreen={fullScreen}
       PaperComponent={DraggableDialogPaper}
       PaperProps={{
         sx: {
@@ -35,23 +45,33 @@ export default function ImportConfirmationDialog({
         data-dialog-drag-handle="true"
         sx={{ pb: 0.5, fontSize: 18, fontWeight: 800, cursor: "move" }}
       >
-        Confirm {uploadType} Import
+        {t("masterUploadConfirmImportTitle").replace("{type}", typeLabel)}
       </DialogTitle>
 
       <DialogContent>
         <Typography sx={{ color: "#667085", fontSize: 14 }}>
-          Import {summary.valid} valid {uploadType} records from {file?.name || "selected file"}?
-          Skipped records will remain in the error report.
+          {t("masterUploadConfirmImportMessage")
+            .replace("{count}", summary.valid)
+            .replace("{type}", typeLabel)
+            .replace("{file}", selectedFile)}
         </Typography>
       </DialogContent>
 
-      <DialogActions sx={{ px: 3, pb: 2, gap: 1 }}>
+      <DialogActions
+        sx={{
+          px: { xs: 2, sm: 3 },
+          pb: 2,
+          gap: 1,
+          flexDirection: { xs: "column-reverse", sm: "row" },
+          "& > button": { width: { xs: "100%", sm: "auto" }, m: "0 !important" },
+        }}
+      >
         <Button
           onClick={onClose}
           variant="outlined"
           sx={secondaryButtonSx}
         >
-          Cancel
+          {t("masterUploadCancel")}
         </Button>
 
         <Button
@@ -59,7 +79,7 @@ export default function ImportConfirmationDialog({
           onClick={onImport}
           sx={primaryButtonSx}
         >
-          Import Records
+          {t("masterUploadImportRecords")}
         </Button>
       </DialogActions>
     </Dialog>

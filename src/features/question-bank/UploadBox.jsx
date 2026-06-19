@@ -1,6 +1,12 @@
 import React, { useRef, useState } from 'react';
 
-export default function UploadBox({ onFile, accepted = ['.csv', '.xlsx'] }) {
+export default function UploadBox({
+  onFile,
+  accepted = ['.csv', '.xlsx'],
+  title = 'CSV / XLSX',
+  chooseLabel = 'Choose file',
+  emptyLabel = 'Drag file here or choose from device',
+}) {
   const inputRef = useRef(null);
   const [hover, setHover] = useState(false);
   const [fileName, setFileName] = useState(null);
@@ -45,10 +51,10 @@ export default function UploadBox({ onFile, accepted = ['.csv', '.xlsx'] }) {
         }}
       />
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-        <strong>CSV / XLSX</strong>
-        <span style={{ fontSize: 13 }}>{fileName || 'Drag file here or choose from device'}</span>
+        <strong>{title}</strong>
+        <span style={{ fontSize: 13 }}>{fileName || emptyLabel}</span>
         <div style={{ marginTop: 6 }}>
-          <button className="secondary" onClick={(e) => { e.stopPropagation(); inputRef.current && inputRef.current.click(); }}>Choose file</button>
+          <button className="secondary" onClick={(e) => { e.stopPropagation(); inputRef.current && inputRef.current.click(); }}>{chooseLabel}</button>
         </div>
       </div>
     </div>

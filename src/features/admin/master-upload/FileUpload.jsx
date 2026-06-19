@@ -6,6 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import { useTranslation } from "../../../context/TranslationContext";
 
 const muted = "#667085";
 const brand = "#2563eb";
@@ -16,6 +17,7 @@ export default function FileUpload({
   setError,
   setRowCount,
 }) {
+  const { t } = useTranslation();
   const [localFile, setLocalFile] = useState(null);
   const [previewLines, setPreviewLines] = useState(null);
   const file = externalFile || localFile;
@@ -32,7 +34,7 @@ export default function FileUpload({
 
     const extension = f.name.split(".").pop().toLowerCase();
     const unsupported = !["csv", "xlsx"].includes(extension);
-    setError && setError(unsupported ? `${f.name} is not supported` : "");
+    setError && setError(unsupported ? t("masterUploadUnsupportedFileNamed").replace("{file}", f.name) : "");
 
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -63,10 +65,10 @@ export default function FileUpload({
       >
         <Box>
           <Typography variant="h6" sx={{ color: "#0f172a", fontSize: 18, fontWeight: 900 }}>
-            File Upload
+            {t("masterUploadFileUpload")}
           </Typography>
           <Typography sx={{ mt: 0.25, color: "#52627a", fontSize: 13.5 }}>
-            CSV/XLSX drag-and-drop area, browse button, unsupported file error, and file metadata preview.
+            {t("masterUploadFileUploadHelp")}
           </Typography>
         </Box>
         <Box
@@ -83,7 +85,7 @@ export default function FileUpload({
             whiteSpace: "nowrap",
           }}
         >
-          CSV / XLSX only
+          {t("masterUploadCsvXlsxOnly")}
         </Box>
       </Box>
 
@@ -159,7 +161,12 @@ export default function FileUpload({
             >
               <CloudUploadIcon />
             </Box>
-            <UploadBox onFile={handleFile} />
+            <UploadBox
+              onFile={handleFile}
+              title={t("masterUploadCsvXlsx")}
+              chooseLabel={t("masterUploadChooseFile")}
+              emptyLabel={t("masterUploadDragFileHere")}
+            />
           </Box>
         </Box>
 
@@ -184,21 +191,21 @@ export default function FileUpload({
                 textTransform: "uppercase",
               }}
             >
-              Uploaded File Information
+              {t("masterUploadFileInformation")}
             </Typography>
             {file ? (
               <>
-                <Typography sx={{ color: "#0f172a", fontSize: 24, lineHeight: 1.2, fontWeight: 900 }}>
+                <Typography sx={{ color: "#0f172a", fontSize: { xs: 20, sm: 24 }, lineHeight: 1.2, fontWeight: 900, wordBreak: "break-word" }}>
                   {file.name}
                 </Typography>
                 <Typography sx={{ mt: 0.75, color: "#52627a", fontSize: 13 }}>
                   {(file.size / 1024).toFixed(0)} KB - {extension.toUpperCase()}
-                  {previewLines && ` - ${previewLines.length} rows detected`}
+                  {previewLines && ` - ${t("masterUploadRowsDetected").replace("{count}", previewLines.length)}`}
                 </Typography>
               </>
             ) : (
               <Typography sx={{ color: muted, fontSize: 13 }}>
-                File details will appear after upload.
+                {t("masterUploadFileDetailsEmpty")}
               </Typography>
             )}
           </Paper>
@@ -223,7 +230,7 @@ export default function FileUpload({
                 textTransform: "uppercase",
               }}
             >
-              Unsupported File Type Error
+              {t("masterUploadUnsupportedFileTypeError")}
             </Typography>
             <Box
               component="span"
@@ -236,12 +243,16 @@ export default function FileUpload({
                 bgcolor: isUnsupported ? "#ffe4e6" : "#eef2f7",
                 fontSize: 12,
                 fontWeight: 800,
+                maxWidth: "100%",
+                wordBreak: "break-word",
               }}
             >
-              {isUnsupported ? `${file.name} is not supported` : "No file type error"}
+              {isUnsupported
+                ? t("masterUploadUnsupportedFileNamed").replace("{file}", file.name)
+                : t("masterUploadNoFileTypeError")}
             </Box>
             <Typography sx={{ mt: 1, color: "#52627a", fontSize: 13 }}>
-              Use this inline error when file extension is not CSV or XLSX.
+              {t("masterUploadUnsupportedFileHelp")}
             </Typography>
           </Paper>
         </Box>
