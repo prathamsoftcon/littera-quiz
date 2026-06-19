@@ -171,58 +171,98 @@ export default function MasterUpload() {
       sx={{
         width: "100%",
         display: "grid",
-        gap: 2,
+        gap: 1.75,
         color: "#172033",
       }}
     >
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: { xs: "stretch", md: "center" },
+          justifyContent: "space-between",
+          gap: 2,
+          p: { xs: 2, md: 2.25 },
+          border: "1px solid #d2e3f7",
+          borderRadius: "14px",
+          bgcolor: "rgba(255, 255, 255, 0.9)",
+          boxShadow: "0 16px 34px rgba(15, 52, 98, 0.08)",
+          flexDirection: { xs: "column", md: "row" },
+        }}
+      >
+        <Box sx={{ minWidth: 0 }}>
+          <Typography
+            sx={{
+              color: "#48617d",
+              fontSize: 12,
+              fontWeight: 800,
+              textTransform: "uppercase",
+              letterSpacing: 0,
+            }}
+          >
+            {t("adminMasterUploadEyebrow")}
+          </Typography>
+          <Typography
+            component="h2"
+            sx={{
+              mt: 0.5,
+              color: "#0f172a",
+              fontSize: { xs: 22, md: 28 },
+              lineHeight: 1.15,
+              fontWeight: 900,
+            }}
+          >
+            {t("adminMasterUploadTitle")}
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: { xs: "stretch", md: "flex-end" },
+            gap: 1,
+            width: { xs: "100%", md: "auto" },
+            flexWrap: "wrap",
+          }}
+        >
+          <IconButton
+            aria-label={t("masterUploadNotifications")}
+            onClick={() => setNotificationOpen(true)}
+            sx={{
+              width: { xs: "100%", sm: 42 },
+              minHeight: 40,
+              border: "1px solid #94a3b8",
+              borderRadius: "10px",
+              color: "#132238",
+              bgcolor: "#fff",
+              "&:hover": {
+                borderColor: "#0ea5e9",
+                bgcolor: "#f0f9ff",
+              },
+            }}
+          >
+            <Badge
+              badgeContent={notifications.length}
+              color="error"
+              max={99}
+            >
+              <NotificationsIcon fontSize="small" />
+            </Badge>
+          </IconButton>
+
+          <Button
+            variant="outlined"
+            onClick={handleOpenHistory}
+            sx={secondaryButtonSx}
+          >
+            {t("masterUploadHistory")}
+          </Button>
+        </Box>
+      </Box>
+
       <Section>
         <ValidationSummary
           summary={summary}
-          actions={
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: { xs: "stretch", sm: "flex-end" },
-                gap: 1,
-                width: { xs: "100%", sm: "auto" },
-                flexWrap: "wrap",
-              }}
-            >
-              <IconButton
-                aria-label={t("masterUploadNotifications")}
-                onClick={() => setNotificationOpen(true)}
-                sx={{
-                  width: { xs: "100%", sm: 40 },
-                  minHeight: 40,
-                  border: "1px solid #cbd8ea",
-                  borderRadius: 1.25,
-                  color: "#132238",
-                  bgcolor: "#fff",
-                  "&:hover": {
-                    borderColor: "#2563eb",
-                    bgcolor: "#eff6ff",
-                  },
-                }}
-              >
-                <Badge
-                  badgeContent={notifications.length}
-                  color="error"
-                  max={99}
-                >
-                  <NotificationsIcon fontSize="small" />
-                </Badge>
-              </IconButton>
-
-              <Button
-                variant="outlined"
-                onClick={handleOpenHistory}
-                sx={secondaryButtonSx}
-              >
-                {t("masterUploadHistory")}
-              </Button>
-            </Box>
-          }
         />
       </Section>
 
@@ -352,8 +392,9 @@ function NotificationDialog({
       PaperComponent={DraggableDialogPaper}
       PaperProps={{
         sx: {
-          borderRadius: 2,
-          border: "1px solid #d8e3f2",
+          borderRadius: "14px",
+          border: "1px solid #d4e4f7",
+          boxShadow: "0 18px 45px rgba(15, 52, 98, 0.14)",
           overflow: "hidden",
         },
       }}
@@ -401,8 +442,8 @@ function NotificationDialog({
                 sx={{
                   p: 1.5,
                   borderColor: "#d8e3f2",
-                  borderRadius: 2,
-                  bgcolor: "#ffffff",
+                  borderRadius: "12px",
+                  bgcolor: "#f8fbff",
                 }}
               >
                 <Typography sx={{ color: "#0f172a", fontSize: 14, fontWeight: 900 }}>
@@ -465,11 +506,11 @@ function Section({ children }) {
   return (
     <Box
       sx={{
-        p: { xs: 2, md: 2.25 },
-        border: "1px solid #d8e3f2",
-        borderRadius: 2,
-        bgcolor: "rgba(255, 255, 255, 0.96)",
-        boxShadow: "0 10px 28px rgba(15, 23, 42, 0.06)",
+        p: { xs: 1.5, md: 2 },
+        border: "1px solid #d4e4f7",
+        borderRadius: "14px",
+        bgcolor: "rgba(255, 255, 255, 0.92)",
+        boxShadow: "0 16px 34px rgba(15, 52, 98, 0.08)",
       }}
     >
       {children}
@@ -481,16 +522,16 @@ const secondaryButtonSx = {
   minHeight: 40,
   px: 2,
   width: { xs: "100%", sm: "auto" },
-  borderRadius: 1.25,
-  borderColor: "#cbd8ea",
-  color: "#132238",
+  borderRadius: "10px",
+  borderColor: "#94a3b8",
+  color: "#1e293b",
   bgcolor: "#ffffff",
   fontWeight: 800,
   textTransform: "none",
   boxShadow: "0 1px 2px rgba(15, 23, 42, 0.04)",
   "&:hover": {
-    borderColor: "#2563eb",
-    bgcolor: "#eff6ff",
+    borderColor: "#0ea5e9",
+    bgcolor: "#f0f9ff",
   },
 };
 
@@ -498,13 +539,13 @@ const primaryButtonSx = {
   minHeight: 40,
   px: 2,
   width: { xs: "100%", sm: "auto" },
-  borderRadius: 1.25,
-  bgcolor: "#2563eb",
+  borderRadius: "10px",
+  bgcolor: "#0f766e",
   fontWeight: 800,
   textTransform: "none",
-  boxShadow: "0 8px 18px rgba(37, 99, 235, 0.22)",
+  boxShadow: "0 10px 22px rgba(15, 118, 110, 0.22)",
   "&:hover": {
-    bgcolor: "#1d4ed8",
-    boxShadow: "0 10px 22px rgba(37, 99, 235, 0.28)",
+    bgcolor: "#115e59",
+    boxShadow: "0 12px 24px rgba(15, 118, 110, 0.28)",
   },
 };

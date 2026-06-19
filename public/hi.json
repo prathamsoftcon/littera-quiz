@@ -372,5 +372,6 @@
   "masterUploadNoHistoryTitle": "अभी कोई अपलोड इतिहास नहीं",
   "masterUploadNoHistoryHelp": "रिकॉर्ड अपलोड होने के बाद पूर्ण इम्पोर्ट यहां दिखाई देंगे।",
   "masterUploadNoHistoryRowsTitle": "कोई मिलान वाला अपलोड इतिहास नहीं",
-  "masterUploadImporting": "इम्पोर्ट हो रहा है..."
+  "masterUploadImporting": "इम्पोर्ट हो रहा है...",
+  "masterUploadRequiredFields": "आवश्यक टेम्पलेट फ़ील्ड"
 }

@@ -372,5 +372,6 @@
   "masterUploadNoHistoryTitle": "No upload history yet",
   "masterUploadNoHistoryHelp": "Completed imports will appear here once records are uploaded.",
   "masterUploadNoHistoryRowsTitle": "No matching upload history",
-  "masterUploadImporting": "Importing..."
+  "masterUploadImporting": "Importing...",
+  "masterUploadRequiredFields": "Required template fields"
 }

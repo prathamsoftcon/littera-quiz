@@ -33,7 +33,7 @@ export default function UploadTypeSelection({
         }}
       >
         <Box>
-          <Typography variant="h6" sx={{ color: "#0f172a", fontSize: 18, fontWeight: 900 }}>
+          <Typography variant="h6" sx={{ color: "#0f172a", fontSize: 17, fontWeight: 900 }}>
             {t("masterUploadTypeSelection")}
           </Typography>
           <Typography sx={{ mt: 0.25, color: "#52627a", fontSize: 13.5 }}>
@@ -47,9 +47,9 @@ export default function UploadTypeSelection({
             px: 1.25,
             py: 0.75,
             borderRadius: 999,
-            color: "#1d4ed8",
-            bgcolor: "#eff6ff",
-            border: "1px solid #bfdbfe",
+            color: "#075985",
+            bgcolor: "#e0f2fe",
+            border: "1px solid #7dd3fc",
             fontSize: 12,
             fontWeight: 800,
             whiteSpace: "nowrap",
@@ -70,7 +70,7 @@ export default function UploadTypeSelection({
           gap: 1,
           p: 0.75,
           border: "1px solid #dbe5f1",
-          borderRadius: 2,
+          borderRadius: "12px",
           bgcolor: "#f8fbff",
         }}
       >
@@ -84,17 +84,17 @@ export default function UploadTypeSelection({
             }
             onClick={() => setUploadType(type)}
             sx={{
-              minHeight: 42,
-              borderRadius: 1.25,
-              borderColor: uploadType === type ? "#2563eb" : "transparent",
-              bgcolor: uploadType === type ? "#2563eb" : "transparent",
-              color: uploadType === type ? "#fff" : "#172033",
+              minHeight: 40,
+              borderRadius: "10px",
+              borderColor: uploadType === type ? "#0ea5e9" : "#d6e4f4",
+              bgcolor: uploadType === type ? "#e0f2fe" : "#ffffff",
+              color: uploadType === type ? "#075985" : "#1e293b",
               fontWeight: 800,
               textTransform: "none",
-              boxShadow: uploadType === type ? "0 8px 18px rgba(37, 99, 235, 0.22)" : "none",
+              boxShadow: "none",
               "&:hover": {
-                borderColor: "#2563eb",
-                bgcolor: uploadType === type ? "#1d4ed8" : "#eff6ff",
+                borderColor: "#0ea5e9",
+                bgcolor: "#f0f9ff",
               },
             }}
           >

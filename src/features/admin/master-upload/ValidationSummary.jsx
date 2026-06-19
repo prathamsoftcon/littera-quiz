@@ -18,22 +18,22 @@ export default function ValidationSummary({
       label: t("masterUploadTotalRecords"),
       value: summary.total,
       help: t("masterUploadRowsReadFromFile"),
-      bgcolor: "#f4f8ff",
-      accent: "#2563eb",
+      bgcolor: "linear-gradient(120deg, #0369a1, #0ea5e9)",
+      accent: "rgba(255, 255, 255, 0.2)",
     },
     {
       label: t("masterUploadValidRecords"),
       value: summary.valid,
       help: t("masterUploadReadyForImport"),
-      bgcolor: "#eff6ff",
-      accent: "#2563eb",
+      bgcolor: "linear-gradient(120deg, #166534, #22c55e)",
+      accent: "rgba(255, 255, 255, 0.2)",
     },
     {
       label: t("masterUploadMissingFields"),
       value: summary.missing,
       help: t("masterUploadRequiredValuesBlank"),
-      bgcolor: "#fff7f8",
-      accent: "#be123c",
+      bgcolor: "linear-gradient(120deg, #9f1239, #e11d48)",
+      accent: "rgba(255, 255, 255, 0.2)",
     },
   ];
 
@@ -52,7 +52,7 @@ export default function ValidationSummary({
         }}
       >
         <Box>
-          <Typography variant="h6" sx={{ color: "#0f172a", fontSize: 18, fontWeight: 900 }}>
+          <Typography variant="h6" sx={{ color: "#0f172a", fontSize: 17, fontWeight: 900 }}>
             {t("masterUploadValidationPreviewSummary")}
           </Typography>
           <Typography sx={{ mt: 0.25, color: "#52627a", fontSize: 13.5 }}>
@@ -60,55 +60,59 @@ export default function ValidationSummary({
           </Typography>
         </Box>
 
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: { xs: "stretch", sm: "flex-end" },
-            width: { xs: "100%", sm: "auto" },
-          }}
-        >
-          {actions}
-        </Box>
+        {actions ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: { xs: "stretch", sm: "flex-end" },
+              width: { xs: "100%", sm: "auto" },
+            }}
+          >
+            {actions}
+          </Box>
+        ) : null}
       </Box>
 
-      <Grid container spacing={2}>
+      <Grid container spacing={1.5}>
         {cards.map((card) => (
           <Grid key={card.label} item xs={12} md={4}>
             <Card
-              variant="outlined"
               sx={{
                 position: "relative",
-                minHeight: 116,
+                minHeight: 100,
                 overflow: "hidden",
-                borderColor: "#d9e4f2",
-                borderRadius: 2,
-                bgcolor: card.bgcolor,
-                boxShadow: "0 6px 18px rgba(15, 23, 42, 0.04)",
-                "&::before": {
+                border: "1px solid #cae1f7",
+                borderRadius: "14px",
+                color: "#fff",
+                background: card.bgcolor,
+                boxShadow: "0 10px 24px rgba(15, 23, 42, 0.12)",
+                "&::after": {
                   content: '""',
                   position: "absolute",
-                  inset: "0 auto 0 0",
-                  width: 4,
+                  width: 86,
+                  height: 86,
+                  borderRadius: 999,
+                  right: -30,
+                  top: -20,
                   bgcolor: card.accent,
                 },
               }}
             >
-              <CardContent sx={{ p: 2, pl: 2.25, "&:last-child": { pb: 2 } }}>
+              <CardContent sx={{ p: 1.75, position: "relative", zIndex: 1, "&:last-child": { pb: 1.75 } }}>
                 <Typography
                   sx={{
-                    mb: 0.75,
-                    color: "#5d6b82",
+                    mb: 0.5,
+                    color: "#fff",
                     fontSize: 12,
                     fontWeight: 800,
-                    textTransform: "uppercase",
                   }}
                 >
                   {card.label}
                 </Typography>
-                <Typography sx={{ color: "#0f172a", fontSize: 28, lineHeight: 1, fontWeight: 900 }}>
+                <Typography sx={{ color: "#fff", fontSize: 30, lineHeight: 1.1, fontWeight: 900 }}>
                   {card.value}
                 </Typography>
-                <Typography sx={{ mt: 0.75, color: "#52627a", fontSize: 13 }}>
+                <Typography sx={{ mt: 0.35, color: "rgba(255,255,255,0.94)", fontSize: 12, fontWeight: 600 }}>
                   {card.help}
                 </Typography>
               </CardContent>

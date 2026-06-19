@@ -32,20 +32,29 @@ export default function UploadDetailsDialog({
       PaperProps={{
         sx: {
           width: "min(100%, 440px)",
-          borderRadius: 1.5,
-          border: "1px solid #d7deea",
-          boxShadow: "0 18px 45px rgba(15, 23, 42, 0.08)",
+          borderRadius: "14px",
+          border: "1px solid #d4e4f7",
+          boxShadow: "0 18px 45px rgba(15, 52, 98, 0.14)",
+          overflow: "hidden",
         },
       }}
     >
       <DialogTitle
         data-dialog-drag-handle="true"
-        sx={{ pb: 0.5, fontSize: 18, fontWeight: 800, cursor: "move" }}
+        sx={{
+          px: 2.5,
+          py: 1.75,
+          bgcolor: "#f8fbff",
+          borderBottom: "1px solid #dbe5f1",
+          fontSize: 18,
+          fontWeight: 900,
+          cursor: "move",
+        }}
       >
         {t("masterUploadUploadDetails")}
       </DialogTitle>
 
-      <DialogContent sx={{ display: "grid", gap: 1 }}>
+      <DialogContent sx={{ display: "grid", gap: 1, pt: 2 }}>
         {[
           [t("masterUploadType"), t(`masterUploadType${row.type}`)],
           [t("masterUploadFile"), row.file],
@@ -89,19 +98,19 @@ export default function UploadDetailsDialog({
 
 const secondaryButtonSx = {
   minHeight: 38,
-  borderRadius: 1,
-  borderColor: "#d7deea",
-  color: "#172033",
+  borderRadius: "10px",
+  borderColor: "#94a3b8",
+  color: "#1e293b",
   fontWeight: 800,
   textTransform: "none",
 };
 
 const primaryButtonSx = {
   minHeight: 38,
-  borderRadius: 1,
-  bgcolor: "#2563eb",
+  borderRadius: "10px",
+  bgcolor: "#0f766e",
   fontWeight: 800,
   textTransform: "none",
-  boxShadow: "0 8px 18px rgba(37, 99, 235, 0.22)",
-  "&:hover": { bgcolor: "#1d4ed8" },
+  boxShadow: "0 10px 22px rgba(15, 118, 110, 0.22)",
+  "&:hover": { bgcolor: "#115e59" },
 };

@@ -22,8 +22,6 @@ import {
   Button,
   TextField,
   Typography,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
@@ -44,8 +42,6 @@ export default function UploadHistory({
   onDetails,
 }) {
   const { t } = useTranslation();
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [dateFilter, setDateFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -113,13 +109,15 @@ export default function UploadHistory({
         onClose={onClose}
         maxWidth="lg"
         fullWidth
-        fullScreen={fullScreen}
         PaperComponent={DraggableDialogPaper}
         PaperProps={{
           sx: {
-            borderRadius: 2,
-            border: "1px solid #d8e3f2",
-            boxShadow: "0 18px 45px rgba(15, 23, 42, 0.16)",
+            width: { xs: "calc(100vw - 32px)", sm: "calc(100vw - 64px)" },
+            maxWidth: { xs: "calc(100vw - 32px)", sm: 1100 },
+            maxHeight: { xs: "calc(100dvh - 32px)", sm: "calc(100dvh - 64px)" },
+            borderRadius: "14px",
+            border: "1px solid #d4e4f7",
+            boxShadow: "0 18px 45px rgba(15, 52, 98, 0.14)",
             overflow: "hidden",
           },
         }}
@@ -127,12 +125,12 @@ export default function UploadHistory({
         <DialogTitle
           data-dialog-drag-handle="true"
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr auto", md: "auto minmax(0, 1fr) auto" },
+            alignItems: { xs: "start", md: "center" },
             gap: 2,
-            px: 2.5,
-            py: 1.75,
+            px: { xs: 2, sm: 2.5 },
+            py: { xs: 1.5, sm: 1.75 },
             bgcolor: "#f8fbff",
             borderBottom: "1px solid #dbe5f1",
             fontSize: 18,
@@ -140,7 +138,7 @@ export default function UploadHistory({
             cursor: "move",
           }}
         >
-          <Box sx={{ flexShrink: 0 }}>
+          <Box sx={{ flexShrink: 0, minHeight: 38, display: "flex", alignItems: "center" }}>
             {t("masterUploadHistory")}
           </Box>
 
@@ -148,19 +146,21 @@ export default function UploadHistory({
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "flex-end",
+              justifyContent: { xs: "stretch", md: "flex-end" },
               gap: 1,
-              flex: 1,
+              gridColumn: { xs: "1 / -1", md: "auto" },
+              gridRow: { xs: 2, md: "auto" },
               minWidth: 0,
               flexWrap: "wrap",
               cursor: "default",
               "& .MuiFormControl-root": {
-                width: { xs: "100%", sm: 140 },
+                width: { xs: "100%", sm: "calc(33.333% - 8px)", md: 140 },
               },
               "& .MuiInputBase-root": {
                 minHeight: 38,
                 bgcolor: "#fff",
                 fontSize: 13,
+                borderRadius: "10px",
               },
               "& .MuiInputLabel-root": {
                 fontSize: 13,
@@ -222,13 +222,13 @@ export default function UploadHistory({
             aria-label={t("masterUploadCloseHistory")}
             onClick={onClose}
             size="small"
-            sx={{ color: "#667085" }}
+            sx={{ color: "#667085", justifySelf: "end" }}
           >
             <CloseIcon fontSize="small" />
           </IconButton>
         </DialogTitle>
 
-        <DialogContent sx={{ p: { xs: 1.5, sm: 2.5 } }}>
+        <DialogContent sx={{ p: { xs: 1.5, sm: 2.5 }, overflow: "auto" }}>
           {loading && (
             <StatePanel
               icon={
@@ -295,7 +295,7 @@ export default function UploadHistory({
 
           {!loading && !error && Boolean(history.length) && (
             <>
-          <Box sx={{ display: { xs: "grid", sm: "none" }, gap: 1.25 }}>
+          <Box sx={{ display: { xs: "grid", sm: "none" }, gap: 1.25, maxHeight: "calc(100dvh - 238px)", overflowY: "auto", pr: 0.25 }}>
             {filteredHistory.map((row) => (
               <Paper
                 key={row.id}
@@ -303,11 +303,12 @@ export default function UploadHistory({
                 sx={{
                   p: 1.5,
                   borderColor: "#d8e3f2",
-                  borderRadius: 2,
+                  borderRadius: "12px",
+                  bgcolor: "#f8fbff",
                   boxShadow: "none",
                 }}
               >
-                <Box sx={{ display: "flex", justifyContent: "space-between", gap: 1.5 }}>
+                <Box sx={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) auto", alignItems: "start", gap: 1.5 }}>
                   <Box sx={{ minWidth: 0 }}>
                     <Typography sx={{ color: "#0f172a", fontSize: 14, fontWeight: 900, wordBreak: "break-word" }}>
                       {row.file}
@@ -355,7 +356,7 @@ export default function UploadHistory({
             sx={{
               display: { xs: "none", sm: "block" },
               borderColor: "#d8e3f2",
-              borderRadius: 2,
+              borderRadius: "12px",
               boxShadow: "none",
               maxHeight: 315,
               overflowX: "auto",
@@ -431,18 +432,26 @@ export default function UploadHistory({
           )}
         </DialogContent>
 
-        <DialogActions sx={{ px: { xs: 1.5, sm: 2.5 }, py: 2, bgcolor: "#f8fbff", borderTop: "1px solid #dbe5f1" }}>
+        <DialogActions
+          sx={{
+            px: { xs: 1.5, sm: 2.5 },
+            py: 2,
+            bgcolor: "#f8fbff",
+            borderTop: "1px solid #dbe5f1",
+            "& > button": { width: { xs: "100%", sm: "auto" } },
+          }}
+        >
           <Button
             variant="contained"
             onClick={onClose}
             sx={{
               minHeight: 38,
               borderRadius: 1,
-              bgcolor: "#2563eb",
+              bgcolor: "#0f766e",
               fontWeight: 800,
               textTransform: "none",
-              boxShadow: "0 8px 18px rgba(37, 99, 235, 0.22)",
-              "&:hover": { bgcolor: "#1d4ed8" },
+              boxShadow: "0 10px 22px rgba(15, 118, 110, 0.22)",
+              "&:hover": { bgcolor: "#115e59" },
             }}
           >
             {t("masterUploadClose")}
@@ -468,7 +477,7 @@ function StatePanel({
         textAlign: "center",
         p: { xs: 2, sm: compact ? 3 : 4 },
         border: "1px dashed #cbd8ea",
-        borderRadius: 2,
+        borderRadius: "12px",
         bgcolor: "#f8fbff",
       }}
     >
@@ -546,8 +555,8 @@ function normalizeStatus(status) {
 const triggerButtonSx = {
   minHeight: 38,
   borderRadius: 1,
-  borderColor: "#d7deea",
-  color: "#172033",
+  borderColor: "#94a3b8",
+  color: "#1e293b",
   bgcolor: "#fff",
   fontWeight: 800,
   textTransform: "none",
@@ -558,8 +567,8 @@ const triggerButtonSx = {
 const detailButtonSx = {
   minHeight: 34,
   borderRadius: 1,
-  borderColor: "#cbd8ea",
-  color: "#172033",
+  borderColor: "#94a3b8",
+  color: "#1e293b",
   fontWeight: 800,
   textTransform: "none",
 };

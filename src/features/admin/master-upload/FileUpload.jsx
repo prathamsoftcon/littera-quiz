@@ -9,7 +9,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useTranslation } from "../../../context/TranslationContext";
 
 const muted = "#667085";
-const brand = "#2563eb";
+const brand = "#0f766e";
 
 export default function FileUpload({
   file: externalFile,
@@ -64,7 +64,7 @@ export default function FileUpload({
         }}
       >
         <Box>
-          <Typography variant="h6" sx={{ color: "#0f172a", fontSize: 18, fontWeight: 900 }}>
+          <Typography variant="h6" sx={{ color: "#0f172a", fontSize: 17, fontWeight: 900 }}>
             {t("masterUploadFileUpload")}
           </Typography>
           <Typography sx={{ mt: 0.25, color: "#52627a", fontSize: 13.5 }}>
@@ -77,9 +77,9 @@ export default function FileUpload({
             px: 1.25,
             py: 0.75,
             borderRadius: 999,
-            color: "#b45309",
-            bgcolor: "#fef3c7",
-            border: "1px solid #fde68a",
+            color: "#075985",
+            bgcolor: "#e0f2fe",
+            border: "1px solid #7dd3fc",
             fontSize: 12,
             fontWeight: 800,
             whiteSpace: "nowrap",
@@ -100,17 +100,17 @@ export default function FileUpload({
           sx={{
             minHeight: 236,
             p: { xs: 2.5, md: 3 },
-            border: "1.5px dashed #86a6d5",
-            borderRadius: 2,
+            border: "1px dashed #9cb7d4",
+            borderRadius: "12px",
             bgcolor: "#f8fbff",
-            background: "linear-gradient(180deg, #ffffff 0%, #f6fbff 100%)",
+            background: "linear-gradient(140deg, #ffffff 0%, #f3f8ff 100%)",
             textAlign: "center",
             display: "grid",
             placeItems: "center",
             transition: "border-color 160ms ease, background 160ms ease, box-shadow 160ms ease",
             "&:hover": {
-              borderColor: "#2563eb",
-              boxShadow: "inset 0 0 0 1px rgba(37, 99, 235, 0.08)",
+              borderColor: "#0ea5e9",
+              boxShadow: "inset 0 0 0 1px rgba(14, 165, 233, 0.08)",
             },
             "& .upload-box": {
               width: "100%",
@@ -135,12 +135,12 @@ export default function FileUpload({
               px: 2,
               py: 1,
               border: `1px solid ${brand}`,
-              borderRadius: 1.25,
+              borderRadius: "10px",
               color: "#fff",
               bgcolor: brand,
               fontWeight: 800,
               cursor: "pointer",
-              boxShadow: "0 8px 18px rgba(37, 99, 235, 0.22)",
+              boxShadow: "0 10px 22px rgba(15, 118, 110, 0.22)",
             },
           }}
         >
@@ -154,9 +154,9 @@ export default function FileUpload({
                 display: "grid",
                 placeItems: "center",
                 borderRadius: 2,
-                color: "#1d4ed8",
-                bgcolor: "#eff6ff",
-                border: "1px solid #bfdbfe",
+                color: "#075985",
+                bgcolor: "#e0f2fe",
+                border: "1px solid #bae6fd",
               }}
             >
               <CloudUploadIcon />
@@ -176,16 +176,16 @@ export default function FileUpload({
             sx={{
               p: 2,
               minHeight: 104,
-              borderColor: "#d9e4f2",
-              borderRadius: 2,
+              borderColor: "#d8e7f8",
+              borderRadius: "12px",
               bgcolor: "#ffffff",
-              boxShadow: "0 6px 16px rgba(15, 23, 42, 0.04)",
+              boxShadow: "none",
             }}
           >
             <Typography
               sx={{
                 mb: 0.75,
-                color: "#5d6b82",
+                color: "#48617d",
                 fontSize: 12,
                 fontWeight: 800,
                 textTransform: "uppercase",
@@ -216,15 +216,15 @@ export default function FileUpload({
               p: 2,
               minHeight: 104,
               borderColor: isUnsupported ? "#fda4af" : "#d9e4f2",
-              borderRadius: 2,
+              borderRadius: "12px",
               bgcolor: isUnsupported ? "#fff7f8" : "#ffffff",
-              boxShadow: "0 6px 16px rgba(15, 23, 42, 0.04)",
+              boxShadow: "none",
             }}
           >
             <Typography
               sx={{
                 mb: 0.75,
-                color: "#5d6b82",
+                color: "#48617d",
                 fontSize: 12,
                 fontWeight: 800,
                 textTransform: "uppercase",
