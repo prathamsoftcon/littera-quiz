@@ -358,5 +358,19 @@
   "show": "Show",
   "masterUploadAll": "All",
   "masterUploadStatusPending": "Pending",
-  "masterUploadStatusReject": "Reject"
+  "masterUploadStatusReject": "Reject",
+  "masterUploadNotifications": "Notifications",
+  "masterUploadNoNotifications": "No notifications yet",
+  "masterUploadNoNotificationsHelp": "Import messages will appear here after successful uploads.",
+  "masterUploadClearNotifications": "Clear notifications",
+  "masterUploadImportSuccessTitle": "Import successful",
+  "masterUploadImportSuccessToast": "{file} imported successfully with {count} records.",
+  "masterUploadHistoryLoading": "Loading upload history",
+  "masterUploadHistoryLoadingHelp": "Fetching the latest upload records. Please wait.",
+  "masterUploadHistoryError": "Unable to load upload history. Please try again.",
+  "masterUploadRetry": "Retry",
+  "masterUploadNoHistoryTitle": "No upload history yet",
+  "masterUploadNoHistoryHelp": "Completed imports will appear here once records are uploaded.",
+  "masterUploadNoHistoryRowsTitle": "No matching upload history",
+  "masterUploadImporting": "Importing..."
 }

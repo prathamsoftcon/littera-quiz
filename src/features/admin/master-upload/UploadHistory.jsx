@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from "react";
 import {
+  Alert,
   Box,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -24,6 +26,9 @@ import {
   useTheme,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import InboxIcon from "@mui/icons-material/Inbox";
+import RefreshIcon from "@mui/icons-material/Refresh";
 import DraggableDialogPaper from "./DraggableDialogPaper";
 import { useTranslation } from "../../../context/TranslationContext";
 
@@ -33,6 +38,9 @@ export default function UploadHistory({
   onClose,
   hideTrigger = false,
   history,
+  loading = false,
+  error = "",
+  onRetry,
   onDetails,
 }) {
   const { t } = useTranslation();
@@ -221,6 +229,72 @@ export default function UploadHistory({
         </DialogTitle>
 
         <DialogContent sx={{ p: { xs: 1.5, sm: 2.5 } }}>
+          {loading && (
+            <StatePanel
+              icon={
+                <CircularProgress
+                  size={34}
+                  thickness={4}
+                  sx={{ color: "#2563eb" }}
+                />
+              }
+              title={t("masterUploadHistoryLoading")}
+              message={t("masterUploadHistoryLoadingHelp")}
+            />
+          )}
+
+          {!loading && error && (
+            <Box
+              sx={{
+                display: "grid",
+                gap: 1.5,
+                p: { xs: 1.5, sm: 2 },
+                border: "1px solid #fecdd3",
+                borderRadius: 2,
+                bgcolor: "#fff7f8",
+              }}
+            >
+              <Alert
+                severity="error"
+                icon={<ErrorOutlineIcon />}
+                sx={{
+                  alignItems: "center",
+                  border: "1px solid #fecdd3",
+                  bgcolor: "#fff1f2",
+                  color: "#9f1239",
+                  fontWeight: 700,
+                }}
+              >
+                {error || t("masterUploadHistoryError")}
+              </Alert>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: { xs: "stretch", sm: "flex-end" },
+                }}
+              >
+                <Button
+                  variant="outlined"
+                  onClick={onRetry}
+                  startIcon={<RefreshIcon />}
+                  sx={{ ...detailButtonSx, minHeight: 38, width: { xs: "100%", sm: "auto" } }}
+                >
+                  {t("masterUploadRetry")}
+                </Button>
+              </Box>
+            </Box>
+          )}
+
+          {!loading && !error && !history.length && (
+            <StatePanel
+              icon={<InboxIcon sx={{ color: "#94a3b8", fontSize: 42 }} />}
+              title={t("masterUploadNoHistoryTitle")}
+              message={t("masterUploadNoHistoryHelp")}
+            />
+          )}
+
+          {!loading && !error && Boolean(history.length) && (
+            <>
           <Box sx={{ display: { xs: "grid", sm: "none" }, gap: 1.25 }}>
             {filteredHistory.map((row) => (
               <Paper
@@ -266,9 +340,12 @@ export default function UploadHistory({
               </Paper>
             ))}
             {!filteredHistory.length && (
-              <Typography sx={{ color: "#667085", fontSize: 13, py: 3, textAlign: "center" }}>
-                {t("masterUploadNoHistoryRows")}
-              </Typography>
+              <StatePanel
+                compact
+                icon={<InboxIcon sx={{ color: "#94a3b8", fontSize: 36 }} />}
+                title={t("masterUploadNoHistoryRowsTitle")}
+                message={t("masterUploadNoHistoryRows")}
+              />
             )}
           </Box>
 
@@ -337,14 +414,21 @@ export default function UploadHistory({
                 ))}
                 {!filteredHistory.length && (
                   <TableRow>
-                    <TableCell colSpan={headers.length} sx={{ py: 4, color: "#667085", textAlign: "center" }}>
-                      {t("masterUploadNoHistoryRows")}
+                    <TableCell colSpan={headers.length} sx={{ p: 0, borderColor: "#eef2f7" }}>
+                      <StatePanel
+                        compact
+                        icon={<InboxIcon sx={{ color: "#94a3b8", fontSize: 36 }} />}
+                        title={t("masterUploadNoHistoryRowsTitle")}
+                        message={t("masterUploadNoHistoryRows")}
+                      />
                     </TableCell>
                   </TableRow>
                 )}
               </TableBody>
             </Table>
           </TableContainer>
+            </>
+          )}
         </DialogContent>
 
         <DialogActions sx={{ px: { xs: 1.5, sm: 2.5 }, py: 2, bgcolor: "#f8fbff", borderTop: "1px solid #dbe5f1" }}>
@@ -365,6 +449,52 @@ export default function UploadHistory({
           </Button>
         </DialogActions>
       </Dialog>
+    </Box>
+  );
+}
+
+function StatePanel({
+  icon,
+  title,
+  message,
+  compact = false,
+}) {
+  return (
+    <Box
+      sx={{
+        minHeight: compact ? 170 : 260,
+        display: "grid",
+        placeItems: "center",
+        textAlign: "center",
+        p: { xs: 2, sm: compact ? 3 : 4 },
+        border: "1px dashed #cbd8ea",
+        borderRadius: 2,
+        bgcolor: "#f8fbff",
+      }}
+    >
+      <Box sx={{ maxWidth: 420 }}>
+        <Box
+          sx={{
+            width: 58,
+            height: 58,
+            mx: "auto",
+            mb: 1.25,
+            display: "grid",
+            placeItems: "center",
+            borderRadius: 2,
+            bgcolor: "#ffffff",
+            border: "1px solid #dbe5f1",
+          }}
+        >
+          {icon}
+        </Box>
+        <Typography sx={{ color: "#0f172a", fontSize: 16, fontWeight: 900 }}>
+          {title}
+        </Typography>
+        <Typography sx={{ mt: 0.5, color: "#667085", fontSize: 13.5 }}>
+          {message}
+        </Typography>
+      </Box>
     </Box>
   );
 }

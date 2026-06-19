@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  CircularProgress,
   Typography,
   useMediaQuery,
   useTheme,
@@ -19,6 +20,7 @@ export default function ImportConfirmationDialog({
   uploadType,
   file,
   summary,
+  loading = false,
 }) {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -69,6 +71,7 @@ export default function ImportConfirmationDialog({
         <Button
           onClick={onClose}
           variant="outlined"
+          disabled={loading}
           sx={secondaryButtonSx}
         >
           {t("masterUploadCancel")}
@@ -77,9 +80,11 @@ export default function ImportConfirmationDialog({
         <Button
           variant="contained"
           onClick={onImport}
+          disabled={loading}
+          startIcon={loading ? <CircularProgress size={16} color="inherit" /> : null}
           sx={primaryButtonSx}
         >
-          {t("masterUploadImportRecords")}
+          {loading ? t("masterUploadImporting") : t("masterUploadImportRecords")}
         </Button>
       </DialogActions>
     </Dialog>

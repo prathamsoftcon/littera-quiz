@@ -358,5 +358,19 @@
   "masterUploadNoHistoryRows": "आपके फ़िल्टर से कोई अपलोड इतिहास नहीं मिला।",
   "masterUploadAll": "सभी",
   "masterUploadStatusPending": "लंबित",
-  "masterUploadStatusReject": "अस्वीकृत"
+  "masterUploadStatusReject": "अस्वीकृत",
+  "masterUploadNotifications": "सूचनाएं",
+  "masterUploadNoNotifications": "अभी कोई सूचना नहीं",
+  "masterUploadNoNotificationsHelp": "सफल अपलोड के बाद इम्पोर्ट संदेश यहां दिखाई देंगे।",
+  "masterUploadClearNotifications": "सूचनाएं साफ़ करें",
+  "masterUploadImportSuccessTitle": "इम्पोर्ट सफल",
+  "masterUploadImportSuccessToast": "{file} सफलतापूर्वक {count} रिकॉर्ड के साथ इम्पोर्ट हुई।",
+  "masterUploadHistoryLoading": "अपलोड इतिहास लोड हो रहा है",
+  "masterUploadHistoryLoadingHelp": "नवीनतम अपलोड रिकॉर्ड लाए जा रहे हैं। कृपया प्रतीक्षा करें।",
+  "masterUploadHistoryError": "अपलोड इतिहास लोड नहीं हो सका। कृपया फिर कोशिश करें।",
+  "masterUploadRetry": "फिर कोशिश करें",
+  "masterUploadNoHistoryTitle": "अभी कोई अपलोड इतिहास नहीं",
+  "masterUploadNoHistoryHelp": "रिकॉर्ड अपलोड होने के बाद पूर्ण इम्पोर्ट यहां दिखाई देंगे।",
+  "masterUploadNoHistoryRowsTitle": "कोई मिलान वाला अपलोड इतिहास नहीं",
+  "masterUploadImporting": "इम्पोर्ट हो रहा है..."
 }

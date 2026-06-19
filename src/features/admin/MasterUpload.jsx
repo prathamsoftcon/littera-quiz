@@ -1,8 +1,20 @@
 import React, { useState } from "react";
 import {
+  Alert,
+  Badge,
   Box,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Paper,
+  Snackbar,
+  Typography,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
 import UploadTypeSelection from "./master-upload/UploadTypeSelection";
 import FileUpload from "./master-upload/FileUpload";
@@ -12,6 +24,7 @@ import ImportConfirmationDialog from "./master-upload/ImportConfirmationDialog";
 import ImportCompleteScreen from "./master-upload/ImportCompleteScreen";
 import UploadHistory from "./master-upload/UploadHistory";
 import UploadDetailsDialog from "./master-upload/UploadDetailsDialog";
+import DraggableDialogPaper from "./master-upload/DraggableDialogPaper";
 import { useTranslation } from "../../context/TranslationContext";
 
 export default function MasterUpload() {
@@ -48,6 +61,20 @@ export default function MasterUpload() {
 
   const [selectedHistory, setSelectedHistory] =
     useState(null);
+  const [historyLoading, setHistoryLoading] =
+    useState(false);
+  const [historyError, setHistoryError] =
+    useState("");
+  const [notifications, setNotifications] =
+    useState([]);
+  const [notificationOpen, setNotificationOpen] =
+    useState(false);
+  const [toastOpen, setToastOpen] =
+    useState(false);
+  const [toastMessage, setToastMessage] =
+    useState("");
+  const [importLoading, setImportLoading] =
+    useState(false);
 
   // Upload History Data
   const [history, setHistory] = useState([
@@ -77,22 +104,60 @@ export default function MasterUpload() {
     });
   };
 
+  const handleOpenHistory = () => {
+    setHistoryOpen(true);
+    setHistoryError("");
+    setHistoryLoading(true);
+
+    window.setTimeout(() => {
+      setHistoryLoading(false);
+    }, 500);
+  };
+
+  const handleRetryHistory = () => {
+    setHistoryError("");
+    setHistoryLoading(true);
+
+    window.setTimeout(() => {
+      setHistoryLoading(false);
+    }, 500);
+  };
+
   // Import Records
   const handleImport = () => {
-    setConfirmOpen(false);
-    setImportComplete(true);
+    setImportLoading(true);
 
-    const newHistory = {
-      id: Date.now(),
-      date: new Date().toLocaleDateString(),
-      type: uploadType,
-      file: file?.name || "",
-      status: "Complete",
-      imported: summary.valid,
-      skipped: summary.total - summary.valid,
-    };
+    window.setTimeout(() => {
+      setConfirmOpen(false);
+      setImportComplete(true);
+      setImportLoading(false);
 
-    setHistory((prev) => [newHistory, ...prev]);
+      const newHistory = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString(),
+        type: uploadType,
+        file: file?.name || "",
+        status: "Complete",
+        imported: summary.valid,
+        skipped: summary.total - summary.valid,
+      };
+
+      setHistory((prev) => [newHistory, ...prev]);
+
+      const message = t("masterUploadImportSuccessToast")
+        .replace("{file}", newHistory.file || t("masterUploadSelectedFile"))
+        .replace("{count}", newHistory.imported);
+      const notification = {
+        id: newHistory.id,
+        title: t("masterUploadImportSuccessTitle"),
+        message,
+        time: new Date().toLocaleString(),
+      };
+
+      setNotifications((prev) => [notification, ...prev]);
+      setToastMessage(message);
+      setToastOpen(true);
+    }, 600);
   };
 
   // View Details
@@ -114,13 +179,49 @@ export default function MasterUpload() {
         <ValidationSummary
           summary={summary}
           actions={
-            <Button
-              variant="outlined"
-              onClick={() => setHistoryOpen(true)}
-              sx={secondaryButtonSx}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: { xs: "stretch", sm: "flex-end" },
+                gap: 1,
+                width: { xs: "100%", sm: "auto" },
+                flexWrap: "wrap",
+              }}
             >
-              {t("masterUploadHistory")}
-            </Button>
+              <IconButton
+                aria-label={t("masterUploadNotifications")}
+                onClick={() => setNotificationOpen(true)}
+                sx={{
+                  width: { xs: "100%", sm: 40 },
+                  minHeight: 40,
+                  border: "1px solid #cbd8ea",
+                  borderRadius: 1.25,
+                  color: "#132238",
+                  bgcolor: "#fff",
+                  "&:hover": {
+                    borderColor: "#2563eb",
+                    bgcolor: "#eff6ff",
+                  },
+                }}
+              >
+                <Badge
+                  badgeContent={notifications.length}
+                  color="error"
+                  max={99}
+                >
+                  <NotificationsIcon fontSize="small" />
+                </Badge>
+              </IconButton>
+
+              <Button
+                variant="outlined"
+                onClick={handleOpenHistory}
+                sx={secondaryButtonSx}
+              >
+                {t("masterUploadHistory")}
+              </Button>
+            </Box>
           }
         />
       </Section>
@@ -172,10 +273,21 @@ export default function MasterUpload() {
       <UploadHistory
         hideTrigger
         open={historyOpen}
-        onOpen={() => setHistoryOpen(true)}
+        onOpen={handleOpenHistory}
         onClose={() => setHistoryOpen(false)}
         history={history}
+        loading={historyLoading}
+        error={historyError}
+        onRetry={handleRetryHistory}
         onDetails={handleViewDetails}
+      />
+
+      <NotificationDialog
+        open={notificationOpen}
+        onClose={() => setNotificationOpen(false)}
+        notifications={notifications}
+        onClear={() => setNotifications([])}
+        t={t}
       />
 
       {/* Import Confirmation Dialog */}
@@ -186,6 +298,7 @@ export default function MasterUpload() {
         uploadType={uploadType}
         file={file}
         summary={summary}
+        loading={importLoading}
       />
 
       {/* Upload Details Dialog */}
@@ -203,7 +316,148 @@ export default function MasterUpload() {
           summary.total - summary.valid
         }
       />
+
+      <Snackbar
+        open={toastOpen}
+        autoHideDuration={3500}
+        onClose={() => setToastOpen(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert
+          severity="success"
+          variant="filled"
+          onClose={() => setToastOpen(false)}
+          sx={{ fontWeight: 700 }}
+        >
+          {toastMessage}
+        </Alert>
+      </Snackbar>
     </Box>
+  );
+}
+
+function NotificationDialog({
+  open,
+  onClose,
+  notifications,
+  onClear,
+  t,
+}) {
+  return (
+    <Dialog
+      open={open}
+      onClose={onClose}
+      fullWidth
+      maxWidth="sm"
+      PaperComponent={DraggableDialogPaper}
+      PaperProps={{
+        sx: {
+          borderRadius: 2,
+          border: "1px solid #d8e3f2",
+          overflow: "hidden",
+        },
+      }}
+    >
+      <DialogTitle
+        data-dialog-drag-handle="true"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 2,
+          bgcolor: "#f8fbff",
+          borderBottom: "1px solid #dbe5f1",
+          fontSize: 18,
+          fontWeight: 900,
+          cursor: "move",
+        }}
+      >
+        {t("masterUploadNotifications")}
+        <IconButton
+          aria-label={t("masterUploadClose")}
+          onClick={onClose}
+          size="small"
+          sx={{ color: "#667085" }}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </DialogTitle>
+
+      <DialogContent sx={{ p: 2 }}>
+        {notifications.length ? (
+          <Box
+            sx={{
+              display: "grid",
+              gap: 1.25,
+              maxHeight: 210,
+              overflowY: notifications.length > 2 ? "auto" : "visible",
+              pr: notifications.length > 2 ? 0.75 : 0,
+            }}
+          >
+            {notifications.map((item, index) => (
+              <Paper
+                key={item.id}
+                variant="outlined"
+                sx={{
+                  p: 1.5,
+                  borderColor: "#d8e3f2",
+                  borderRadius: 2,
+                  bgcolor: "#ffffff",
+                }}
+              >
+                <Typography sx={{ color: "#0f172a", fontSize: 14, fontWeight: 900 }}>
+                  {index + 1}. {item.title}
+                </Typography>
+                <Typography sx={{ mt: 0.5, color: "#52627a", fontSize: 13 }}>
+                  {item.message}
+                </Typography>
+                <Typography sx={{ mt: 0.75, color: "#667085", fontSize: 12 }}>
+                  {item.time}
+                </Typography>
+              </Paper>
+            ))}
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              minHeight: 160,
+              display: "grid",
+              placeItems: "center",
+              textAlign: "center",
+              color: "#667085",
+            }}
+          >
+            <Box>
+              <NotificationsIcon sx={{ mb: 1, color: "#94a3b8", fontSize: 38 }} />
+              <Typography sx={{ color: "#172033", fontWeight: 900 }}>
+                {t("masterUploadNoNotifications")}
+              </Typography>
+              <Typography sx={{ mt: 0.5, fontSize: 13 }}>
+                {t("masterUploadNoNotificationsHelp")}
+              </Typography>
+            </Box>
+          </Box>
+        )}
+      </DialogContent>
+
+      <DialogActions sx={{ px: 2, py: 1.75, bgcolor: "#f8fbff", borderTop: "1px solid #dbe5f1" }}>
+        <Button
+          variant="outlined"
+          disabled={!notifications.length}
+          onClick={onClear}
+          sx={secondaryButtonSx}
+        >
+          {t("masterUploadClearNotifications")}
+        </Button>
+        <Button
+          variant="contained"
+          onClick={onClose}
+          sx={primaryButtonSx}
+        >
+          {t("masterUploadClose")}
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
 
