@@ -6,27 +6,55 @@ import {
 } from "@mui/material";
 import { useTranslation } from "../../../context/TranslationContext";
 
+const requiredFields = {
+  State: ["state_code", "state_name"],
+  District: ["district_code", "district_name", "state_code"],
+  Block: ["block_code", "block_name", "state_code", "district_code"],
+  CRC: ["crc_code", "crc_name", "state_code", "district_code", "block_code"],
+  Village: [
+    "village_code",
+    "village_name",
+    "state_code",
+    "district_code",
+    "block_code",
+    "crc_code",
+  ],
+  School: [
+    "school_code",
+    "school_name",
+    "school_type",
+    "village_code",
+    "crc_code",
+    "block_code",
+    "district_code",
+    "state_code",
+  ],
+};
+
 export default function TemplateRequiredFields({
   uploadType,
   actions,
 }) {
   const { t } = useTranslation();
   const downloadTemplate = () => {
-    const csv =
-      requiredFields[uploadType].join(",") + "\n";
+    const fields = requiredFields[uploadType] || requiredFields.School;
+    const csv = `${fields.join(",")}\n`;
 
     const blob = new Blob([csv], {
-      type: "text/csv",
+      type: "text/csv;charset=utf-8",
     });
 
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${uploadType}_template.csv`;
+    a.download = `${uploadType || "School"}_template.csv`;
+    a.style.display = "none";
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
 
-    URL.revokeObjectURL(url);
+    window.setTimeout(() => URL.revokeObjectURL(url), 0);
   };
 
   return (

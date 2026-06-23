@@ -90,19 +90,133 @@ export default function MasterUpload() {
   ]);
 
   // Validate File
-  const handleValidate = () => {
-    if (!file) {
-      alert(t("masterUploadUploadFileFirst"));
+ // Allowed file types
+const normalize = (str) =>
+  str?.toString().trim().toLowerCase();
+
+const REQUIRED_COLUMNS = [
+  "school_code",
+  "school_name",
+  "school_type",
+  "village_code",
+  "crc_code",
+  "block_code",
+  "district_code",
+  "state_code",
+];
+
+const handleValidate = async () => {
+  setError("");
+
+  const isValidFile =
+    file?.name?.endsWith(".csv") ||
+    file?.name?.endsWith(".xlsx") ||
+    file?.name?.endsWith(".xls");
+
+  if (!isValidFile) {
+    setError("Unsupported file type");
+    return;
+  }
+
+  if (!file) {
+    setError("Upload file first");
+    return;
+  }
+
+  try {
+    setImportLoading(true);
+
+    let rows = [];
+    let headers = [];
+
+    // ================= CSV =================
+    if (file.name.endsWith(".csv")) {
+      const text = await file.text();
+
+      const lines = text.split("\n").filter(Boolean);
+
+      headers = lines[0]
+        .split(",")
+        .map(normalize);
+
+      rows = lines.slice(1).map((line) => {
+        const values = line.split(",");
+        const obj = {};
+
+        headers.forEach((h, i) => {
+          obj[h] = values[i]?.trim() || "";
+        });
+
+        return obj;
+      });
+    }
+
+    // ================= XLSX =================
+    else if (file.name.endsWith(".xlsx") || file.name.endsWith(".xls")) {
+      const buffer = await file.arrayBuffer();
+      const workbook = XLSX.read(buffer, { type: "array" });
+
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+
+      const rawRows = XLSX.utils.sheet_to_json(sheet, {
+        defval: "",
+        raw: false,
+      });
+
+      rows = rawRows.map((row) => {
+        const obj = {};
+        Object.keys(row).forEach((k) => {
+          obj[normalize(k)] = row[k];
+        });
+        return obj;
+      });
+
+      headers = Object.keys(rows[0] || {});
+    }
+
+    // ================= EMPTY CHECK =================
+    if (!rows.length) {
+      setError("No data found in file");
       return;
     }
 
-    // Temporary mock data
-    setSummary({
-      total: rowCount || 1246,
-      valid: 1188,
-      missing: 24,
+    // ================= COLUMN VALIDATION =================
+    const missingColumns = REQUIRED_COLUMNS.filter(
+      (col) => !headers.includes(col)
+    );
+
+    if (missingColumns.length) {
+      setError(`Missing columns: ${missingColumns.join(", ")}`);
+      return;
+    }
+
+    // ================= ROW VALIDATION =================
+    let validCount = 0;
+    let missingCount = 0;
+
+    rows.forEach((row) => {
+      const isValid = REQUIRED_COLUMNS.every(
+        (col) => row[col] && row[col].toString().trim() !== ""
+      );
+
+      if (isValid) validCount++;
+      else missingCount++;
     });
-  };
+
+    setSummary({
+      total: rows.length,
+      valid: validCount,
+      missing: missingCount,
+    });
+
+    setRowCount(rows.length);
+  } catch (err) {
+    console.error(err);
+    setError("File validation failed");
+  } finally {
+    setImportLoading(false);
+  }
+};
 
   const handleOpenHistory = () => {
     setHistoryOpen(true);
