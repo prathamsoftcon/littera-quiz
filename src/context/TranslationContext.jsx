@@ -80,7 +80,17 @@ export function TranslationProvider({ children }) {
   }, [language]);
 
   const value = useMemo(() => {
-    const t = (key) => translations[language]?.[key] || translations.en?.[key] || key;
+    const t = (key, valuesOrFallback) => {
+      let text = translations[language]?.[key] || translations.en?.[key] || (typeof valuesOrFallback === 'string' ? valuesOrFallback : key);
+
+      if (valuesOrFallback && typeof valuesOrFallback === 'object') {
+        Object.entries(valuesOrFallback).forEach(([name, value]) => {
+          text = text.replaceAll(`{${name}}`, value);
+        });
+      }
+
+      return text;
+    };
     return { language, setLanguage, t };
   }, [language, translations]);
 

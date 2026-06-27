@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { FaBell, FaBolt, FaCalendarAlt, FaGamepad, FaMedal, FaTrophy, FaUsers } from 'react-icons/fa';
 import { useTranslation } from '../../context/TranslationContext';
 import StudentSidebar from '../../components/student/StudentSidebar';
 import StudentOverviewPanel from '../../features/student/StudentOverviewPanel';
 import StudentLobbyPanel from '../../features/student/StudentLobbyPanel';
-// StudentBoardPanel replaced by specific board components (1v1 / Group / Tournament)
 import OneVOneGameBoard from '../../features/student/1v1gameboard';
 import GroupGameBoard from '../../features/student/groupegameboard';
 import TournamentGameBoard from '../../features/student/tournamentgameboard';
@@ -16,18 +16,22 @@ const sidebarItems = [
   { key: 'notifications', labelKey: 'sidebar.notifications' },
 ];
 
-  const lobbyModes = ['1v1', 'Group', 'Tournament'];
-  const lobbyNotes = ['lobby.note.preloaded', 'lobby.note.network', 'lobby.note.speed'];
-  const notifications = [
-    { titleKey: 'notifications.item.timeSlot.title', detailKey: 'notifications.item.timeSlot.detail' },
-    { titleKey: 'notifications.item.reward.title', detailKey: 'notifications.item.reward.detail' },
-  ];
+const lobbyModes = ['1v1', 'Group', 'Tournament'];
+const lobbyNotes = ['lobby.note.preloaded', 'lobby.note.network', 'lobby.note.speed'];
+const notifications = [
+  { titleKey: 'notifications.item.timeSlot.title', detailKey: 'notifications.item.timeSlot.detail' },
+  { titleKey: 'notifications.item.reward.title', detailKey: 'notifications.item.reward.detail' },
+];
 
 export default function StudentPage() {
   const { t } = useTranslation();
   const [activeModule, setActiveModule] = useState('overview');
   const [selectedMode, setSelectedMode] = useState(lobbyModes[0]);
-  const [queuePosition, setQueuePosition] = useState({ position: 12, players: 12, note: 'Auto load balancing keeps your match responsive, even on slower connections.' });
+  const [queuePosition, setQueuePosition] = useState({
+    position: 12,
+    players: 12,
+    note: 'Auto load balancing keeps your match responsive, even on slower connections.',
+  });
   const [diceRoll, setDiceRoll] = useState(4);
   const [actionMessage, setActionMessage] = useState('');
   const [boardVariant, setBoardVariant] = useState(null);
@@ -46,13 +50,11 @@ export default function StudentPage() {
 
   function handleJoin({ mode, settings } = {}) {
     const usedMode = mode || selectedMode;
-    // emulate joining by bumping queue position and showing message
     setQueuePosition((p) => ({ ...p, position: Math.max(1, p.position - 1) }));
-    showMessage(`Joined ${usedMode || 'match'}`);
-    // store settings and navigate to appropriate board variant after join
     setBoardSettings(settings || {});
     setBoardVariant(usedMode);
     setActiveModule('board');
+    showMessage(`Joined ${usedMode || 'match'}`);
   }
 
   function handleRollDice() {
@@ -61,83 +63,85 @@ export default function StudentPage() {
     showMessage(`You rolled a ${roll}`);
   }
 
-  function handleViewLeaderboard() {
-    setLeaderboardOpen(true);
-  }
-
-  function closeLeaderboard() {
-    setLeaderboardOpen(false);
-  }
-
   const studentMetrics = [
-    { label: t('metric.blockRank'), value: '#18', accent: 'bg-[#cde6ff]' },
-    { label: t('metric.accuracy'), value: '86%', accent: 'bg-[#cfeee0]' },
-    { label: t('metric.quizStreak'), value: '6 days', accent: 'bg-[#ffdcbc]' },
+    { label: t('metric.blockRank'), value: '#18', helper: 'Top 12% this week', icon: FaTrophy, accent: 'border-sky-200 bg-sky-50 text-sky-700' },
+    { label: t('metric.accuracy'), value: '86%', helper: '+4% from last quiz', icon: FaBolt, accent: 'border-emerald-200 bg-emerald-50 text-emerald-700' },
+    { label: t('metric.quizStreak'), value: '6 days', helper: 'Next badge in 1 day', icon: FaMedal, accent: 'border-amber-200 bg-amber-50 text-amber-700' },
   ];
 
   const studentHighlights = [
-    { labelKey: 'activeSlot', value: '10:30 AM • Today', accent: 'bg-slate-900/5 text-slate-900' },
-    { labelKey: 'questionsPreloaded', value: '12 items', accent: 'bg-sky-500/10 text-sky-700' },
-    { labelKey: 'lowNetworkReady', value: 'Local cache', accent: 'bg-emerald-500/10 text-emerald-700' },
+    { labelKey: 'activeSlot', value: '10:30 AM Today', icon: FaCalendarAlt },
+    { labelKey: 'questionsPreloaded', value: '12 items', icon: FaGamepad },
+    { labelKey: 'lowNetworkReady', value: 'Local cache', icon: FaBell },
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:px-10">
-      <main id="main" className="mx-auto max-w-7xl space-y-6" tabIndex={-1}>
-        <header className="w-full flex items-center justify-between gap-6 py-2">
-          <div className="flex-1">
-            <h1 className="text-2xl font-semibold tracking-tight text-slate-900">{t('welcomeBack', { name: 'Pooja' })}</h1>
-            <p className="mt-1 text-sm text-slate-600">{t('enjoyingExperience')}</p>
-          </div>
+    <div className="min-h-screen bg-[#f6f8fb] px-4 py-6 text-slate-900 sm:px-6 lg:px-8">
+      <main id="main" className="mx-auto max-w-7xl space-y-5" tabIndex={-1}>
+        <header className="rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Student dashboard</p>
+              <h1 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">{t('welcomeBack', { name: 'Pooja' })}</h1>
+              <p className="mt-1 text-sm text-slate-600">{t('enjoyingExperience')}</p>
+            </div>
 
-          <div className="flex items-center gap-4">
-            {studentHighlights.map((item) => (
-              <div key={item.labelKey} className={`min-w-[140px] h-20 flex flex-col justify-center rounded-xl p-3 shadow-sm ${item.accent}`}>
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-800/80">{t(item.labelKey)}</p>
-                <p className="mt-1 text-lg font-semibold text-slate-900">{item.value}</p>
-              </div>
-            ))}
+            <div className="grid gap-3 sm:grid-cols-3">
+              {studentHighlights.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.labelKey} className="min-w-[150px] rounded-xl border border-slate-200 bg-slate-50 px-3 py-3">
+                    <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+                      <Icon className="text-sky-700" aria-hidden="true" />
+                      {t(item.labelKey)}
+                    </div>
+                    <p className="mt-2 text-base font-semibold text-slate-950">{item.value}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-
-        <hr className="mt-2 border-t border-slate-200" />
         </header>
 
-        <div className="grid gap-8 xl:grid-cols-[280px_1fr] items-start xl:items-stretch">
-          <div className="space-y-6 h-full flex flex-col">
+        <div className="grid gap-6 xl:grid-cols-[260px_1fr]">
+          <div className="space-y-6">
             <div className="hidden xl:block">
               <StudentSidebar
-                title="Menu"
+                title="Student menu"
                 items={sidebarItems}
                 activeModule={activeModule}
                 setActiveModule={setActiveModule}
               />
             </div>
-            <div className="xl:hidden rounded-[32px] border border-slate-200 bg-white p-4 shadow-sm">
+            <div className="xl:hidden rounded-2xl border border-slate-200 bg-white p-3 shadow-sm">
               <div className="flex flex-wrap gap-2">
                 {sidebarItems.map((item) => (
                   <button
                     key={item.key}
                     type="button"
-                    className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                      activeModule === item.key ? 'bg-sky-800 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    className={`rounded-lg px-4 py-2 text-sm font-semibold transition ${
+                      activeModule === item.key ? 'bg-slate-950 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                     onClick={() => setActiveModule(item.key)}
                   >
-                    {item.label}
+                    {item.labelKey ? t(item.labelKey) : item.label}
                   </button>
                 ))}
               </div>
             </div>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-5">
             {actionMessage ? (
-              <div aria-live="polite" role="status" className="rounded-md bg-sky-50 px-4 py-2 text-sm text-sky-700">{actionMessage}</div>
+              <div aria-live="polite" role="status" className="rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm font-medium text-sky-800">
+                {actionMessage}
+              </div>
             ) : null}
+
             {activeModule === 'overview' && (
               <StudentOverviewPanel
                 metrics={studentMetrics}
-                upcomingSlot={{ title: 'Math Sprint • 10:30 AM', note: 'Your next match group is preloaded and ready for low-network mode.' }}
+                upcomingSlot={{ title: 'Math Sprint - 10:30 AM', note: 'Your next match group is preloaded and ready for low-network mode.' }}
                 rewardProgress={{ name: 'Silver badge', percent: 82 }}
                 onJoin={handleJoin}
                 defaultMode={selectedMode}
@@ -159,50 +163,62 @@ export default function StudentPage() {
             {activeModule === 'board' && (
               <>
                 {boardVariant === '1v1' && (
-                  <OneVOneGameBoard variant="1v1" settings={boardSettings} initial={{ p1: 0, p2: 0 }} />
+                  <OneVOneGameBoard variant="1v1" settings={boardSettings} />
                 )}
                 {boardVariant === 'Group' && (
-                  <GroupGameBoard variant="Group" settings={boardSettings} />
+                  <GroupGameBoard variant="Group" settings={boardSettings} diceRoll={diceRoll} onRollDice={handleRollDice} />
                 )}
                 {boardVariant === 'Tournament' && (
-                  <TournamentGameBoard variant="Tournament" settings={boardSettings} />
+                  <TournamentGameBoard variant="Tournament" settings={boardSettings} diceRoll={diceRoll} onRollDice={handleRollDice} />
                 )}
                 {!boardVariant && (
-                  <div className="rounded-2xl p-6 bg-white text-slate-700">{t('board.noSelection', 'No board selected — join a match from Lobby.')}</div>
+                  <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-700">
+                    <FaUsers className="mx-auto text-3xl text-slate-400" aria-hidden="true" />
+                    <p className="mt-3 font-semibold text-slate-950">{t('board.noSelection', 'No board selected - join a match from Lobby.')}</p>
+                    <button
+                      type="button"
+                      onClick={() => setActiveModule('lobby')}
+                      className="mt-4 rounded-lg bg-slate-950 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800"
+                    >
+                      Open lobby
+                    </button>
+                  </div>
                 )}
               </>
             )}
 
             {activeModule === 'notifications' && (
               <StudentNotificationsPanel
-                notifications={notifications.map(n => ({ title: t(n.titleKey), detail: t(n.detailKey) }))}
+                notifications={notifications.map((n) => ({ title: t(n.titleKey), detail: t(n.detailKey) }))}
                 progress={{ speed: '8.2s', timeSaved: '24 mins' }}
-                onViewLeaderboard={handleViewLeaderboard}
+                onViewLeaderboard={() => setLeaderboardOpen(true)}
               />
             )}
           </div>
         </div>
       </main>
+
       {leaderboardOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="w-full max-w-lg rounded-2xl bg-white p-6">
-            <h3 className="text-lg font-semibold">Leaderboard (Mock)</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-slate-950">Leaderboard</h3>
+              <span className="rounded-full bg-amber-50 px-3 py-1 text-sm font-semibold text-amber-700">Block level</span>
+            </div>
             <ol className="mt-4 space-y-3">
-              <li className="flex items-center justify-between rounded-md bg-slate-50 p-3">
-                <div><strong>1.</strong> Rahul</div>
-                <div className="font-semibold">9,420 pts</div>
-              </li>
-              <li className="flex items-center justify-between rounded-md bg-slate-50 p-3">
-                <div><strong>2.</strong> Meera</div>
-                <div className="font-semibold">8,860 pts</div>
-              </li>
-              <li className="flex items-center justify-between rounded-md bg-slate-50 p-3">
-                <div><strong>3.</strong> Anaya</div>
-                <div className="font-semibold">8,420 pts</div>
-              </li>
+              {[
+                ['Rahul', '9,420 pts'],
+                ['Meera', '8,860 pts'],
+                ['Anaya', '8,420 pts'],
+              ].map(([name, score], index) => (
+                <li key={name} className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 p-3">
+                  <div><strong>{index + 1}.</strong> {name}</div>
+                  <div className="font-semibold">{score}</div>
+                </li>
+              ))}
             </ol>
             <div className="mt-5 flex justify-end">
-              <button onClick={closeLeaderboard} className="rounded px-4 py-2 border">Close</button>
+              <button onClick={() => setLeaderboardOpen(false)} className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold hover:bg-slate-50">Close</button>
             </div>
           </div>
         </div>

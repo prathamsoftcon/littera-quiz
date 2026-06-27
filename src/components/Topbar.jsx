@@ -12,6 +12,8 @@ export default function Topbar() {
   const location = useLocation();
   const dropdownRef = useRef(null);
 
+
+
   const isLoginPage = location.pathname === '/quiz' || location.pathname === '/login' || location.pathname === '/';
 
   const languages = [

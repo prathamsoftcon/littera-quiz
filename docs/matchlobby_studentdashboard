@@ -1,0 +1,209 @@
+Module Name
+
+Match Lobby
+
+Purpose
+
+The Match Lobby enables students to participate in real-time multiplayer quiz competitions. It acts as a centralized area where students can discover, join, and manage different types of matches, including 1v1 Battles, Group Competitions, Tournaments, Timed Challenges, and Cooperative Gameplay.
+
+Objectives
+Allow students to browse available matches.
+Enable students to join real-time competitions.
+Facilitate challenge-based gameplay between students.
+Provide live updates regarding participants, rankings, and match status.
+Manage matchmaking based on configured competition rules.
+User Roles
+Student
+View available matches.
+Create or accept challenge requests.
+Join multiplayer competitions.
+Participate in tournaments.
+View live rankings and results.
+Admin
+Configure match rules.
+Manage tournament settings.
+Monitor active matches.
+Publish and manage results.
+Match Types Supported
+1. One-on-One (1v1) Battle
+
+Students can challenge other students directly.
+
+Features
+Send challenge requests.
+Accept or reject challenge requests.
+Select quiz categories and subcategories.
+Earn additional reward points for winning.
+Flow
+Student opens Match Lobby.
+Selects "1v1 Battle".
+Chooses category/subcategory.
+Sends challenge request.
+Opponent accepts challenge.
+Match begins.
+Winner receives reward points.
+2. Group Competition
+
+Multiple students compete simultaneously.
+
+Features
+Join open competitions.
+Compete against multiple participants.
+Real-time score tracking.
+Live ranking updates.
+3. Tournament Mode
+
+Students participate in multiple rounds based on predefined tournament rules.
+
+Features
+Elimination rounds.
+Progression through brackets.
+Automatic qualification for next rounds.
+Final winner declaration.
+4. Timed Challenge
+
+Students attempt quizzes within a fixed duration.
+
+Features
+Countdown timer.
+Score based on accuracy and completion time.
+Leaderboard integration.
+5. Cooperative Gameplay
+
+Students work together toward a common objective.
+
+Features
+Team participation.
+Shared scoring.
+Collaborative quiz completion.
+Student Dashboard - Match Lobby Components
+Header Section
+Match Lobby Title
+Match Filters
+Search Bar
+Active Match Count
+Match Cards
+
+Each match card should display:
+
+Match Name
+Match Type
+Category/Subcategory
+Number of Participants
+Match Status
+Start Time
+End Time
+Reward Points
+Join Button
+Match Status
+Status	Description
+Upcoming	Match is scheduled but not started
+Live	Match is currently running
+Completed	Match has finished
+Full	Maximum participants reached
+Cancelled	Match has been cancelled
+Functional Requirements
+Match Discovery
+
+The system shall:
+
+Display available matches.
+Display upcoming matches.
+Display live matches.
+Allow searching by category.
+Allow filtering by match type.
+Category Selection
+
+The student can:
+
+Select a single category.
+Select multiple categories.
+Select category and subcategory combinations.
+Play quizzes from all categories.
+Matchmaking
+
+The system shall:
+
+Match players based on configured rules.
+Validate participant eligibility.
+Allocate players to appropriate competitions.
+Real-Time Gameplay
+
+The system shall:
+
+Display live opponent movement.
+Display real-time score updates.
+Display live rankings.
+Synchronize match progress across participants.
+Connection Handling
+
+The system shall:
+
+Detect player disconnection.
+Support player reconnection.
+Restore active session state.
+Results Management
+
+The system shall:
+
+Publish match results after completion.
+Update leaderboards automatically.
+Award reward points.
+Store match history.
+User Flow
+Student logs into the platform.
+Student navigates to Dashboard.
+Student opens Match Lobby.
+Student selects Match Type.
+Student selects Category/Subcategory.
+Student joins or creates a match.
+Matchmaking process starts.
+Student participates in gameplay.
+Live rankings and scores are displayed.
+Match completes.
+Results and rewards are shown.
+Validation Scenarios
+Join Match Validation
+Match exists.
+Match is active.
+Slots are available.
+Student is eligible.
+Student has not already joined.
+Challenge Validation
+Opponent exists.
+Opponent is available.
+Challenge request is valid.
+Duplicate challenges are prevented.
+Tournament Validation
+Registration is open.
+Tournament slot is available.
+Tournament rules are configured.
+Acceptance Criteria
+1v1 Battle
+Student can send challenge requests.
+Student can accept challenge requests.
+Match starts successfully.
+Group Competition
+Student can join group competitions.
+Live rankings are displayed.
+Tournament
+Tournament rounds progress according to configuration.
+Winners advance automatically.
+Real-Time Updates
+Scores update instantly.
+Rankings update during gameplay.
+Results
+Results are published after match completion.
+Leaderboards update correctly.
+Reward points are awarded.
+Dependencies
+Real-Time Communication Service
+Matchmaking Engine
+Question Bank Module
+Leaderboard Module
+Reward Points System
+Authentication Module
+Tournament Management Module
+Expected Outcome
+
+Students can seamlessly participate in multiplayer quiz competitions through the Match Lobby, including challenge battles, group competitions, tournaments, timed challenges, and cooperative gameplay while receiving live updates, rankings, rewards, and final results.

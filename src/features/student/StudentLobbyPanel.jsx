@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { FaBolt, FaCheckCircle, FaCloudDownloadAlt, FaNetworkWired, FaUsers } from 'react-icons/fa';
 import { useTranslation } from '../../context/TranslationContext';
 import OneVOneGameBoard from './1v1gameboard';
 import GroupGameBoard from './groupegameboard';
 import TournamentGameBoard from './tournamentgameboard';
+
+const noteMeta = {
+  questions: { icon: FaCloudDownloadAlt, tone: 'text-sky-700 bg-sky-50 border-sky-200' },
+  network: { icon: FaNetworkWired, tone: 'text-emerald-700 bg-emerald-50 border-emerald-200' },
+  speed: { icon: FaBolt, tone: 'text-amber-700 bg-amber-50 border-amber-200' },
+};
 
 export default function StudentLobbyPanel({ modes, queuePosition, notes, selectedMode, onModeSelect, onJoin }) {
   const { t } = useTranslation();
@@ -13,166 +20,201 @@ export default function StudentLobbyPanel({ modes, queuePosition, notes, selecte
   const [lowNetwork, setLowNetwork] = useState(true);
   const [speedBonus, setSpeedBonus] = useState('Small');
   const [joined, setJoined] = useState(false);
-  const [joinedMode, setJoinedMode] = useState(null);
-  const [joinedSettings, setJoinedSettings] = useState({});
   const [joinedKey, setJoinedKey] = useState(null);
+  const [joinedSettings, setJoinedSettings] = useState({});
 
   useEffect(() => setLocalMode(selectedMode), [selectedMode]);
 
+  function getNoteType(noteEntry) {
+    if (typeof noteEntry !== 'string') return noteEntry.type;
+    if (noteEntry.includes('preloaded')) return 'questions';
+    if (noteEntry.includes('network')) return 'network';
+    if (noteEntry.includes('speed')) return 'speed';
+    return 'questions';
+  }
+
   function handleConfirmJoin() {
-    setConfirmOpen(false);
     const settings = { preloadedCount, lowNetwork, speedBonus };
+    const key = typeof localMode === 'string' ? localMode.toLowerCase().replace(/\s+/g, '') : localMode;
+    setConfirmOpen(false);
     setJoined(true);
-    setJoinedMode(localMode);
-    setJoinedSettings(settings);
-    const normalize = (m) => (typeof m === 'string' ? m.toLowerCase().replace(/\s+/g, '') : m);
-    const key = normalize(localMode);
     setJoinedKey(key);
-    console.log('[Lobby] handleConfirmJoin:', { localMode, key, settings });
+    setJoinedSettings(settings);
     onJoin && onJoin({ mode: localMode, settings });
   }
 
-  function toggleNote(n) {
-    setOpenNotes((s) => ({ ...s, [n]: !s[n] }));
+  function toggleNote(noteKey) {
+    setOpenNotes((state) => ({ ...state, [noteKey]: !state[noteKey] }));
   }
 
   return (
     <>
-    <article className="rounded-[32px] border border-slate-200/80 bg-white p-6 shadow-[0_24px_70px_rgba(15,23,42,0.08)] sm:p-8">
-      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">{t('lobby.title')}</p>
-          <h2 className="mt-2 text-2xl font-semibold text-slate-950">{t('lobby.queueStatus')}</h2>
-        </div>
-          <span className="rounded-full bg-slate-100 px-3 py-2 text-sm font-medium text-slate-700">{queuePosition.players} {t('lobby.playersWaiting')}</span>
-      </div>
-
-      <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
-        <div className="flex flex-wrap gap-3">
-          {modes.map((mode) => (
-            <button
-              key={mode}
-              type="button"
-              onClick={() => {
-                setLocalMode(mode);
-                onModeSelect && onModeSelect(mode);
-              }}
-              className={`w-full sm:w-auto text-center rounded-2xl border px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-sky-500 ${
-                localMode === mode
-                  ? 'bg-sky-800 text-white border-sky-700'
-                  : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300 hover:bg-slate-100'
-              }`}
-            >
-              {mode}
-            </button>
-          ))}
+      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">{t('lobby.title')}</p>
+            <h2 className="mt-2 text-2xl font-semibold text-slate-950">{t('lobby.queueStatus')}</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-600">{queuePosition.note}</p>
+          </div>
+          <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+              <FaUsers className="text-sky-700" aria-hidden="true" />
+              {queuePosition.players} {t('lobby.playersWaiting')}
+            </div>
+            <p className="mt-1 text-2xl font-semibold text-slate-950">#{queuePosition.position}</p>
+          </div>
         </div>
 
-            <div className="mt-6 space-y-3 rounded-3xl bg-white p-5 shadow-sm">
-          <p className="text-sm uppercase tracking-[0.18em] text-slate-500">{t('lobby.queuePosition')}</p>
-          <p className="text-4xl font-semibold text-slate-950">#{queuePosition.position}</p>
-          <p className="text-sm leading-6 text-slate-600">{queuePosition.note}</p>
-          <div className="mt-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <div className="mt-5 grid gap-5 lg:grid-cols-[1fr_320px]">
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+            <p className="text-sm font-semibold text-slate-700">{t('lobby.modeLabel')}</p>
+            <div className="mt-3 grid gap-2 sm:grid-cols-3">
+              {modes.map((mode) => (
+                <button
+                  key={mode}
+                  type="button"
+                  onClick={() => {
+                    setLocalMode(mode);
+                    onModeSelect && onModeSelect(mode);
+                  }}
+                  className={`rounded-lg border px-4 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-sky-500 ${
+                    localMode === mode
+                      ? 'border-slate-950 bg-slate-950 text-white'
+                      : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
+                  }`}
+                >
+                  {mode}
+                </button>
+              ))}
+            </div>
+
+            <div className="mt-5 grid gap-3">
+              {notes.map((noteEntry) => {
+                const noteKey = typeof noteEntry === 'string' ? noteEntry : noteEntry.labelKey || noteEntry.key;
+                const noteLabel = typeof noteEntry === 'string' ? t(noteEntry) : t(noteEntry.labelKey);
+                const noteType = getNoteType(noteEntry);
+                const meta = noteMeta[noteType] || noteMeta.questions;
+                const Icon = meta.icon;
+
+                return (
+                  <div key={noteKey} className={`rounded-xl border bg-white p-4 ${openNotes[noteKey] ? meta.tone : 'border-slate-200'}`}>
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white">
+                          <Icon aria-hidden="true" />
+                        </span>
+                        <span className="text-sm font-semibold text-slate-800">{noteLabel}</span>
+                      </div>
+                      <button type="button" onClick={() => toggleNote(noteKey)} className="rounded-lg px-3 py-1.5 text-sm font-semibold text-sky-700 hover:bg-white">
+                        {openNotes[noteKey] ? t('hide') : t('show')}
+                      </button>
+                    </div>
+
+                    {openNotes[noteKey] ? (
+                      <div className="mt-4">
+                        {noteType === 'questions' && (
+                          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                            <label className="text-sm font-medium text-slate-600">{t('lobby.preloadedLabel')}</label>
+                            <select value={preloadedCount} onChange={(e) => setPreloadedCount(Number(e.target.value))} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm">
+                              <option value={5}>5</option>
+                              <option value={10}>10</option>
+                              <option value={12}>12</option>
+                              <option value={15}>15</option>
+                            </select>
+                            <span className="text-sm text-slate-500">{t('lobby.itemsPreloaded', { count: preloadedCount })}</span>
+                          </div>
+                        )}
+                        {noteType === 'network' && (
+                          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                            <span className="text-sm font-medium text-slate-600">{t('lobby.lowNetworkLabel')}</span>
+                            <button type="button" onClick={() => setLowNetwork(!lowNetwork)} className={`rounded-lg border px-3 py-2 text-sm font-semibold ${lowNetwork ? 'border-emerald-300 bg-emerald-100 text-emerald-800' : 'border-slate-300 bg-white text-slate-700'}`}>
+                              {lowNetwork ? t('lobby.enabled') : t('lobby.disabled')}
+                            </button>
+                            <span className="text-sm text-slate-500">{lowNetwork ? t('lobby.cachingEnabled') : t('lobby.standardMode')}</span>
+                          </div>
+                        )}
+                        {noteType === 'speed' && (
+                          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+                            <label className="text-sm font-medium text-slate-600">{t('lobby.bonusLabel')}</label>
+                            <select value={speedBonus} onChange={(e) => setSpeedBonus(e.target.value)} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm">
+                              <option>None</option>
+                              <option>Small</option>
+                              <option>Large</option>
+                            </select>
+                            <span className="text-sm text-slate-500">{t('lobby.current')}: {speedBonus}</span>
+                          </div>
+                        )}
+                      </div>
+                    ) : null}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <aside className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+            <div className="flex items-center gap-2 text-sm font-semibold text-emerald-700">
+              <FaCheckCircle aria-hidden="true" />
+              Match ready
+            </div>
+            <p className="mt-3 text-sm leading-6 text-slate-600">
+              Confirming will move you to the selected game board with the settings you configured here.
+            </p>
+            <dl className="mt-4 space-y-3 text-sm">
+              <div className="flex justify-between gap-3">
+                <dt className="text-slate-500">Mode</dt>
+                <dd className="font-semibold text-slate-950">{localMode || '-'}</dd>
+              </div>
+              <div className="flex justify-between gap-3">
+                <dt className="text-slate-500">Preload</dt>
+                <dd className="font-semibold text-slate-950">{preloadedCount}</dd>
+              </div>
+              <div className="flex justify-between gap-3">
+                <dt className="text-slate-500">Speed bonus</dt>
+                <dd className="font-semibold text-slate-950">{speedBonus}</dd>
+              </div>
+            </dl>
             <button
               type="button"
               onClick={() => setConfirmOpen(true)}
-              className="w-full sm:w-auto rounded-full bg-sky-800 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500"
+              className="mt-5 w-full rounded-lg bg-slate-950 px-4 py-3 text-sm font-semibold text-white hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-sky-500"
             >
               {t('lobby.joinNow')}
             </button>
-            <span className="text-sm text-slate-500">{t('lobby.modeLabel')}: {localMode || '—'}</span>
-          </div>
+          </aside>
         </div>
-      </div>
 
-      <div className="mt-5 grid gap-4 rounded-3xl border border-slate-200 bg-slate-50 p-5">
-        {notes.map((noteEntry) => {
-          // noteEntry can be a translation key string or an object { labelKey, type }
-          const noteKey = typeof noteEntry === 'string' ? noteEntry : noteEntry.labelKey || noteEntry.key;
-          const noteLabel = typeof noteEntry === 'string' ? t(noteEntry) : t(noteEntry.labelKey);
-          const noteType = typeof noteEntry === 'string'
-            ? (noteEntry.includes('preloaded') ? 'questions' : noteEntry.includes('network') ? 'network' : noteEntry.includes('speed') ? 'speed' : null)
-            : noteEntry.type;
-
-          return (
-            <div key={noteKey} className={`${openNotes[noteKey] ? 'rounded-3xl bg-sky-50 border-l-4 border-sky-600 px-4 py-3 text-sm text-slate-700 shadow-sm' : 'rounded-3xl bg-white px-4 py-3 text-sm text-slate-700 shadow-sm'}`}>
-              <div className="flex items-center justify-between">
-                <div>{noteLabel}</div>
-                <button type="button" onClick={() => toggleNote(noteKey)} className="text-sm text-sky-700 font-semibold">{openNotes[noteKey] ? t('hide') : t('show')}</button>
+        {confirmOpen ? (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+            <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl">
+              <h3 className="text-lg font-semibold text-slate-950">{t('lobby.confirmTitle')}</h3>
+              <p className="mt-3 text-sm leading-6 text-slate-600">
+                You are about to join a <strong>{localMode}</strong> match. Proceed to the game board?
+              </p>
+              <div className="mt-5 flex justify-end gap-3">
+                <button type="button" onClick={() => setConfirmOpen(false)} className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold hover:bg-slate-50">{t('lobby.confirmCancel')}</button>
+                <button type="button" onClick={handleConfirmJoin} className="rounded-lg bg-slate-950 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800">{t('lobby.confirmConfirm')}</button>
               </div>
-              {openNotes[noteKey] ? (
-                <div className="mt-3">
-                  {noteType === 'questions' && (
-                    <div className="flex items-center gap-3">
-                      <label className="text-sm text-slate-600">{t('lobby.preloadedLabel')}</label>
-                      <select value={preloadedCount} onChange={(e) => setPreloadedCount(Number(e.target.value))} className="rounded px-2 py-1 border">
-                        <option value={5}>5</option>
-                        <option value={10}>10</option>
-                        <option value={12}>12</option>
-                        <option value={15}>15</option>
-                      </select>
-                      <div className="text-sm text-slate-500">{t('lobby.itemsPreloaded', { count: preloadedCount })}</div>
-                    </div>
-                  )}
-                  {noteType === 'network' && (
-                    <div className="flex items-center gap-3">
-                      <label className="text-sm text-slate-600">{t('lobby.lowNetworkLabel')}</label>
-                      <button type="button" onClick={() => setLowNetwork(!lowNetwork)} className={`rounded px-2 py-1 border ${lowNetwork ? 'bg-emerald-100' : ''}`}>
-                        {lowNetwork ? t('lobby.enabled') : t('lobby.disabled')}
-                      </button>
-                      <div className="text-sm text-slate-500">{lowNetwork ? t('lobby.cachingEnabled') : t('lobby.standardMode')}</div>
-                    </div>
-                  )}
-                  {noteType === 'speed' && (
-                    <div className="flex items-center gap-3">
-                      <label className="text-sm text-slate-600">{t('lobby.bonusLabel')}</label>
-                      <select value={speedBonus} onChange={(e) => setSpeedBonus(e.target.value)} className="rounded px-2 py-1 border">
-                        <option>None</option>
-                        <option>Small</option>
-                        <option>Large</option>
-                      </select>
-                      <div className="text-sm text-slate-500">{t('lobby.current')}: {speedBonus}</div>
-                    </div>
-                  )}
-                </div>
-              ) : null}
-            </div>
-          );
-        })}
-      </div>
-
-      {confirmOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="w-full max-w-md rounded-2xl bg-white p-6">
-            <h3 className="text-lg font-semibold">{t('lobby.confirmTitle')}</h3>
-            <p className="mt-3 text-sm text-slate-600">You're about to join a <strong>{localMode}</strong> match. Proceed to the {localMode} game board?</p>
-            <div className="mt-5 flex justify-end gap-3">
-              <button type="button" onClick={() => setConfirmOpen(false)} className="rounded px-4 py-2 border">{t('lobby.confirmCancel')}</button>
-              <button type="button" onClick={handleConfirmJoin} className="rounded px-4 py-2 bg-sky-600 text-white">{t('lobby.confirmConfirm')}</button>
             </div>
           </div>
-        </div>
-      ) : null}
-    </article>
+        ) : null}
+      </section>
 
-    {joined && joinedKey === '1v1' && (
-      <div className="mt-6">
-        {console.log('[Lobby] rendering 1v1 board, joinedMode=', joinedMode)}
-        <OneVOneGameBoard variant="1v1" settings={joinedSettings} />
-      </div>
-    )}
-    {joined && joinedKey === 'group' && (
-      <div className="mt-6">
-        {console.log('[Lobby] rendering Group board, joinedMode=', joinedMode)}
-        <GroupGameBoard variant="Group" settings={joinedSettings} />
-      </div>
-    )}
-    {joined && joinedKey === 'tournament' && (
-      <div className="mt-6">
-        {console.log('[Lobby] rendering Tournament board, joinedMode=', joinedMode)}
-        <TournamentGameBoard variant="Tournament" settings={joinedSettings} />
-      </div>
-    )}
+      {joined && joinedKey === '1v1' && (
+        <div className="mt-5">
+          <OneVOneGameBoard variant="1v1" settings={joinedSettings} />
+        </div>
+      )}
+      {joined && joinedKey === 'group' && (
+        <div className="mt-5">
+          <GroupGameBoard variant="Group" settings={joinedSettings} />
+        </div>
+      )}
+      {joined && joinedKey === 'tournament' && (
+        <div className="mt-5">
+          <TournamentGameBoard variant="Tournament" settings={joinedSettings} />
+        </div>
+      )}
     </>
   );
 }
