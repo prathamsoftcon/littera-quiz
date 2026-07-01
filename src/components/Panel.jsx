@@ -15,20 +15,20 @@ export default function Panel({
   return (
     <Paper className={`panel ${compact ? 'panel-compact' : ''} ${className}`} elevation={2}>
       {title && (
-        <div className="panel-title" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-            <div style={{ fontWeight: 700 }}>{title}</div>
+        <div className="panel-title flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="font-bold">{title}</div>
             {collapsible && (
               <button
                 onClick={() => setOpen((s) => !s)}
-                style={{ border: 'none', background: 'transparent', color: 'var(--muted)', cursor: 'pointer' }}
+                className="cursor-pointer border-0 bg-transparent text-muted"
                 aria-expanded={open}
               >
                 {open ? '▾' : '▸'}
               </button>
             )}
           </div>
-          <div style={{ display: 'flex', gap: 8 }}>{actions}</div>
+          <div className="flex gap-2">{actions}</div>
         </div>
       )}
 

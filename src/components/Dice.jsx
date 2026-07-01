@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Dice({ value = 4 }) {
   return (
-    <div style={{ padding: 8, border: '1px solid #ccc', borderRadius: 6, display: 'inline-block' }}>
+    <div className="inline-block rounded-md border border-slate-300 p-2">
       <strong>Dice:</strong> {value}
     </div>
   );

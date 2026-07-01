@@ -22,9 +22,9 @@ export default function QuestionForm({ initialData = null, onSave }) {
       <label>Question text</label>
       <Textarea value={text} onChange={setText} />
 
-      <div style={{ marginTop: 12 }}>
+      <div className="mt-3">
         <button onClick={() => onSave && onSave({ type, text })} className="primary">Save Draft</button>
-        <button onClick={() => onSave && onSave({ type, text, submit: true })} style={{ marginLeft: 8 }} className="primary">Submit for Approval</button>
+        <button onClick={() => onSave && onSave({ type, text, submit: true })} className="primary ml-2">Submit for Approval</button>
       </div>
     </div>
   );

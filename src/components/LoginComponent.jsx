@@ -13,11 +13,16 @@ import { useTranslation } from '../context/TranslationContext';
 export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }) {
   const { t } = useTranslation();
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
+  const microsoftClientId = import.meta.env.VITE_MICROSOFT_CLIENT_ID || '';
   const [mobile, setMobile] = useState('');
   const [loading, setLoading] = useState(false);
   const [showImage, setShowImage] = useState(true);
   const googleOAuthState = useMemo(
     () => `google-oauth-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+    []
+  );
+  const microsoftOAuthState = useMemo(
+    () => `microsoft-oauth-${Date.now()}-${Math.random().toString(36).slice(2)}`,
     []
   );
 
@@ -30,42 +35,43 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
     }, 700);
   };
 
-  const handleSocialClick = (provider) => {
-    const providerLabel = provider === 'google' ? 'Google' : 'Microsoft';
-    const email = window.prompt(t('enterProviderEmail').replace('{provider}', providerLabel));
-    if (!email) return;
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      onSocial && onSocial(provider, { email });
-    }, 600);
-  };
-
-  const googleRedirectUri =
+  const oauthRedirectUri =
     typeof window !== 'undefined' ? `${window.location.origin}${window.location.pathname}` : undefined;
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
     const state = params.get('state');
+    const error = params.get('error');
+    const googleState = sessionStorage.getItem('google_oauth_state');
+    const microsoftState = sessionStorage.getItem('microsoft_oauth_state');
+    const provider = state === googleState ? 'google' : state === microsoftState ? 'microsoft' : null;
 
-    if (!code || state !== sessionStorage.getItem('google_oauth_state')) {
+    if ((!code && !error) || !provider) {
       return;
     }
 
-    sessionStorage.removeItem('google_oauth_state');
+    sessionStorage.removeItem(`${provider}_oauth_state`);
     params.delete('code');
+    params.delete('error');
+    params.delete('error_description');
     params.delete('scope');
     params.delete('authuser');
     params.delete('prompt');
     params.delete('state');
+    params.delete('session_state');
 
     const nextSearch = params.toString();
     const nextUrl = `${window.location.pathname}${nextSearch ? `?${nextSearch}` : ''}${window.location.hash}`;
     window.history.replaceState({}, document.title, nextUrl);
 
     setLoading(false);
-    onSocial && onSocial('google', { code, state });
+    if (error) {
+      alert(`${provider === 'google' ? 'Google' : 'Microsoft'} sign-in failed. Please try again.`);
+      return;
+    }
+
+    onSocial && onSocial(provider, { code, state });
   }, [onSocial]);
 
   const handleGoogleLogin = () => {
@@ -79,7 +85,7 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
 
     const params = new URLSearchParams({
       client_id: googleClientId,
-      redirect_uri: googleRedirectUri,
+      redirect_uri: oauthRedirectUri,
       response_type: 'code',
       scope: 'openid email profile',
       state: googleOAuthState,
@@ -87,6 +93,28 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
     });
 
     window.location.assign(`https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`);
+  };
+
+  const handleMicrosoftLogin = () => {
+    if (!microsoftClientId) {
+      alert('Microsoft Client ID is missing. Please check VITE_MICROSOFT_CLIENT_ID in .env and restart the dev server.');
+      return;
+    }
+
+    sessionStorage.setItem('microsoft_oauth_state', microsoftOAuthState);
+    setLoading(true);
+
+    const params = new URLSearchParams({
+      client_id: microsoftClientId,
+      redirect_uri: oauthRedirectUri,
+      response_type: 'code',
+      response_mode: 'query',
+      scope: 'openid email profile User.Read',
+      state: microsoftOAuthState,
+      prompt: 'select_account',
+    });
+
+    window.location.assign(`https://login.microsoftonline.com/common/oauth2/v2.0/authorize?${params.toString()}`);
   };
 
   const GoogleMulti = ({ size = 20 }) => (
@@ -194,7 +222,8 @@ export default function LoginComponent({ onSendOTP, onSocial, fullPage = false }
           <Button
             variant="outlined"
             startIcon={<MicrosoftMulti />}
-            onClick={() => handleSocialClick('microsoft')}
+            onClick={handleMicrosoftLogin}
+            disabled={loading}
             fullWidth
             sx={{ borderColor: 'transparent', color: 'text.primary', boxShadow: 'none', borderRadius: 2, py: 1.25, justifyContent: 'flex-start', '&:hover': { backgroundColor: 'rgba(0,0,0,0.04)' }, '& .MuiButton-startIcon': { marginLeft: 6 } }}
           >

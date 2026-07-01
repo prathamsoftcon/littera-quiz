@@ -93,7 +93,10 @@ export default function OnboardingPage() {
       next(2);
     } else {
       if (provider === 'microsoft') {
-        setProfileData({ email: payload.email });
+        setProfileData({
+          email: payload.email || '',
+          microsoftAuthCode: payload.code || '',
+        });
         setAuthStarted(true);
         next(2);
         return;
@@ -147,10 +150,10 @@ export default function OnboardingPage() {
   const showPopup = step > 0;
 
   return (
-    <div className="flex items-center justify-center px-4" style={{ height: '100%', overflow: 'hidden' }}>
+    <div className="flex h-full items-center justify-center overflow-hidden px-4">
       <div className="w-full max-w-2xl">
-        <div className="onboarding-stage" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ width: '100%', maxWidth: 720, margin: '0 auto' }}>
+        <div className="onboarding-stage flex items-center justify-center">
+          <div className="mx-auto w-full max-w-[720px]">
             {steps[0].node}
           </div>
         </div>
@@ -181,7 +184,7 @@ export default function OnboardingPage() {
       </Dialog>
 
       {showPopup && (
-        <div className="fixed bottom-4 right-4" style={{ zIndex: 1500 }}>
+        <div className="fixed bottom-4 right-4 z-[1500]">
           <button
             onClick={handleBack}
             className="flex items-center px-6 py-3 rounded text-white bg-blue-600 hover:bg-blue-700 shadow-lg"

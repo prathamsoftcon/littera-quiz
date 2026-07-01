@@ -34,26 +34,25 @@ export default function UploadBox({
 
   return (
     <div
-      className={`upload-box ${hover ? 'hover' : ''}`}
+      className={`upload-box cursor-pointer ${hover ? 'hover' : ''}`}
       onClick={onClick}
       onDragOver={(e) => { e.preventDefault(); setHover(true); }}
       onDragLeave={() => setHover(false)}
       onDrop={onDrop}
-      style={{ cursor: 'pointer' }}
     >
       <input
         ref={inputRef}
         type="file"
-        style={{ display: 'none' }}
+        className="hidden"
         accept={accepted.join(',')}
         onChange={(e) => {
           if (e.target.files && e.target.files.length) handleFiles(e.target.files);
         }}
       />
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+      <div className="flex flex-col gap-1.5">
         <strong>{title}</strong>
-        <span style={{ fontSize: 13 }}>{fileName || emptyLabel}</span>
-        <div style={{ marginTop: 6 }}>
+        <span className="text-[13px]">{fileName || emptyLabel}</span>
+        <div className="mt-1.5">
           <button className="secondary" onClick={(e) => { e.stopPropagation(); inputRef.current && inputRef.current.click(); }}>{chooseLabel}</button>
         </div>
       </div>

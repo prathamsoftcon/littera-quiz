@@ -53,7 +53,7 @@ export default function Topbar() {
           >
             <img src={activeLanguage.icon} alt={activeLanguage.label} className="language-icon" />
             <span>{activeLanguage.label}</span>
-            <span className="language-caret" aria-hidden="true">▾</span>
+            <span className="language-caret" aria-hidden="true">v</span>
           </button>
 
           {isOpen ? (

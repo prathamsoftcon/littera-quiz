@@ -7,12 +7,12 @@ export default function ReviewDetail({ item = null, onApprove, onReject }) {
 
   return (
     <div className="review-card">
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="flex items-center justify-between">
         <div>
-          <div style={{ fontWeight: 700 }}>{item.title}</div>
-          <div style={{ color: 'var(--muted)', fontSize: 13 }}>Submitted by {item.teacher}</div>
+          <div className="font-bold">{item.title}</div>
+          <div className="text-[13px] text-muted">Submitted by {item.teacher}</div>
         </div>
-        <div className="actions" style={{ minWidth: 160 }}>
+        <div className="actions min-w-40">
           <button onClick={() => onReject && onReject(item)}>Reject</button>
           <button className="primary" onClick={() => onApprove && onApprove(item)}>Approve</button>
         </div>

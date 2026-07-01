@@ -29,38 +29,14 @@ const formCopy = {
     nameLabelKey: 'studentName',
     namePlaceholderKey: 'enterStudentName',
     autoFieldColor: '#1d4ed8',
-    fetchButtonStyle: {
-      minWidth: '74px',
-      height: '42px',
-      padding: '0 15px',
-      borderRadius: '8px',
-      border: '1px solid #7dd3fc',
-      background: 'linear-gradient(180deg, #e0f2fe 0%, #bfdbfe 100%)',
-      color: '#075985',
-      fontWeight: 800,
-      fontSize: '13px',
-      cursor: 'pointer',
-      boxShadow: '0 8px 16px rgba(14, 165, 233, 0.18)'
-    },
+    fetchButtonClass: 'border-sky-300 bg-gradient-to-b from-sky-100 to-blue-200 text-sky-800 shadow-[0_8px_16px_rgba(14,165,233,0.18)]',
   },
   teacher: {
     titleKey: 'teacherOnboarding',
     nameLabelKey: 'teacherName',
     namePlaceholderKey: 'enterTeacherName',
     autoFieldColor: '#1e3a8a',
-    fetchButtonStyle: {
-      minWidth: '74px',
-      height: '42px',
-      padding: '0 15px',
-      borderRadius: '8px',
-      border: '1px solid #93c5fd',
-      background: 'linear-gradient(180deg, #dbeafe 0%, #bfdbfe 100%)',
-      color: '#1e3a8a',
-      fontWeight: 800,
-      fontSize: '13px',
-      cursor: 'pointer',
-      boxShadow: '0 8px 16px rgba(37, 99, 235, 0.16)'
-    },
+    fetchButtonClass: 'border-blue-300 bg-gradient-to-b from-blue-100 to-blue-200 text-blue-900 shadow-[0_8px_16px_rgba(37,99,235,0.16)]',
   },
 };
 
@@ -183,15 +159,15 @@ export default function OnboardingForm({ type = 'student', initial = {}, onSave 
   return (
     <Box sx={{ width: '100%' }}>
       <Paper elevation={0} sx={formCardSx}>
-        <div style={headerStyle}>
-          <div style={headerMarkStyle} />
+        <div className="flex items-center gap-2.5">
+          <div className="h-[30px] w-[9px] rounded-lg bg-gradient-to-b from-sky-500 to-blue-600 shadow-[0_8px_16px_rgba(37,99,235,0.22)]" />
           <Typography variant="h5" sx={{ fontWeight: 900, color: '#0f172a', letterSpacing: 0 }}>
             {t(copy.titleKey)}
           </Typography>
         </div>
 
-        <div style={{ marginTop: 18 }}>
-          <div style={fieldsGridStyle}>
+        <div className="mt-[18px]">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] items-start gap-x-3 gap-y-3.5">
             <TextInputField
               label={t(copy.nameLabelKey)}
               value={name}
@@ -218,7 +194,10 @@ export default function OnboardingForm({ type = 'student', initial = {}, onSave 
               onClear={clearSchool}
               textTransform="uppercase"
               endAddon={(
-                <button onClick={handleFetch} style={copy.fetchButtonStyle}>
+                <button
+                  onClick={handleFetch}
+                  className={`h-[42px] min-w-[74px] cursor-pointer rounded-lg border px-[15px] text-[13px] font-extrabold ${copy.fetchButtonClass}`}
+                >
                   {t('fetch')}
                 </button>
               )}
@@ -293,11 +272,15 @@ export default function OnboardingForm({ type = 'student', initial = {}, onSave 
           </div>
         </div>
 
-        <div style={{ marginTop: '14px' }}>
+        <div className="mt-3.5">
           <button
             onClick={() => isValid && onSave && onSave({ name, schoolCode, ...schoolData })}
             disabled={!isValid}
-            style={isValid ? saveButtonStyle : disabledSaveButtonStyle}
+            className={`min-h-11 w-full rounded-lg border-0 p-3 text-[15px] font-extrabold text-white ${
+              isValid
+                ? 'cursor-pointer bg-gradient-to-r from-blue-600 via-sky-500 to-teal-500 shadow-[0_14px_26px_rgba(37,99,235,0.26)]'
+                : 'cursor-not-allowed bg-gradient-to-r from-slate-400 to-slate-400 shadow-none'
+            }`}
           >
             {t('saveAndContinue')}
           </button>
@@ -329,46 +312,4 @@ const formCardSx = {
     borderTopLeftRadius: '8px',
     borderTopRightRadius: '8px',
   }
-};
-
-const headerStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '10px'
-};
-
-const headerMarkStyle = {
-  width: '9px',
-  height: '30px',
-  borderRadius: '8px',
-  background: 'linear-gradient(180deg, #0ea5e9 0%, #2563eb 100%)',
-  boxShadow: '0 8px 16px rgba(37, 99, 235, 0.22)'
-};
-
-const fieldsGridStyle = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-  gap: '14px 12px',
-  alignItems: 'start'
-};
-
-const saveButtonStyle = {
-  width: '100%',
-  minHeight: '44px',
-  padding: '12px',
-  border: 'none',
-  borderRadius: '8px',
-  background: 'linear-gradient(90deg, #2563eb 0%, #0ea5e9 55%, #14b8a6 100%)',
-  color: '#fff',
-  fontSize: '15px',
-  fontWeight: 800,
-  cursor: 'pointer',
-  boxShadow: '0 14px 26px rgba(37, 99, 235, 0.26)'
-};
-
-const disabledSaveButtonStyle = {
-  ...saveButtonStyle,
-  background: 'linear-gradient(90deg, #94a3b8 0%, #a8b5c6 100%)',
-  cursor: 'not-allowed',
-  boxShadow: 'none'
 };

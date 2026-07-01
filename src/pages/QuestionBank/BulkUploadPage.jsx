@@ -14,7 +14,7 @@ export default function BulkUploadPage() {
       <div className="grid three">
         <Panel>
           <UploadBox />
-          <button className="primary" style={{ marginTop: 12 }}>Validate File</button>
+          <button className="primary mt-3">Validate File</button>
         </Panel>
 
         <Panel title="Validation Preview">
@@ -26,7 +26,7 @@ export default function BulkUploadPage() {
             <strong>Approval queue target</strong>
             <span>Valid rows become pending questions</span>
           </div>
-          <button className="primary" style={{ marginTop: 12 }}>Send Valid Rows to Queue</button>
+          <button className="primary mt-3">Send Valid Rows to Queue</button>
         </Panel>
       </div>
     </div>

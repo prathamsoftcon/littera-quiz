@@ -4,7 +4,7 @@ export function Input({ value, onChange, placeholder, className = '' }) {
   return (
     <div className={`input ${className}`}>
       <input
-        style={{ width: '100%', border: 'none', outline: 'none', background: 'transparent' }}
+        className="w-full border-0 bg-transparent outline-none"
         value={value || ''}
         onChange={(e) => onChange && onChange(e.target.value)}
         placeholder={placeholder}
@@ -17,7 +17,7 @@ export function Textarea({ value, onChange, placeholder, className = '' }) {
   return (
     <div className={`textarea ${className}`}>
       <textarea
-        style={{ width: '100%', border: 'none', outline: 'none', background: 'transparent' }}
+        className="w-full border-0 bg-transparent outline-none"
         value={value || ''}
         onChange={(e) => onChange && onChange(e.target.value)}
         placeholder={placeholder}

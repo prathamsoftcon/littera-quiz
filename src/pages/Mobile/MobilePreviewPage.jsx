@@ -15,7 +15,7 @@ export default function MobilePreviewPage() {
         </Panel>
       </div>
 
-      <div className="phone-row" style={{ marginTop: 18 }}>
+      <div className="phone-row mt-[18px]">
         <article className="phone">
           <div className="phone-top"></div>
           <h3>Quiz Alert</h3>
