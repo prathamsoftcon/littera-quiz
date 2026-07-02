@@ -1,0 +1,4 @@
+school_code,school_name,school_type,village_code,crc_code,block_code,district_code,state_code
+SCH001,Littera Public School,Primary,VIL001,CRC001,BLK001,DST001,ST001
+SCH002,Littera Model School,Upper Primary,VIL002,CRC001,BLK001,DST001,ST001
+SCH003,Littera Girls School,Secondary,VIL003,CRC002,BLK001,DST001,ST001
