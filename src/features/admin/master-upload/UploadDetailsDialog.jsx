@@ -9,6 +9,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import DownloadIcon from "@mui/icons-material/Download";
 import DraggableDialogPaper from "./DraggableDialogPaper";
 import { useTranslation } from "../../../context/TranslationContext";
 
@@ -22,6 +23,39 @@ export default function UploadDetailsDialog({
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   if (!row) return null;
+
+  const handleDownloadReport = () => {
+    const reportRows = [
+      [t("masterUploadDate"), row.date || ""],
+      [t("masterUploadType"), t(`masterUploadType${row.type}`)],
+      [t("masterUploadFile"), row.file || ""],
+      [t("masterUploadStatus"), t(`masterUploadStatus${row.status}`)],
+      [t("masterUploadImported"), row.imported ?? 0],
+      [t("masterUploadSkipped"), row.skipped ?? 0],
+      [t("masterUploadTotalRecords"), Number(row.imported || 0) + Number(row.skipped || 0)],
+      [t("masterUploadReportGeneratedAt", "Generated At"), new Date().toLocaleString()],
+    ];
+    const csv = [
+      ["Field", "Value"],
+      ...reportRows,
+    ]
+      .map((cells) => cells.map(escapeCsvValue).join(","))
+      .join("\r\n");
+    const blob = new Blob([`${csv}\r\n`], {
+      type: "text/csv;charset=utf-8",
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = `${getReportFileName(row)}_report.csv`;
+    link.style.display = "none";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    window.setTimeout(() => URL.revokeObjectURL(url), 0);
+  };
 
   return (
     <Dialog
@@ -80,7 +114,12 @@ export default function UploadDetailsDialog({
           "& > button": { width: { xs: "100%", sm: "auto" }, m: "0 !important" },
         }}
       >
-        <Button variant="outlined" sx={secondaryButtonSx}>
+        <Button
+          variant="outlined"
+          startIcon={<DownloadIcon />}
+          onClick={handleDownloadReport}
+          sx={secondaryButtonSx}
+        >
           {t("masterUploadDownloadReport")}
         </Button>
 
@@ -94,6 +133,27 @@ export default function UploadDetailsDialog({
       </DialogActions>
     </Dialog>
   );
+}
+
+function escapeCsvValue(value) {
+  const text = String(value ?? "");
+
+  if (/[",\r\n]/.test(text)) {
+    return `"${text.replace(/"/g, '""')}"`;
+  }
+
+  return text;
+}
+
+function getReportFileName(row) {
+  const sourceName = row.file || `${row.type || "upload"}-${row.id || "report"}`;
+  const withoutExtension = String(sourceName).replace(/\.[^/.]+$/, "");
+
+  return withoutExtension
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "") || "upload-report";
 }
 
 const secondaryButtonSx = {
